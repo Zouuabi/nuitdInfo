@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'src/config/routes/routes.dart';
@@ -12,7 +13,30 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: myThemeData(),
-      home: const LoginScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            // anna donne jeya m stream
+            if (snapshot.hasData) {
+              // user is logged in => home Screen
+              return Container();
+            } else if (snapshot.hasError) {
+              return const Text('famma error');
+            }
+            // naamel vazet l'errror
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // nkharjou dora dour
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return const LoginScreen();
+          }
+        },
+      ),
       onGenerateRoute: RouteGenerator.getRoute,
     );
   }
