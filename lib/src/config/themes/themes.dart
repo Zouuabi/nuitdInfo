@@ -7,6 +7,7 @@ ThemeData myThemeData() {
 
     // main colors
     primaryColor: ColorsManager.primary,
+    
     scaffoldBackgroundColor: ColorsManager.scafoldBackground,
 
     // appbar
