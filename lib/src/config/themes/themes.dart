@@ -7,7 +7,7 @@ ThemeData myThemeData() {
 
     // main colors
     primaryColor: ColorsManager.primary,
-    
+
     scaffoldBackgroundColor: ColorsManager.scafoldBackground,
 
     // appbar
@@ -19,14 +19,25 @@ ThemeData myThemeData() {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          // ! styles should not bet hardcoded
-            textStyle: TextStyle(color: ColorsManager.secondary),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)))),
+      backgroundColor: Colors.black,
+      elevation: 20,
+      foregroundColor: Colors.white,
+    )),
+    textButtonTheme: TextButtonThemeData(
+        style:
+            TextButton.styleFrom(foregroundColor: Colors.black, elevation: 20)),
+
+    // elevatedButtonTheme: ElevatedButtonThemeData(
+    //     style: ElevatedButton.styleFrom(
+    //       // ! styles should not bet hardcoded
+    //         textStyle: TextStyle(color: ColorsManager.secondary),
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(12)))),
     // todo: nkamlou bqyet les buttons
     // text field
     inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.all(8),
+        hintStyle: TextStyle(color: Colors.black),
 
         /// Todo:  [hintStyle] , [labelStyle] ...
         enabledBorder: OutlineInputBorder(
