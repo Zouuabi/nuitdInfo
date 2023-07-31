@@ -23,15 +23,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -50,19 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBvEyul-3XV3pzsgXgpMSs8PQi6exr5s34',
-    appId: '1:553561631203:web:b51407a07be34c5dd6d8d6',
-    messagingSenderId: '553561631203',
-    projectId: 'socialmediaapp-5be9c',
-    authDomain: 'socialmediaapp-5be9c.firebaseapp.com',
-    storageBucket: 'socialmediaapp-5be9c.appspot.com',
+    apiKey: 'AIzaSyD3C20lURKMYWCuzGwIHbxAhrHkOaWD84I',
+    appId: '1:368796721209:web:1657924d69a5aef453ade8',
+    messagingSenderId: '368796721209',
+    projectId: 'startup-9945a',
+    authDomain: 'startup-9945a.firebaseapp.com',
+    storageBucket: 'startup-9945a.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAY8S2gp9HJpwzTRo4aSkgCP4JLCF6Fuic',
-    appId: '1:553561631203:android:6de95de3b5606661d6d8d6',
-    messagingSenderId: '553561631203',
-    projectId: 'socialmediaapp-5be9c',
-    storageBucket: 'socialmediaapp-5be9c.appspot.com',
+    apiKey: 'AIzaSyBg4rRItK2u5qqIb1Bby8zOiT1jmRX897k',
+    appId: '1:368796721209:android:d8addf44328b844353ade8',
+    messagingSenderId: '368796721209',
+    projectId: 'startup-9945a',
+    storageBucket: 'startup-9945a.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAeCSUHG8bri0t23QIvotPUvo_IYgZLNAw',
+    appId: '1:368796721209:ios:def0845232ae3e3b53ade8',
+    messagingSenderId: '368796721209',
+    projectId: 'startup-9945a',
+    storageBucket: 'startup-9945a.appspot.com',
+    iosClientId: '368796721209-mg7smdqil2nu9n4kgq22l7f3gc1n9f2l.apps.googleusercontent.com',
+    iosBundleId: 'com.example.doft',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAeCSUHG8bri0t23QIvotPUvo_IYgZLNAw',
+    appId: '1:368796721209:ios:f3f81a3aee61f83f53ade8',
+    messagingSenderId: '368796721209',
+    projectId: 'startup-9945a',
+    storageBucket: 'startup-9945a.appspot.com',
+    iosClientId: '368796721209-t54g776jrecnm6ab1fkjrnqudb0uh6bo.apps.googleusercontent.com',
+    iosBundleId: 'com.example.doft.RunnerTests',
   );
 }
