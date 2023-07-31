@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:doft/Widgets/LoginScreen.dart';
+
+import 'Widgets/LoginScreen.dart';
+import 'src/config/routes/routes.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -11,14 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          colorScheme: const ColorScheme.dark(
-            primary: Color.fromARGB(255, 251, 252, 252), // Custom primary color
-          ),
-          useMaterial3: true,
-        ),
+        debugShowCheckedModeBanner: false,
+        
         home: const LoginScreen(),
-        themeMode: ThemeMode.dark);
+        onGenerateRoute: RouteGenerator.getRoute,
+        );
   }
 }
