@@ -5,6 +5,7 @@ class Routes {
   static const String splash = "/";
   static const String login = "/login";
   static const String register = "/register";
+  static const String home = "/home";
 }
 
 class RouteGenerator {
@@ -12,6 +13,11 @@ class RouteGenerator {
     switch (settings.name) {
       
       // splash screen case 
+      case Routes.home :
+      return MaterialPageRoute(
+            builder: (BuildContext ctx) => const Placeholder(
+                  child: Text('Home'),
+                ));
       case Routes.login:
         return MaterialPageRoute(
             builder: (BuildContext ctx) => const Placeholder(
