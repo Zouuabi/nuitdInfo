@@ -1,9 +1,8 @@
-import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
-import 'package:doft/src/domain/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
 import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:doft/src/presentation/login/cubit/login_cubit.dart';
 import 'package:doft/src/presentation/shared/text_field.dart';
@@ -20,69 +19,65 @@ class LoginScreen extends StatelessWidget {
         return LoginCubit(RepositoryImpl(auth: FirebaseAuthentication()));
       },
       child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [
-                  Color.fromARGB(255, 54, 53, 53),
-                  Color.fromARGB(255, 183, 179, 179),
-                ]),
-          ),
-          child: BlocConsumer<LoginCubit, LoginState>(
-            listener: (ctx, state) {
-              if (state is LoginError) {
-                showDialog(
-                    context: ctx,
-                    builder: (ctx) {
-                      return AlertDialog(
-                        title: const Text('Error'),
-                        content: Text(state.errorMessage),
-                      );
-                    });
-              } else if (state is LoginComplete) {
-                // Navigator.pushReplacementNamed(context, Routes.home);
-              }
-            },
-            builder: (ctx, state) {
-              return state is LoginLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            color: Colors.blue,
-                            height: 200,
-                            width: 200,
+        resizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            height: double.infinity,
+            child: BlocConsumer<LoginCubit, LoginState>(
+              listener: (ctx, state) {
+                if (state is LoginError) {
+                  showDialog(
+                      context: ctx,
+                      builder: (ctx) {
+                        return AlertDialog(
+                          title: const Text('Error'),
+                          content: Text(state.errorMessage),
+                        );
+                      });
+                } else if (state is LoginComplete) {
+                  Navigator.pushReplacementNamed(context, Routes.home);
+                }
+              },
+              builder: (ctx, state) {
+                return state is LoginLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              child: Image.asset('assets/images/route.png'),
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: MyForm(
-                              emailController: BlocProvider.of<LoginCubit>(ctx)
-                                  .emailController,
-                              passwordController:
-                                  BlocProvider.of<LoginCubit>(ctx)
-                                      .passwordContriller,
-                              isEmailError: false,
-                              isPasswordError: false),
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: MyButton(
-                                loginPressed: () {
-                                  BlocProvider.of<LoginCubit>(ctx).signIn();
-                                },
-                                registerPressed: () {})),
-                        const SizedBox(height: 20),
-                      ],
-                    );
-            },
+                          Expanded(
+                            flex: 3,
+                            child: MyForm(
+                                emailController:
+                                    BlocProvider.of<LoginCubit>(ctx)
+                                        .emailController,
+                                passwordController:
+                                    BlocProvider.of<LoginCubit>(ctx)
+                                        .passwordContriller,
+                                isEmailError: BlocProvider.of<LoginCubit>(ctx)
+                                    .isEmailEmpty,
+                                isPasswordError:
+                                    BlocProvider.of<LoginCubit>(ctx)
+                                        .isPasswordEmpty),
+                          ),
+                          Expanded(
+                              flex: 2,
+                              child: MyButton(loginPressed: () {
+                                BlocProvider.of<LoginCubit>(ctx).signIn();
+                              }, registerPressed: () {
+                                Navigator.pushNamed(context, Routes.register);
+                              })),
+                          const SizedBox(height: 20),
+                        ],
+                      );
+              },
+            ),
           ),
         ),
       ),

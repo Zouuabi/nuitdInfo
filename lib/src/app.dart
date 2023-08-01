@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'src/config/routes/routes.dart';
-import 'src/config/themes/themes.dart';
-import 'src/presentation/login/pages/login_screen.dart';
+import 'config/routes/routes.dart';
+import 'config/themes/themes.dart';
+import 'presentation/login/pages/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: myThemeData(),
+      theme: ThemeData.dark(),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
