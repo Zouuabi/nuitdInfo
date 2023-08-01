@@ -1,4 +1,4 @@
-
+import 'package:doft/src/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,8 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: myThemeData(),
-      
-
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -24,7 +22,7 @@ class MyApp extends StatelessWidget {
             // anna donne jeya m stream
             if (snapshot.hasData) {
               // user is logged in => home Screen
-              return Container();
+              return const HomeScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }

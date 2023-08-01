@@ -38,12 +38,13 @@ class LoginScreen extends StatelessWidget {
                 showDialog(
                     context: ctx,
                     builder: (ctx) {
-                      return const AlertDialog(
-                        title: Text('Error'),
+                      return AlertDialog(
+                        title: const Text('Error'),
+                        content: Text(state.errorMessage),
                       );
                     });
               } else if (state is LoginComplete) {
-                Navigator.pushReplacementNamed(context, Routes.home);
+                // Navigator.pushReplacementNamed(context, Routes.home);
               }
             },
             builder: (ctx, state) {
@@ -62,10 +63,12 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 3,
-                          
                           child: MyForm(
-                              emailController: BlocProvider.of<LoginCubit>(ctx).emailController,
-                              passwordController:  BlocProvider.of<LoginCubit>(ctx).passwordContriller,
+                              emailController: BlocProvider.of<LoginCubit>(ctx)
+                                  .emailController,
+                              passwordController:
+                                  BlocProvider.of<LoginCubit>(ctx)
+                                      .passwordContriller,
                               isEmailError: false,
                               isPasswordError: false),
                         ),
@@ -140,7 +143,7 @@ class MyForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             icon: Icons.email_outlined,
             controller: emailController,
-            hintText: 'dakhel nayek',
+            hintText: 'user@example.com',
             isError: isEmailError),
         const SizedBox(height: 20),
         MyTextField(
@@ -150,7 +153,7 @@ class MyForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             icon: Icons.email_outlined,
             controller: passwordController,
-            hintText: 'dakhel nayek',
+            hintText: 'Enter Your Password',
             isError: isPasswordError),
       ],
     );

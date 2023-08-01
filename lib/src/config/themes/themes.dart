@@ -16,16 +16,18 @@ ThemeData myThemeData() {
       elevation: 4,
       centerTitle: true,
     ),
+    textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
       backgroundColor: Colors.black,
-      elevation: 20,
+      elevation: 4,
       foregroundColor: Colors.white,
     )),
     textButtonTheme: TextButtonThemeData(
-        style:
-            TextButton.styleFrom(foregroundColor: Colors.black, elevation: 20)),
+        style: TextButton.styleFrom(
+      foregroundColor: Colors.white,
+    )),
 
     // elevatedButtonTheme: ElevatedButtonThemeData(
     //     style: ElevatedButton.styleFrom(
@@ -37,7 +39,9 @@ ThemeData myThemeData() {
     // text field
     inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.all(8),
-        hintStyle: TextStyle(color: Colors.black),
+        hintStyle: const TextStyle(color: Colors.black38),
+
+
 
         /// Todo:  [hintStyle] , [labelStyle] ...
         enabledBorder: OutlineInputBorder(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../presentation/home/home_screen.dart';
+
 class Routes {
   // mehouch tw
   static const String splash = "/";
@@ -15,9 +17,7 @@ class RouteGenerator {
       // splash screen case 
       case Routes.home :
       return MaterialPageRoute(
-            builder: (BuildContext ctx) => const Placeholder(
-                  child: Text('Home'),
-                ));
+            builder: (BuildContext ctx) => const HomeScreen());
       case Routes.login:
         return MaterialPageRoute(
             builder: (BuildContext ctx) => const Placeholder(
