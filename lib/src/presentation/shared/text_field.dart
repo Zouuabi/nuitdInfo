@@ -1,21 +1,18 @@
-import '../../core/colors_manager.dart';
+import '../../core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
 
-
-
 class MyTextField extends StatefulWidget {
-  const MyTextField({
-    super.key,
-    required this.labelText,
-    required this.errorMessage,
-    required this.keyboardType,
-    required this.icon,
-    required this.controller,
-    required this.hintText,
-    this.isPassword = false,
-    required this.isError 
-  });
-  
+  const MyTextField(
+      {super.key,
+      required this.labelText,
+      required this.errorMessage,
+      required this.keyboardType,
+      required this.icon,
+      required this.controller,
+      required this.hintText,
+      this.isPassword = false,
+      required this.isError});
+
   final IconData? icon;
   final bool isError;
   final bool isPassword;
@@ -49,6 +46,8 @@ class _MyTextFieldState extends State<MyTextField> {
       controller: widget.controller,
       obscureText: widget.isPassword ? !isVisible : isVisible,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white24,
         prefixIcon: Icon(widget.icon),
         hintText: widget.hintText,
         errorText: widget.isError ? widget.errorMessage : null,

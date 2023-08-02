@@ -5,9 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
 import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:doft/src/presentation/login/cubit/login_cubit.dart';
-import 'package:doft/src/presentation/shared/text_field.dart';
 
 import '../../../config/routes/routes.dart';
+import '../../../core/utils/image_manager.dart';
+import '../widgets/myform.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -19,11 +20,9 @@ class LoginScreen extends StatelessWidget {
         return LoginCubit(RepositoryImpl(auth: FirebaseAuthentication()));
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
         body: SafeArea(
-          child: Container(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            height: double.infinity,
             child: BlocConsumer<LoginCubit, LoginState>(
               listener: (ctx, state) {
                 if (state is LoginError) {
@@ -40,117 +39,39 @@ class LoginScreen extends StatelessWidget {
                 }
               },
               builder: (ctx, state) {
-                return state is LoginLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Image.asset('assets/images/route.png'),
-                            ),
+                if (state is LoginLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  var loginCubit = BlocProvider.of<LoginCubit>(ctx);
+                  return Column(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Image.asset(ImageManager.logo),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: SingleChildScrollView(
+                          child: MyForm(
+                            emailController: loginCubit.emailController,
+                            passwordController: loginCubit.passwordContriller,
+                            isEmailError: loginCubit.isEmailEmpty,
+                            isPasswordError: loginCubit.isPasswordEmpty,
+                            loginPressed: () => loginCubit.signIn(),
+                            registerPressed: () {
+                              Navigator.pushNamed(context, Routes.register);
+                            },
                           ),
-                          Expanded(
-                            flex: 3,
-                            child: MyForm(
-                                emailController:
-                                    BlocProvider.of<LoginCubit>(ctx)
-                                        .emailController,
-                                passwordController:
-                                    BlocProvider.of<LoginCubit>(ctx)
-                                        .passwordContriller,
-                                isEmailError: BlocProvider.of<LoginCubit>(ctx)
-                                    .isEmailEmpty,
-                                isPasswordError:
-                                    BlocProvider.of<LoginCubit>(ctx)
-                                        .isPasswordEmpty),
-                          ),
-                          Expanded(
-                              flex: 2,
-                              child: MyButton(loginPressed: () {
-                                BlocProvider.of<LoginCubit>(ctx).signIn();
-                              }, registerPressed: () {
-                                Navigator.pushNamed(context, Routes.register);
-                              })),
-                          const SizedBox(height: 20),
-                        ],
-                      );
+                        ),
+                      ),
+                    ],
+                  );
+                }
               },
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class MyButton extends StatelessWidget {
-  const MyButton(
-      {super.key, required this.loginPressed, required this.registerPressed});
-
-  final VoidCallback loginPressed;
-  final VoidCallback registerPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: loginPressed,
-          child: const Text('Login'),
-        ),
-        const SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Don\'t have an account ? '),
-            TextButton(
-                onPressed: registerPressed, child: const Text('Register'))
-          ],
-        )
-      ],
-    );
-  }
-}
-
-class MyForm extends StatelessWidget {
-  const MyForm({
-    super.key,
-    required this.emailController,
-    required this.passwordController,
-    required this.isEmailError,
-    required this.isPasswordError,
-  });
-
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
-  final bool isEmailError;
-  final bool isPasswordError;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        MyTextField(
-            labelText: 'email',
-            errorMessage: 'email required',
-            keyboardType: TextInputType.emailAddress,
-            icon: Icons.email_outlined,
-            controller: emailController,
-            hintText: 'user@example.com',
-            isError: isEmailError),
-        const SizedBox(height: 20),
-        MyTextField(
-            isPassword: true,
-            labelText: 'password',
-            errorMessage: 'password is required',
-            keyboardType: TextInputType.emailAddress,
-            icon: Icons.email_outlined,
-            controller: passwordController,
-            hintText: 'Enter Your Password',
-            isError: isPasswordError),
-      ],
     );
   }
 }

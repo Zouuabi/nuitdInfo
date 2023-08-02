@@ -1,4 +1,4 @@
-import 'package:doft/src/core/colors_manager.dart';
+import 'package:doft/src/core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
 
 ThemeData myThemeData() {
