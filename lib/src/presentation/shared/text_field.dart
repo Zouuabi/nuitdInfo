@@ -11,16 +11,18 @@ class MyTextField extends StatefulWidget {
       required this.controller,
       required this.hintText,
       this.isPassword = false,
-      required this.isError});
+      required this.isError,
+      this.isEnabled = true});
 
   final IconData? icon;
   final bool isError;
   final bool isPassword;
   final String labelText;
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType keyboardType;
   final String errorMessage;
+  final bool isEnabled;
 
   @override
   State<MyTextField> createState() => _MyTextFieldState();
@@ -41,6 +43,7 @@ class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      enabled: widget.isEnabled,
       keyboardType: widget.keyboardType,
       obscuringCharacter: '*',
       controller: widget.controller,
