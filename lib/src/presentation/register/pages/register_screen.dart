@@ -80,19 +80,4 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
-class ProfilePhotoSelector extends StatelessWidget {
-  const ProfilePhotoSelector({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      ImageManager.profile,
-
-      // ignore: deprecated_member_use
-      color: Colors.white,
-      height: 200,
-    );
-  }
-}
