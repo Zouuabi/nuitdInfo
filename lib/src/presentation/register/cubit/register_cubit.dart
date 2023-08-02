@@ -15,7 +15,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   DateTime? birth;
 
-  String get getBirthDate {
-    return birth.toString();
+  void dateAdded(String date) {
+    emit(RegisterDateAdded(date: date));
   }
 }

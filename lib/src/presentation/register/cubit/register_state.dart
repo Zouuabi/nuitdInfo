@@ -9,10 +9,17 @@ abstract class RegisterState extends Equatable {
 
 class RegisterInitial extends RegisterState {}
 
+class RegisterDateAdded extends RegisterState {
+  final String date;
+  const RegisterDateAdded({required this.date});
+
+  @override
+  List<Object> get props => [date];
+}
+
 class RegisterLoading extends RegisterState {}
 
 class RegisterError extends RegisterState {
-
   final String errorMessage;
   const RegisterError({required this.errorMessage});
 

@@ -24,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
           child: BlocConsumer<RegisterCubit, RegisterState>(
             listener: (context, state) {},
             builder: (context, state) {
-              // var mycubit = ;
+              var mycubit = BlocProvider.of<RegisterCubit>(context);
 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -53,23 +53,22 @@ class RegisterScreen extends StatelessWidget {
                               SizedBox(
                                 width: 200,
                                 child: MyTextField(
-                                    labelText: context
-                                        .watch<RegisterCubit>()
-                                        .getBirthDate,
+                                    labelText: state is RegisterDateAdded
+                                        ? state.date
+                                        : 'YYYY-MM-DD',
                                     errorMessage: 'Pick a date',
                                     keyboardType: TextInputType.text,
                                     icon: null,
                                     controller: null,
-                                    hintText:
-                                        BlocProvider.of<RegisterCubit>(context)
-                                            .getBirthDate,
+                                    hintText: 'sdfd',
                                     isError: false,
                                     isEnabled: true),
                               ),
                               IconButton(
                                   onPressed: () async {
-                                    BlocProvider.of<RegisterCubit>(context)
-                                        .birth = await pickDate(context);
+                                    pickDate(context).then((date) {
+                                      mycubit.dateAdded(date.toString());
+                                    });
                                   },
                                   icon: const Icon(
                                       size: 30, Icons.calendar_month))
@@ -81,9 +80,7 @@ class RegisterScreen extends StatelessWidget {
                               errorMessage: 'email is required',
                               keyboardType: TextInputType.name,
                               icon: null,
-                              controller:
-                                  BlocProvider.of<RegisterCubit>(context)
-                                      .usernameController,
+                              controller: mycubit.usernameController,
                               hintText: 'user@example.com',
                               isError: false),
                           const SizedBox(height: 20),
@@ -114,4 +111,19 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
+class ProfilePhotoSelector extends StatelessWidget {
+  const ProfilePhotoSelector({
+    super.key,
+  });
 
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(
+      ImageManager.profile,
+
+      // ignore: deprecated_member_use
+      color: Colors.white,
+      height: 200,
+    );
+  }
+}
