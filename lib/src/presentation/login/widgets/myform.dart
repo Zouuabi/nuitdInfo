@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/text_field.dart';
@@ -24,6 +25,7 @@ class MyForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        ElevatedButton(onPressed: () {}, child: const Text('send email')),
         MyTextField(
             labelText: 'email',
             errorMessage: 'email required',

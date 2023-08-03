@@ -9,6 +9,9 @@ abstract class RegisterState extends Equatable {
 
 class RegisterInitial extends RegisterState {}
 
+
+
+
 class RegisterDateAdded extends RegisterState {
   final String date;
   const RegisterDateAdded({required this.date});
