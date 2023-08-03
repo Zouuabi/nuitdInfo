@@ -9,6 +9,12 @@ abstract class RegisterState extends Equatable {
 
 class RegisterInitial extends RegisterState {}
 
+class RegisterError extends RegisterState {
+  final String errorMessage;
+  const RegisterError({required this.errorMessage});
+  @override
+  List<Object> get props => [errorMessage];
+}
 
 
 
@@ -30,11 +36,5 @@ class RegisterPhotoAdded extends RegisterState {
 
 class RegisterLoading extends RegisterState {}
 
-class RegisterError extends RegisterState {
-  final String errorMessage;
-  const RegisterError({required this.errorMessage});
-  @override
-  List<Object> get props => [errorMessage];
-}
 
-class RegisterComplete extends RegisterState {}
+class RegisterSubmited extends RegisterState {}

@@ -30,7 +30,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, User>> createUser(
+  Future<Either<Failure, User>> register(
       String email, String password) async {
     try {
       var user = await auth.register(email, password);
