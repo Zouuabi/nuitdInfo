@@ -17,12 +17,19 @@ class RegisterDateAdded extends RegisterState {
   List<Object> get props => [date];
 }
 
+class RegisterPhotoAdded extends RegisterState {
+  final Uint8List photo;
+  const RegisterPhotoAdded({required this.photo});
+
+  @override
+  List<Object> get props => [photo];
+}
+
 class RegisterLoading extends RegisterState {}
 
 class RegisterError extends RegisterState {
   final String errorMessage;
   const RegisterError({required this.errorMessage});
-
   @override
   List<Object> get props => [errorMessage];
 }

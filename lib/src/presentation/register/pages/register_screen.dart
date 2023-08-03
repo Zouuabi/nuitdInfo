@@ -1,11 +1,11 @@
 import 'package:doft/src/core/date_picker.dart';
-import 'package:doft/src/core/utils/image_manager.dart';
 import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
 import 'package:doft/src/presentation/shared/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
+import '../../../core/image_picker.dart';
+import '../widgets/profile_photo.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -30,7 +30,16 @@ class RegisterScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // profile photo
-                  const Expanded(flex: 2, child: ProfilePhotoSelector()),
+                  Expanded(
+                      flex: 2,
+                      child: ProfilePhotoSelector(
+                          pictureFile: mycubit.photo,
+                          onPressed: () async {
+                            var a = await takepicture();
+                            if (a != null) {
+                              mycubit.photoAdded(a);
+                            }
+                          })),
                   Expanded(
                     flex: 3,
                     child: SingleChildScrollView(
@@ -38,15 +47,15 @@ class RegisterScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MyTextField(
-                              labelText: 'username',
-                              errorMessage: 'username is required',
-                              keyboardType: TextInputType.name,
-                              icon: null,
-                              controller:
-                                  BlocProvider.of<RegisterCubit>(context)
-                                      .usernameController,
-                              hintText: 'Enter your username',
-                              isError: false),
+                            labelText: 'username',
+                            errorMessage: 'username is required',
+                            keyboardType: TextInputType.name,
+                            icon: null,
+                            controller: BlocProvider.of<RegisterCubit>(context)
+                                .usernameController,
+                            hintText: 'Enter your username',
+                            isError: false,
+                          ),
                           const SizedBox(height: 20),
                           Row(
                             children: [
@@ -62,12 +71,13 @@ class RegisterScreen extends StatelessWidget {
                                     controller: null,
                                     hintText: 'sdfd',
                                     isError: false,
-                                    isEnabled: true),
+                                    isEnabled: false),
                               ),
                               IconButton(
                                   onPressed: () async {
                                     pickDate(context).then((date) {
-                                      mycubit.dateAdded(date.toString());
+                                      mycubit.dateAdded(
+                                          date.toString().substring(0, 9));
                                     });
                                   },
                                   icon: const Icon(
@@ -107,23 +117,6 @@ class RegisterScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ProfilePhotoSelector extends StatelessWidget {
-  const ProfilePhotoSelector({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      ImageManager.profile,
-
-      // ignore: deprecated_member_use
-      color: Colors.white,
-      height: 200,
     );
   }
 }

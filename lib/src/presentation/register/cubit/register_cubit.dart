@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,9 +15,16 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  DateTime? birth;
+  late String birth;
+  Uint8List? photo;
 
   void dateAdded(String date) {
     emit(RegisterDateAdded(date: date));
+    birth = date;
+  }
+
+  void photoAdded(Uint8List pic) {
+    emit(RegisterPhotoAdded(photo: pic));
+    photo = pic;
   }
 }
