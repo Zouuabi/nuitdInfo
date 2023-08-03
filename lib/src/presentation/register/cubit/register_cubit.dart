@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-
 import 'package:flutter/material.dart' show TextEditingController;
+
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../core/image_picker.dart';
 
 part 'register_state.dart';
 
@@ -15,7 +17,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  late String birth;
+  String? birth;
   Uint8List? photo;
 
   void dateAdded(String date) {
@@ -23,8 +25,22 @@ class RegisterCubit extends Cubit<RegisterState> {
     birth = date;
   }
 
-  void photoAdded(Uint8List pic) {
-    emit(RegisterPhotoAdded(photo: pic));
-    photo = pic;
+  void addPhoto() async {
+    photo = await takepicture();
+    if (photo != null) {
+      emit(RegisterPhotoAdded(photo: photo!));
+    }
+  }
+
+  void register() async {
+    if (usernameController.text.isEmpty) {
+      emit(const RegisterError(errorMessage: 'username empty'));
+    } else if (birth == null || birth == 'null') {
+      emit(const RegisterError(errorMessage: 'date empty'));
+    } else if (emailController.text.isEmpty) {
+      emit(const RegisterError(errorMessage: 'email empty'));
+    } else if (passwordController.text.isEmpty) {
+      emit(const RegisterError(errorMessage: 'password empty'));
+    }
   }
 }

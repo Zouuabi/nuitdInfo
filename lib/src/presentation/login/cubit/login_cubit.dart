@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:doft/src/core/email_checker.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,20 +35,16 @@ class LoginCubit extends Cubit<LoginState> {
     return valid;
   }
 
-  bool _isValidEmail(String email) {
-    final RegExp emailRegex = RegExp(r'^[\w-.]+@([\w-]+.)+[\w-]{2,4}$');
-
-    return emailRegex.hasMatch(email);
-  }
-
   void signIn() async {
     emit(LoginInitial());
     if (!_isvalid()) {
       return;
     }
 
+    isValidEmail(_emailController.text);
+
     emit(LoginLoading());
-    if (!_isValidEmail(_emailController.text)) {
+    if (!isValidEmail(_emailController.text)) {
       emit(const LoginError(errorMessage: 'hot email mte3k f termtk'));
       return;
     }

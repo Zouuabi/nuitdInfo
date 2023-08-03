@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../core/image_picker.dart';
+
 import '../../../core/utils/image_manager.dart';
 
 class ProfilePhotoSelector extends StatelessWidget {
@@ -27,7 +27,7 @@ class ProfilePhotoSelector extends StatelessWidget {
                 width: 200, height: 200, fit: BoxFit.cover),
       ),
       Positioned(
-          bottom: 40,
+          bottom: 30,
           right: 18,
           child: IconButton(
               onPressed: onPressed,

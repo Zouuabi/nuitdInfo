@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:doft/src/core/date_picker.dart';
 import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
 import 'package:doft/src/presentation/shared/text_field.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/image_picker.dart';
+import '../../shared/date.dart';
 import '../widgets/profile_photo.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -34,81 +36,13 @@ class RegisterScreen extends StatelessWidget {
                       flex: 2,
                       child: ProfilePhotoSelector(
                           pictureFile: mycubit.photo,
-                          onPressed: () async {
-                            var a = await takepicture();
-                            if (a != null) {
-                              mycubit.photoAdded(a);
-                            }
+                          onPressed: () {
+                            mycubit.addPhoto();
                           })),
                   Expanded(
                     flex: 3,
                     child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MyTextField(
-                            labelText: 'username',
-                            errorMessage: 'username is required',
-                            keyboardType: TextInputType.name,
-                            icon: null,
-                            controller: BlocProvider.of<RegisterCubit>(context)
-                                .usernameController,
-                            hintText: 'Enter your username',
-                            isError: false,
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 200,
-                                child: MyTextField(
-                                    labelText: state is RegisterDateAdded
-                                        ? state.date
-                                        : 'YYYY-MM-DD',
-                                    errorMessage: 'Pick a date',
-                                    keyboardType: TextInputType.text,
-                                    icon: null,
-                                    controller: null,
-                                    hintText: 'sdfd',
-                                    isError: false,
-                                    isEnabled: false),
-                              ),
-                              IconButton(
-                                  onPressed: () async {
-                                    pickDate(context).then((date) {
-                                      mycubit.dateAdded(
-                                          date.toString().substring(0, 9));
-                                    });
-                                  },
-                                  icon: const Icon(
-                                      size: 30, Icons.calendar_month))
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          MyTextField(
-                              labelText: 'email',
-                              errorMessage: 'email is required',
-                              keyboardType: TextInputType.name,
-                              icon: null,
-                              controller: mycubit.usernameController,
-                              hintText: 'user@example.com',
-                              isError: false),
-                          const SizedBox(height: 20),
-                          MyTextField(
-                              labelText: 'password',
-                              errorMessage: 'password is required',
-                              keyboardType: TextInputType.name,
-                              icon: null,
-                              controller:
-                                  BlocProvider.of<RegisterCubit>(context)
-                                      .usernameController,
-                              hintText: 'Enter your password',
-                              isError: false),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                              onPressed: () {}, child: const Text('Register')),
-                        ],
-                      ),
+                      child: _getForm(mycubit, state, context),
                     ),
                   )
                 ],
@@ -118,5 +52,72 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Column _getForm(RegisterCubit mycubit, RegisterState state, BuildContext context) {
+    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MyTextField(
+                          labelText: 'username',
+                          errorMessage: 'username is required',
+                          keyboardType: TextInputType.name,
+                          icon: null,
+                          controller: mycubit.usernameController,
+                          hintText: 'Enter your username',
+                          isError: state is RegisterError &&
+                                  state.errorMessage == 'username empty'
+                              ? true
+                              : false,
+                        ),
+                        const SizedBox(height: 20),
+                        DateWidget(
+                          isError: state is RegisterError &&
+                                  state.errorMessage == 'date empty'
+                              ? true
+                              : false,
+                          label: state is RegisterDateAdded
+                              ? state.date.substring(0, 9)
+                              : 'YYYY-MM-DD',
+                          onPressed: () {
+                            pickDate(context).then((date) {
+                              mycubit.dateAdded(date.toString());
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        MyTextField(
+                          labelText: 'email',
+                          errorMessage: 'email is required',
+                          keyboardType: TextInputType.name,
+                          icon: null,
+                          controller: mycubit.emailController,
+                          hintText: 'user@example.com',
+                          isError: state is RegisterError &&
+                                  state.errorMessage == 'email empty'
+                              ? true
+                              : false,
+                        ),
+                        const SizedBox(height: 20),
+                        MyTextField(
+                          labelText: 'password',
+                          errorMessage: 'password is required',
+                          keyboardType: TextInputType.name,
+                          icon: null,
+                          controller: mycubit.passwordController,
+                          hintText: 'Enter your password',
+                          isError: ((state is RegisterError) &&
+                                  state.errorMessage == 'password empty')
+                              ? true
+                              : false,
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                            onPressed: () {
+                              mycubit.register();
+                            },
+                            child: const Text('Register')),
+                      ],
+                    );
   }
 }
