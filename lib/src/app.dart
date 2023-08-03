@@ -1,10 +1,8 @@
 import 'package:doft/src/presentation/home/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'config/routes/routes.dart';
-import 'config/themes/themes.dart';
 import 'presentation/login/pages/login_screen.dart';
 
 class MyApp extends StatelessWidget {
