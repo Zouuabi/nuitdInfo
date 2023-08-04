@@ -7,6 +7,8 @@ import 'package:doft/src/core/date_picker.dart';
 import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
 import 'package:doft/src/presentation/shared/text_field.dart';
 
+import '../../../data/data_source/remote_data_source/cloud_firestore.dart';
+import '../../../data/data_source/remote_data_source/firebase_storage.dart';
 import '../../../data/repository/repository_impl.dart';
 import '../../shared/date.dart';
 import '../widgets/profile_photo.dart';
@@ -17,8 +19,10 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RegisterCubit>(
-      create: (context) =>
-          RegisterCubit(RepositoryImpl(auth: FirebaseAuthentication())),
+      create: (context) => RegisterCubit(RepositoryImpl(
+          auth: FirebaseAuthentication(),
+          storage: FirebaseStr(),
+          firestore: CloudFiresore())),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Register'),
@@ -33,10 +37,22 @@ class RegisterScreen extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: const Text('RegistrationComplete'),
+                        title: const Text('Registration Complete'),
                         actions: [
                           TextButton(
-                              onPressed: () {}, child: const Text('Sign'))
+                              onPressed: () {}, child: const Text('Sign In'))
+                        ],
+                      );
+                    });
+              } else if (state is RegisterError) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(state.errorMessage),
+                        actions: [
+                          TextButton(
+                              onPressed: () {}, child: const Text('Sign In'))
                         ],
                       );
                     });

@@ -46,11 +46,15 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(const RegisterError(errorMessage: 'password empty'));
     } else {
       var result = await _repositoryImpl.register(
-          emailController.text.trim(), passwordController.text.trim());
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+          birthdate: birth,
+          image: photo,
+          username: usernameController.text);
 
       result.fold(
         (failure) => emit(RegisterError(errorMessage: failure.errrorMessage)),
-        (user) {
+        (vd) {
           emit(RegisterSubmited());
         },
       );

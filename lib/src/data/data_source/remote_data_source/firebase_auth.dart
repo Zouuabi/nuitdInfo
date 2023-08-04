@@ -10,15 +10,6 @@ class FirebaseAuthentication {
   Future<User?> register(String email, String password) async {
     var cred = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-
-
-        return cred.user ; 
-
-
-
-
-        
-
-    
+    return cred.user;
   }
 }

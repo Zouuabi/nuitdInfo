@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:doft/src/core/failure.dart';
+import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
@@ -9,10 +11,15 @@ import '../../domain/repositories/repositories.dart';
 import '../data_source/remote_data_source/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 
+import '../data_source/remote_data_source/firebase_storage.dart';
+
 class RepositoryImpl extends Repository {
-  RepositoryImpl({required this.auth});
+  RepositoryImpl(
+      {required this.auth, required this.storage, required this.firestore});
 
   final FirebaseAuthentication auth;
+  final FirebaseStr storage;
+  final CloudFiresore firestore;
   final InternetCheckerImpl internetChecker = InternetCheckerImpl();
 
   @override
@@ -30,13 +37,28 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, User>> register(
-      String email, String password) async {
+  Future<Either<Failure, void>> register(
+      {required String username,
+      required String birthdate,
+      required String email,
+      required String password,
+      required Uint8List? image}) async {
+    String urlimage = '';
     try {
-      var user = await auth.register(email, password);
-      await user!.sendEmailVerification();
+      User? usr = await auth.register(email, password);
+      if (image != null) {
+        print('image not null');
+        urlimage = await storage.storeImage(
+            child: 'usersProfileImages', uid: usr!.uid, image: image);
+      }
+      await firestore.addNewUserInformations(
+          uid: usr!.uid,
+          email: email,
+          userName: username,
+          birthDate: birthdate,
+          imageLink: urlimage);
 
-      return  Right(user);
+      return const Right(null);
     } on FirebaseAuthException catch (error) {
       return Left(Failure(errrorMessage: error.code));
     }
