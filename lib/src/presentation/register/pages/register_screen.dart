@@ -32,7 +32,13 @@ class RegisterScreen extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return AlertDialog(title: const Text('RegistrationComplete'),actions: [TextButton(onPressed: (){}, child: const iText('Sign'))],);
+                      return AlertDialog(
+                        title: const Text('RegistrationComplete'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {}, child: const Text('Sign'))
+                        ],
+                      );
                     });
               }
             },
