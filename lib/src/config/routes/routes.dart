@@ -1,8 +1,11 @@
-import 'package:doft/src/presentation/register/pages/register_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../presentation/main/main_screen.dart';
+import 'package:doft/src/presentation/main/load_details/load_details_screen.dart';
+import 'package:doft/src/presentation/register/pages/register_screen.dart';
+
+import '../../data/models/load.dart';
 import '../../presentation/login/pages/login_screen.dart';
+import '../../presentation/main/main_screen.dart';
 
 class Routes {
   // mehouch tw
@@ -11,6 +14,7 @@ class Routes {
   static const String register = "/register";
   static const String home = "/home";
   static const String main = "/main";
+  static const String loadDetails = "/loadDetails";
 }
 
 class RouteGenerator {
@@ -26,6 +30,12 @@ class RouteGenerator {
       case Routes.register:
         return MaterialPageRoute(
             builder: (BuildContext ctx) => const RegisterScreen());
+      case Routes.loadDetails:
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          final Load arg = settings.arguments as Load;
+
+          return LoadDetailsScreen(load: arg);
+        });
 
       default:
         // naamlou page 404

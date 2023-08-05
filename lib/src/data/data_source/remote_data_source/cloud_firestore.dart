@@ -12,7 +12,6 @@ class CloudFiresore {
     required String userName,
     required String birthDate,
   }) async {
-   
     Map<String, dynamic> user = {
       'uid': uid,
       'image': imageLink,
@@ -22,6 +21,10 @@ class CloudFiresore {
     };
 
     await _firestore.collection(collectionrRef).doc(uid).set(user);
+  }
+
+  Future<void> postLoad(Map<String, dynamic> load) async {
+    await _firestore.collection('loads').doc().set(load); // ref = '' ;
     
   }
 }

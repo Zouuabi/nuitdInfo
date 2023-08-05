@@ -15,7 +15,46 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: _getBottomNavigationBar(),
+      body: SafeArea(
+        child: PageView(
+          onPageChanged: (value) {
+            setState(() {
+              index = value;
+            });
+          },
+          controller: pagecontroller,
+          children: [
+            const HomeScreen(),
+            Container(
+              color: const Color.fromARGB(255, 42, 17, 82),
+            ),
+            Container(
+              color: Colors.green,
+            ),
+            Container(
+              color: Colors.red,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _getBottomNavigationBar() {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Colors.teal.shade200,
+              offset: const Offset(-1, -1),
+              blurRadius: 20,
+              spreadRadius: 2),
+        ],
+      ),
+      child: BottomNavigationBar(
+        backgroundColor: Colors.red,
+        iconSize: 40,
         currentIndex: index,
         onTap: (value) {
           setState(() {
@@ -31,23 +70,6 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.bookmark_outlined), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-      ),
-      body: PageView(
-        onPageChanged: (value) {
-          setState(() {
-            index = value;
-          });
-        },
-        controller: pagecontroller,
-        children: [
-          const HomeScreen(),
-          Container(
-            color: Color.fromARGB(255, 42, 17, 82),
-          ),
-          Container(
-            color: Colors.green,
-          )
         ],
       ),
     );
