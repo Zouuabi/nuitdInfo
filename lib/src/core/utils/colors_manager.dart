@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class ColorsManager{
-  /// TODO:  lezemm nhawlohom hexadecimal 
+ 
   /// 
   static Color primary = Colors.white ;
   static Color secondary = Colors.white ;

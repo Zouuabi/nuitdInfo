@@ -9,11 +9,11 @@ class FirebaseStr {
       {required String child,
       required String uid,
       required Uint8List image}) async {
-    print('storeimage run ');
+   
     Reference ref = firebaseStorage.ref().child(child).child(uid);
     UploadTask task = ref.putData(image);
     var snapshot = await task;
-    print('task compleete');
+
     return snapshot.ref.getDownloadURL();
   }
 }

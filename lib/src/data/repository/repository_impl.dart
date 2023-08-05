@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 
 import 'package:doft/src/core/failure.dart';
 import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';
@@ -47,7 +46,6 @@ class RepositoryImpl extends Repository {
     try {
       User? usr = await auth.register(email, password);
       if (image != null) {
-        print('image not null');
         urlimage = await storage.storeImage(
             child: 'usersProfileImages', uid: usr!.uid, image: image);
       }

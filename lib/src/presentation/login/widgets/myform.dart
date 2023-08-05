@@ -1,6 +1,3 @@
-import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
-import 'package:doft/src/data/repository/repository_impl.dart';
-
 import 'package:flutter/material.dart';
 
 import '../../shared/text_field.dart';
