@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 
 import 'package:doft/src/core/failure.dart';
 import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';

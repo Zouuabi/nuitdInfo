@@ -1,7 +1,7 @@
 import 'package:doft/src/presentation/register/pages/register_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../presentation/home/home_screen.dart';
+import '../../presentation/main/main_screen.dart';
 import '../../presentation/login/pages/login_screen.dart';
 
 class Routes {
@@ -10,15 +10,16 @@ class Routes {
   static const String login = "/login";
   static const String register = "/register";
   static const String home = "/home";
+  static const String main = "/main";
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       // splash screen case
-      case Routes.home:
+      case Routes.main:
         return MaterialPageRoute(
-            builder: (BuildContext ctx) => const HomeScreen());
+            builder: (BuildContext ctx) => const MainScreen());
       case Routes.login:
         return MaterialPageRoute(
             builder: (BuildContext ctx) => const LoginScreen());

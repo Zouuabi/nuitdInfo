@@ -1,9 +1,8 @@
-import 'package:doft/src/presentation/home/home_screen.dart';
+import 'package:doft/src/presentation/main/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'config/routes/routes.dart';
-import 'presentation/login/pages/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
             // anna donne jeya m stream
             if (snapshot.hasData) {
               // user is logged in => home Screen
-              return const HomeScreen();
+              return const MainScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return const LoginScreen();
+            return const MainScreen(); //LoginScreen()
           }
         },
       ),
