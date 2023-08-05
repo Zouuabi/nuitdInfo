@@ -43,13 +43,9 @@ class _MainScreenState extends State<MainScreen> {
 
   Container _getBottomNavigationBar() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
-          BoxShadow(
-              color: Colors.teal.shade200,
-              offset: const Offset(-1, -1),
-              blurRadius: 20,
-              spreadRadius: 2),
+          BoxShadow(blurRadius: 20, spreadRadius: 1),
         ],
       ),
       child: BottomNavigationBar(

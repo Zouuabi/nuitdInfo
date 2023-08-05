@@ -8,14 +8,46 @@ import '../../../../data/data_source/remote_data_source/cloud_firestore.dart';
 import '../../../../data/models/load.dart';
 import '../widgets/load_item.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+
+  ///  just tojrab bl statefull widget 
+
+  List<Load> loadsList = [];
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListner);
+    // fetch firest 10 loads 
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListner() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+          // fetch the next 10 loads 
+      setState(() {
+       // the new 10 load to the old list
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal,
         onPressed: () async {
@@ -52,8 +84,8 @@ class HomeScreen extends StatelessWidget {
           ));
         },
         child: ListView.builder(
+            controller: _scrollController,
             padding: const EdgeInsets.all(20),
-
             itemCount: loads.length,
             itemBuilder: (context, index) {
               Load load = Load(
