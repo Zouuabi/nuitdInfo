@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 
 abstract class HomeState extends Equatable {
   @override
-  // TODO: implement props
+
   List<Object?> get props => [];
 }
 
-class LoadingState extends HomeState {}
+class HomeLoading extends HomeState {}
 
 class HomeError extends HomeState {
   HomeError({required this.message});
@@ -22,5 +22,3 @@ class HomeLoadingCompeleted extends HomeState {
   @override
   List<Object?> get props => [loads];
 }
-
-class InitialeState extends HomeState {}

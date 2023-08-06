@@ -24,7 +24,7 @@ class CloudFiresore {
   }
 
   Future<void> postLoad(Map<String, dynamic> load) async {
-    await _firestore.collection('loads').doc().set(load); // ref = '' ;
+    await _firestore.collection('loads').doc().set(load);
   }
 
   Future<List<Map<String, dynamic>>> readLoads() async {
@@ -35,6 +35,7 @@ class CloudFiresore {
         querySnapshot.docs.map((documentSnapshot) {
       return documentSnapshot.data();
     }).toList();
+    
 
     return loadsList;
   }

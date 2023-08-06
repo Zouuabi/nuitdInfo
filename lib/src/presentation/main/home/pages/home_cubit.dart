@@ -6,24 +6,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/load.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.repos) : super(InitialeState()) {
+  HomeCubit(this.repos) : super(HomeLoading()) {
     getloads();
   }
   final Repository repos;
 
-  List<Load> loads = [];
-
   void getloads() async {
-    emit(LoadingState());
+    emit(HomeLoading());
     Either<Failure, List<Load>> result = await repos.readLoads();
     result.fold(
-      (l) {
-        print('readloads');
-        emit(HomeError(message: l.errrorMessage));
+      (failure) {
+        emit(HomeError(message: failure.errrorMessage));
       },
-      (r) {
-        print('rigth');
-        loads = r;
+      (loads) {
+        
         emit(HomeLoadingCompeleted(loads: loads));
       },
     );

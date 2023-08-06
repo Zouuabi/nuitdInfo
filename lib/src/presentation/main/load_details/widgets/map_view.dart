@@ -1,9 +1,12 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/flutter_map.dart' show FlutterMap, MapOptions, Marker, MarkerLayer, TileLayer;
 
-import 'package:latlong2/latlong.dart';
+import 'package:latlong2/latlong.dart' ;
+
 
 class MapView extends StatelessWidget {
   const MapView({
@@ -19,7 +22,7 @@ class MapView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: size.height * 0.4,
           child: FlutterMap(

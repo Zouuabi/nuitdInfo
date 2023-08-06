@@ -1,11 +1,10 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:doft/src/core/dummy_data.dart';
 import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:doft/src/presentation/main/home/pages/home_state.dart';
 
@@ -13,46 +12,40 @@ import '../../../../config/routes/routes.dart';
 import '../../../../data/data_source/remote_data_source/cloud_firestore.dart';
 import '../../../../data/data_source/remote_data_source/firebase_auth.dart';
 import '../../../../data/data_source/remote_data_source/firebase_storage.dart';
-import '../../../../data/models/load.dart';
 import '../widgets/load_item.dart';
 
 import 'home_cubit.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final ScrollController _scrollController = ScrollController();
+  // final ScrollController _scrollController = ScrollController();
 
   ///  just tojrab bl statefull widget
 
-  List<Load> loadsList = [];
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_scrollListner);
-    // fetch firest 10 loads
-  }
+  // List<Load> loadsList = [];
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _scrollController.addListener(_scrollListner);
+  //   // fetch firest 10 loads
+  // }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _scrollController.dispose();
+  //   super.dispose();
+  // }
 
-  void _scrollListner() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      // fetch the next 10 loads
-      setState(() {
-        // the new 10 load to the old list
-      });
-    }
-  }
+  // void _scrollListner() {
+  //   if (_scrollController.position.pixels ==
+  //       _scrollController.position.maxScrollExtent) {
+  //     // fetch the next 10 loads
+  //     setState(() {
+  //       // the new 10 load to the old list
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,25 +60,22 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () async {
             /// this is just for debugging
             /// TO Remove later
-            await CloudFiresore().postLoad(
-              {
-                'loaddate': '12/56',
-                'pickupdate': '56/6',
-                'dropdowndate': '26/15',
-                'trucktype': 'stafett',
-                'broker': 'hedi',
-                'telbroker': '23654159',
-                'origin': 'gbeli',
-                'destination': 'gafsa',
-                'oridinPoint': const GeoPoint(15.65, 14.99),
-                'destinationPoint': const GeoPoint(12.33, 11.14),
-                'price': '100',
-                'weigth': '2500',
-                'loadRef': '#254564654',
-                'description':
-                    'write me a description of the product and the price of the product and the price of the product ',
-              },
-            );
+            await CloudFiresore().postLoad({
+              'broker': '123658',
+              'loadRef': 'foued',
+              'brokerPhone': ' 24586991',
+              'origin': 'Beja',
+              'destination': ' Monastir',
+              'loadDate': '18 aug',
+              'pickUpDate': 'pickUpDate',
+              'dropDownDate': 'dropDownDate',
+              'truckType': ' truckType',
+              'weigth': 2000,
+              'price': 100,
+              'description': ' description',
+              'originPoint': const GeoPoint(23.8, 56.1),
+              'desitinationPoint': const GeoPoint(2.8, 5.1),
+            });
           },
           child: const Icon(
             Icons.add_road_sharp,
@@ -101,24 +91,27 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
-              if (state is LoadingState) {
+              if (state is HomeLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is HomeLoadingCompeleted) {
                 return ListView.builder(
-                    controller: _scrollController,
                     padding: const EdgeInsets.all(20),
                     itemCount: state.loads.length,
                     itemBuilder: (context, index) {
+                      print(state.loads[0].originPoint?.longitude);
                       return LoadItem(
                         detailsButton: () {
                           Navigator.pushNamed(context, Routes.loadDetails,
-                              arguments: loads);
+                              arguments: state.loads[index]);
                         },
                         load: state.loads[index],
                       );
                     });
               } else {
-                return Container();
+                state as HomeError;
+                return Center(
+                  child: Text(state.message),
+                );
               }
             },
           ),

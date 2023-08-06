@@ -67,14 +67,15 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, List<Load>>> readLoads() async {
     if (await internetChecker.isConnected()) {
       try {
-        List<Map<String, dynamic>> a = await firestore.readLoads();
+        List<Map<String, dynamic>> list = await firestore.readLoads();
+        var listz = toLoad(list);
 
-        return (right(toLoad(a)));
-      } on FirebaseException catch (e) {
-        return left(Failure(errrorMessage: 'Try later'));
+        return (right(listz));
+      } catch (e) {
+        return left(Failure(errrorMessage: e.toString()));
       }
     }
-    return left(Failure(errrorMessage: 'there is no internet connection '));
+    return left(Failure(errrorMessage: 'There is no internet connection '));
   }
 }
 
