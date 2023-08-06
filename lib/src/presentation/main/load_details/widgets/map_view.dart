@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+
+import 'package:latlong2/latlong.dart';
 
 class MapView extends StatelessWidget {
   const MapView({
@@ -14,6 +17,28 @@ class MapView extends StatelessWidget {
       color: Colors.green,
       width: double.infinity,
       height: size.height * 0.3,
+      child: FlutterMap(
+        options: MapOptions(
+          center: LatLng(1.509364, 1.128928),
+          zoom: 1,
+        ),
+        // nonRotatedChildren: [
+        //   RichAttributionWidget(
+        //     attributions: [
+        //       TextSourceAttribution(
+        //         'OpenStreetMap contributors',
+        //         onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')),
+        //       ),
+        //     ],
+        //   ),
+        // ],
+        children: [
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName: 'com.example.app',
+          ),
+        ],
+      ),
     );
   }
 }
