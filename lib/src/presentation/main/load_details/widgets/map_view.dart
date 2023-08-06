@@ -19,8 +19,8 @@ class MapView extends StatelessWidget {
       height: size.height * 0.3,
       child: FlutterMap(
         options: MapOptions(
-          center: LatLng(1.509364, 1.128928),
-          zoom: 1,
+          center: const LatLng(1.509364, 1.128928),
+          zoom: 2,
         ),
         // nonRotatedChildren: [
         //   RichAttributionWidget(

@@ -7,6 +7,7 @@ import '../../../../config/routes/routes.dart';
 import '../../../../data/data_source/remote_data_source/cloud_firestore.dart';
 import '../../../../data/models/load.dart';
 import '../widgets/load_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,15 +19,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
 
-
-  ///  just tojrab bl statefull widget 
+  ///  just tojrab bl statefull widget
 
   List<Load> loadsList = [];
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListner);
-    // fetch firest 10 loads 
+    // fetch firest 10 loads
   }
 
   @override
@@ -38,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void _scrollListner() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-          // fetch the next 10 loads 
+      // fetch the next 10 loads
       setState(() {
-       // the new 10 load to the old list
+        // the new 10 load to the old list
       });
     }
   }
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'trucktype': 'stafett',
               'broker': 'hedi',
               'telbroker': '23654159',
-              'origin': 'NEw one',
+              'origin': GeoPoint(12.3,65.3),
               'destination': 'gbeli',
               'price': '100',
               'weigth': '2500',
