@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:doft/src/core/email_checker.dart';
+import 'package:doft/src/core/helpers/email_checker.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

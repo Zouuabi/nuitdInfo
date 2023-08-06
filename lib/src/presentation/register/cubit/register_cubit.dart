@@ -6,7 +6,7 @@ import 'package:flutter/material.dart' show TextEditingController;
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/image_picker.dart';
+import '../../../core/helpers/image_picker.dart';
 
 part 'register_state.dart';
 

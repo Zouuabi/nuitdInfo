@@ -2,93 +2,25 @@
 
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart' show GeoPoint;
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart' show FlutterMap, MapOptions, Marker, MarkerLayer, TileLayer;
+import 'package:flutter_map/flutter_map.dart'
+    show FlutterMap, MapOptions, Marker, MarkerLayer, TileLayer;
 
-import 'package:latlong2/latlong.dart' ;
-
+import 'package:latlong2/latlong.dart';
 
 class MapView extends StatelessWidget {
   const MapView({
     super.key,
     required this.size,
   });
-  final LatLng origin = const LatLng(34.8333, 9.7833);
-  final LatLng destination = const LatLng(34.8333, 10.7833);
+  final GeoPoint origin = const GeoPoint(8, 9);
+  final GeoPoint destination = const GeoPoint(4, 1);
 
   final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          width: double.infinity,
-          height: size.height * 0.4,
-          child: FlutterMap(
-            options: MapOptions(
-              center: LatLng((origin.latitude + destination.latitude) / 2,
-                  (origin.longitude + destination.longitude) / 2),
-              zoom: 7,
-            ),
-            // nonRotatedChildren: [
-            //   RichAttributionWidget(
-            //     attributions: [
-            //       TextSourceAttribution(
-            //         'OpenStreetMap contributors',
-            //         onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')),
-            //       ),
-            //     ],
-            //   ),
-            // ],
-            children: [
-              TileLayer(
-                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.example.app',
-              ),
-              MarkerLayer(markers: [
-                Marker(
-                  point: origin,
-                  builder: (context) {
-                    return const Icon(
-                      Icons.arrow_circle_up_outlined,
-                      color: Colors.green,
-                    );
-                  },
-                ),
-                Marker(
-                  point: destination,
-                  builder: (context) {
-                    return const Icon(
-                      Icons.arrow_circle_down_outlined,
-                      color: Colors.red,
-                    );
-                  },
-                ),
-              ])
-            ],
-          ),
-        ),
-        Positioned(
-            bottom: 10,
-            left: size.width * 0.4,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.teal, borderRadius: BorderRadius.circular(10)),
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                '${calculateDistance(origin, destination).toString().substring(0, 4)} km',
-                style:
-                    const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-              ),
-            ))
-      ],
-    );
-  }
-}
-
-double calculateDistance(LatLng latLng1, LatLng latLng2) {
-  const double earthRadius = 6371.0; // Radius of the Earth in kilometers
+  
+double _calculateDistance(LatLng latLng1, LatLng latLng2) {
+  const double earthRadius = 6371.0; 
 
   double lat1 = latLng1.latitude;
   double lon1 = latLng1.longitude;
@@ -112,3 +44,64 @@ double calculateDistance(LatLng latLng1, LatLng latLng2) {
 double _toRadians(double degrees) {
   return degrees * (pi / 180.0);
 }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: size.height * 0.4,
+          child: FlutterMap(
+            options: MapOptions(
+              center: LatLng((origin.latitude + destination.latitude) / 2,
+                  (origin.longitude + destination.longitude) / 2),
+              zoom: 5,
+            ),
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.example.app',
+              ),
+              MarkerLayer(markers: [
+                Marker(
+                  point: LatLng(origin.latitude, origin.longitude),
+                  builder: (context) {
+                    return const Icon(
+                      Icons.arrow_circle_up_outlined,
+                      color: Colors.green,
+                    );
+                  },
+                ),
+                Marker(
+                  point: LatLng(destination.latitude, destination.longitude),
+                  builder: (context) {
+                    return const Icon(
+                      Icons.arrow_circle_down_outlined,
+                      color: Colors.red,
+                    );
+                  },
+                ),
+              ])
+            ],
+          ),
+        ),
+        Positioned(
+            bottom: 10,
+            left: size.width * 0.4,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.teal, borderRadius: BorderRadius.circular(10)),
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                '${_calculateDistance(LatLng(origin.latitude, origin.longitude), LatLng(destination.latitude, destination.longitude)).toString().substring(0, 4)} km',
+                style:
+                    const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
+            ))
+      ],
+    );
+  }
+}
+
+

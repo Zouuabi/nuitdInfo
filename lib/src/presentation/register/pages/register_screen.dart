@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:doft/src/core/date_picker.dart';
+import 'package:doft/src/core/helpers/date_picker.dart';
 import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
 import 'package:doft/src/presentation/shared/text_field.dart';
 

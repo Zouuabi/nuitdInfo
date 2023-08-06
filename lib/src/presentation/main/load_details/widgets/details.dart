@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/load.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Details extends StatelessWidget {
   const Details({super.key, required this.load});
@@ -14,7 +15,8 @@ class Details extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(load.loadDate, style: const TextStyle(fontSize: 20)),
+            Text(load.loadDate.toString(),
+                style: const TextStyle(fontSize: 20)),
             const Text('Ref#1582651'),
           ],
         ),
@@ -51,20 +53,22 @@ class Details extends StatelessWidget {
               ),
               Divider(color: Colors.teal.shade100),
               ListTile(
-                title: const Text('Price  '),
-                subtitle: Text('${load.price} TND'),
-                trailing: Text('${load.weigth} KG '),
-                leading: const Icon(
-                  Icons.fire_truck,
-                  size: 50,
-                ),
-              ),
+                  title: const Text('Price  '),
+                  subtitle: Text('${load.price} TND'),
+                  trailing: Text('${load.weigth} KG '),
+                  leading: SvgPicture.asset(
+                    'assets/images/semi.svg',
+                    width: 80,
+                    height: 80,
+                    color: Colors.white60,
+                  )),
 
               Divider(color: Colors.teal.shade100),
               ListTile(
                 leading: const Icon(
                   Icons.person,
-                  size: 40,
+                  color: Colors.white60,
+                  size: 50,
                 ),
                 title: const Text('Broker'),
                 subtitle: Text('${load.brokerName} LLC'),

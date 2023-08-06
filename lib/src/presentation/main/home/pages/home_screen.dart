@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,24 +58,23 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.teal,
           onPressed: () async {
-            /// this is just for debugging
-            /// TO Remove later
-            await CloudFiresore().postLoad({
-              'broker': '123658',
-              'loadRef': 'foued',
-              'brokerPhone': ' 24586991',
-              'origin': 'Beja',
-              'destination': ' Monastir',
-              'loadDate': '18 aug',
-              'pickUpDate': 'pickUpDate',
-              'dropDownDate': 'dropDownDate',
-              'truckType': ' truckType',
-              'weigth': 2000,
-              'price': 100,
-              'description': ' description',
-              'originPoint': const GeoPoint(23.8, 56.1),
-              'desitinationPoint': const GeoPoint(2.8, 5.1),
-            });
+            Navigator.pushNamed(context, Routes.postLoad);
+            // await CloudFiresore().postLoad({
+            //   'broker': '123658',
+            //   'loadRef': 'foued',
+            //   'brokerPhone': ' 24586991',
+            //   'origin': 'Beja',
+            //   'destination': ' Monastir',
+            //   'loadDate': '2023-8-6',
+            //   'pickUpDate': 'pickUpDate',
+            //   'dropDownDate': 'dropDownDate',
+            //   'truckType': ' truckType',
+            //   'weigth': 2000,
+            //   'price': 100,
+            //   'description': ' description',
+            //   'originPoint': const GeoPoint(23.8, 56.1),
+            //   'desitinationPoint': const GeoPoint(2.8, 5.1),
+            // });
           },
           child: const Icon(
             Icons.add_road_sharp,
@@ -98,7 +97,6 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(20),
                     itemCount: state.loads.length,
                     itemBuilder: (context, index) {
-                      print(state.loads[0].originPoint?.longitude);
                       return LoadItem(
                         detailsButton: () {
                           Navigator.pushNamed(context, Routes.loadDetails,

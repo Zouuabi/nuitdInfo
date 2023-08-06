@@ -22,17 +22,23 @@ class RepositoryImpl extends Repository {
   final CloudFiresore firestore;
   final InternetCheckerImpl internetChecker = InternetCheckerImpl();
 
+  List<Load> _toLoad(List<Map<String, dynamic>> listmaps) {
+    return listmaps.map((e) {
+      return Load.fromfirestore(e);
+    }).toList();
+  }
+
   @override
   Future<Either<Failure, void>> signIn(String email, String password) async {
     if (await internetChecker.isConnected()) {
       try {
         await auth.signIn(email, password);
         return const Right(null);
-      } on FirebaseAuthException catch (error) {
-        return Left(Failure(errrorMessage: error.code));
+      } catch (e) {
+        return Left(Failure(errrorMessage: 'SomeThing Went Wrong'));
       }
     } else {
-      return Left(Failure(errrorMessage: 'There is no ineternet'));
+      return Left(Failure(errrorMessage: ' There is no internet connection'));
     }
   }
 
@@ -68,19 +74,13 @@ class RepositoryImpl extends Repository {
     if (await internetChecker.isConnected()) {
       try {
         List<Map<String, dynamic>> list = await firestore.readLoads();
-        var listz = toLoad(list);
+        var listz = _toLoad(list);
 
         return (right(listz));
       } catch (e) {
         return left(Failure(errrorMessage: e.toString()));
       }
     }
-    return left(Failure(errrorMessage: 'There is no internet connection '));
+    return left(Failure(errrorMessage: 'There is no internet connection'));
   }
-}
-
-List<Load> toLoad(List<Map<String, dynamic>> listmaps) {
-  return listmaps.map((e) {
-    return Load.fromfirestore(e);
-  }).toList();
 }

@@ -1,3 +1,4 @@
+import 'package:doft/src/presentation/main/post_load/post_load_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:doft/src/presentation/main/load_details/load_details_screen.dart';
@@ -15,6 +16,7 @@ class Routes {
   static const String home = "/home";
   static const String main = "/main";
   static const String loadDetails = "/loadDetails";
+  static const String postLoad = "/postLoad";
 }
 
 class RouteGenerator {
@@ -36,6 +38,9 @@ class RouteGenerator {
 
           return LoadDetailsScreen(load: arg);
         });
+      case Routes.postLoad:
+        return MaterialPageRoute(
+            builder: (BuildContext ctx) => const PostLoadScreen());
 
       default:
         // naamlou page 404

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/load.dart';
 import 'widgets/details.dart';
-import 'widgets/map_view.dart';
+import '../../shared/map_view.dart';
 
 class LoadDetailsScreen extends StatelessWidget {
   const LoadDetailsScreen({super.key, required this.load});

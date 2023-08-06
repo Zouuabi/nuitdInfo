@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'config/routes/routes.dart';
 
+/// todo: change the Geopoint imp to four variables 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

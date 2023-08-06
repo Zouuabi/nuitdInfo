@@ -1,4 +1,9 @@
+
 import 'package:flutter/material.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:doft/src/core/helpers/date_handler.dart';
 
 import '../../../../data/models/load.dart';
 
@@ -6,8 +11,14 @@ class LoadItem extends StatelessWidget {
   const LoadItem({super.key, required this.load, required this.detailsButton});
   final Load load;
   final VoidCallback detailsButton;
+
   @override
   Widget build(BuildContext context) {
+    Duration age = DateHandler.diffBetween2Dates(
+        start: DateHandler.convertStringToDate(date: load.loadDate),
+        end: DateHandler.convertStringToDate(
+            date: DateTime.now().toString().substring(0, 10)));
+
     return GestureDetector(
       child: Card(
         child: Container(
@@ -16,14 +27,19 @@ class LoadItem extends StatelessWidget {
             // ***** little banner ******
             Row(
               children: [
-                const Text('age:'),
+                Text('age: ${DateHandler.handleAge(age)}'),
                 const Spacer(),
                 Text(
-                  load.loadDate,
+                  load.loadDate.toString(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const Spacer(),
-                Text(load.truckType)
+                SvgPicture.asset(
+                  'assets/images/semi.svg',
+                  width: 50,
+                  height: 50,
+                  color: Colors.white60,
+                ),
               ],
             ),
             const Divider(),
