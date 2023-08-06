@@ -11,6 +11,7 @@ import '../data_source/remote_data_source/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 
 import '../data_source/remote_data_source/firebase_storage.dart';
+import '../models/load.dart';
 
 class RepositoryImpl extends Repository {
   RepositoryImpl(
@@ -61,4 +62,24 @@ class RepositoryImpl extends Repository {
       return Left(Failure(errrorMessage: error.code));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Load>>> readLoads() async {
+    if (await internetChecker.isConnected()) {
+      try {
+        List<Map<String, dynamic>> a = await firestore.readLoads();
+
+        return (right(toLoad(a)));
+      } on FirebaseException catch (e) {
+        return left(Failure(errrorMessage: 'Try later'));
+      }
+    }
+    return left(Failure(errrorMessage: 'there is no internet connection '));
+  }
+}
+
+List<Load> toLoad(List<Map<String, dynamic>> listmaps) {
+  return listmaps.map((e) {
+    return Load.fromfirestore(e);
+  }).toList();
 }
