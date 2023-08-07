@@ -12,6 +12,7 @@ class PostCubit extends Cubit<PostState> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController pickUpDateController = TextEditingController();
   final TextEditingController dropDwonDateController = TextEditingController();
+  final TextEditingController truckTypeController = TextEditingController();
 
   String? truckType;
 
@@ -30,7 +31,6 @@ class PostCubit extends Cubit<PostState> {
       emit(PostError(errrorMessage: 'description is empty'));
     } else {
       // send Load to the firestore
-  
     }
   }
 }
