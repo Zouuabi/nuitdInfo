@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doft/src/core/failure.dart';
 import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,7 @@ import 'package:dartz/dartz.dart';
 
 import '../data_source/remote_data_source/firebase_storage.dart';
 import '../models/load.dart';
+import '../models/user.dart';
 
 class RepositoryImpl extends Repository {
   RepositoryImpl(
@@ -95,6 +97,16 @@ class RepositoryImpl extends Repository {
       }
     } else {
       return left(Failure(errrorMessage: 'There is no internet connection'));
+    }
+  }
+
+  Future<Either<Failure, MyUser>> getCurrentUserInformation() async {
+    try {
+      Map<String, dynamic> a = await firestore
+          .getCurrentUserInformation(await auth.getCurrentUserId());
+      return right(MyUser.fromfirestore(a));
+    } catch (e) {
+      return left(Failure(errrorMessage: 'user not exist'));
     }
   }
 }

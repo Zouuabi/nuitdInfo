@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-
-
-
 class Load extends Equatable {
   const Load(
       {required this.loadRef,
@@ -11,8 +8,6 @@ class Load extends Equatable {
       required this.brokerPhone,
       required this.origin,
       required this.destination,
-      required this.originPoint,
-      required this.desitinationPoint,
       required this.loadDate,
       required this.pickUpDate,
       required this.dropDownDate,
@@ -33,17 +28,13 @@ class Load extends Equatable {
   final int price;
   final int weigth;
   final String description;
-  final GeoPoint? originPoint;
-  final GeoPoint? desitinationPoint;
 
   Map<String, dynamic> toFirestore() => {
-        'broker': loadRef,
-        'loadRef': brokerName,
+        'broker': brokerName,
+        'loadRef': loadRef,
         'brokerPhone': brokerPhone,
         'origin': origin,
-        ' originPoint': originPoint,
         'destination': destination,
-        'desitinationPoint': desitinationPoint,
         'loadDate': loadDate,
         'pickUpDate': pickUpDate,
         'dropDownDate': dropDownDate,
@@ -59,8 +50,6 @@ class Load extends Equatable {
       brokerName: map['broker'],
       brokerPhone: map['brokerPhone'],
       origin: map['origin'],
-      originPoint: map['originPoint'],
-      desitinationPoint: map['desitination'],
       destination: map['destination'],
       loadDate: map['loadDate'],
       pickUpDate: map['pickUpDate'],
