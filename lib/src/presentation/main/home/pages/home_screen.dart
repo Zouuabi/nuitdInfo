@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +52,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(RepositoryImpl(
           auth: FirebaseAuthentication(),
           firestore: CloudFiresore(),
-          storage: FirebaseStr())),
+          storage: CloudStorage())),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.teal,

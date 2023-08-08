@@ -26,7 +26,7 @@ class PostLoadScreen extends StatelessWidget {
         create: (context) {
           return PostCubit(RepositoryImpl(
               auth: FirebaseAuthentication(),
-              storage: FirebaseStr(),
+              storage: CloudStorage(),
               firestore: CloudFiresore()));
         },
         child: Scaffold(

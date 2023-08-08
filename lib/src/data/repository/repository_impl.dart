@@ -18,7 +18,7 @@ class RepositoryImpl extends Repository {
       {required this.auth, required this.storage, required this.firestore});
 
   final FirebaseAuthentication auth;
-  final FirebaseStr storage;
+  final CloudStorage storage;
   final CloudFiresore firestore;
   final InternetCheckerImpl internetChecker = InternetCheckerImpl();
 
