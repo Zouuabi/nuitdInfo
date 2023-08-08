@@ -15,4 +15,6 @@ abstract class Repository {
       required Uint8List? image});
 
   Future<Either<Failure, List<Load>>> readLoads();
+  Future<Either<Failure,void>> postLoad(Map<String,dynamic> load);
+
 }

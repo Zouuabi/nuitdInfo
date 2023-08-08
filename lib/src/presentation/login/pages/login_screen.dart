@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
       create: (ctx) {
         return LoginCubit(RepositoryImpl(
             auth: FirebaseAuthentication(),
-            storage: FirebaseStr(),
+            storage: CloudStorage(),
             firestore: CloudFiresore()));
       },
       child: Scaffold(

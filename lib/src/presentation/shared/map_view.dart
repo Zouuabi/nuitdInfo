@@ -19,31 +19,7 @@ class MapView extends StatelessWidget {
 
   final Size size;
   
-double _calculateDistance(LatLng latLng1, LatLng latLng2) {
-  const double earthRadius = 6371.0; 
 
-  double lat1 = latLng1.latitude;
-  double lon1 = latLng1.longitude;
-  double lat2 = latLng2.latitude;
-  double lon2 = latLng2.longitude;
-
-  double dLat = _toRadians(lat2 - lat1);
-  double dLon = _toRadians(lon2 - lon1);
-
-  double a = sin(dLat / 2) * sin(dLat / 2) +
-      cos(_toRadians(lat1)) *
-          cos(_toRadians(lat2)) *
-          sin(dLon / 2) *
-          sin(dLon / 2);
-  double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-  double distance = earthRadius * c;
-  return distance;
-}
-
-double _toRadians(double degrees) {
-  return degrees * (pi / 180.0);
-}
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +78,31 @@ double _toRadians(double degrees) {
       ],
     );
   }
+  double _calculateDistance(LatLng latLng1, LatLng latLng2) {
+  const double earthRadius = 6371.0; 
+
+  double lat1 = latLng1.latitude;
+  double lon1 = latLng1.longitude;
+  double lat2 = latLng2.latitude;
+  double lon2 = latLng2.longitude;
+
+  double dLat = _toRadians(lat2 - lat1);
+  double dLon = _toRadians(lon2 - lon1);
+
+  double a = sin(dLat / 2) * sin(dLat / 2) +
+      cos(_toRadians(lat1)) *
+          cos(_toRadians(lat2)) *
+          sin(dLon / 2) *
+          sin(dLon / 2);
+  double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+  double distance = earthRadius * c;
+  return distance;
+}
+
+double _toRadians(double degrees) {
+  return degrees * (pi / 180.0);
+}
 }
 
 

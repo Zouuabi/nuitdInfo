@@ -1,36 +1,24 @@
+import 'package:dartz/dartz.dart';
+import 'package:doft/src/core/failure.dart';
+import 'package:doft/src/domain/repositories/repositories.dart';
 import 'package:doft/src/presentation/main/post_load/cubits/post_load_state.dart';
-import 'package:flutter/material.dart' show TextEditingController;
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../data/models/load.dart';
+
 class PostCubit extends Cubit<PostState> {
-  PostCubit() : super(InitialPost());
-
-  final TextEditingController weigthController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController telController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController pickUpDateController = TextEditingController();
-  final TextEditingController dropDwonDateController = TextEditingController();
-  final TextEditingController truckTypeController = TextEditingController();
-
+  PostCubit(this._repository) : super(InitialPost());
+  final Repository _repository;
   String? truckType;
 
-  void postLoad() {
-    emit(InitialPost());
+  void postLoad(Load load) async {
+    emit(PostLoading());
 
-    if (weigthController.text.isEmpty) {
-      emit(PostError(errrorMessage: 'weigth is empty'));
-    } else if (nameController.text.isEmpty) {
-      emit(PostError(errrorMessage: 'name is empty'));
-    } else if (telController.text.isEmpty) {
-      emit(PostError(errrorMessage: 'tel is empty'));
-    } else if (priceController.text.isEmpty) {
-      emit(PostError(errrorMessage: 'price is empty'));
-    } else if (descriptionController.text.isEmpty) {
-      emit(PostError(errrorMessage: 'description is empty'));
-    } else {
-      // send Load to the firestore
-    }
+    Either<Failure, void> result =
+        await _repository.postLoad(load.toFirestore());
+
+    result.fold((l) => emit(PostError(errrorMessage: l.errrorMessage)),
+        (r) => emit(PostComplete()));
   }
 }

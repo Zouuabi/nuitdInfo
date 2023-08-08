@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(RepositoryImpl(
           auth: FirebaseAuthentication(),
           firestore: CloudFiresore(),
-          storage: FirebaseStr())),
+          storage: CloudStorage())),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.teal,

@@ -18,7 +18,7 @@ class RepositoryImpl extends Repository {
       {required this.auth, required this.storage, required this.firestore});
 
   final FirebaseAuthentication auth;
-  final FirebaseStr storage;
+  final CloudStorage storage;
   final CloudFiresore firestore;
   final InternetCheckerImpl internetChecker = InternetCheckerImpl();
 
@@ -82,5 +82,19 @@ class RepositoryImpl extends Repository {
       }
     }
     return left(Failure(errrorMessage: 'There is no internet connection'));
+  }
+
+  @override
+  Future<Either<Failure, void>> postLoad(Map<String, dynamic> load) async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await firestore.postLoad(load);
+        return right(null);
+      } catch (e) {
+        return left(Failure(errrorMessage: 'Something Went Wrong'));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'There is no internet connection'));
+    }
   }
 }

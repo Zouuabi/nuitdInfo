@@ -21,7 +21,7 @@ class RegisterScreen extends StatelessWidget {
     return BlocProvider<RegisterCubit>(
       create: (context) => RegisterCubit(RepositoryImpl(
           auth: FirebaseAuthentication(),
-          storage: FirebaseStr(),
+          storage: CloudStorage(),
           firestore: CloudFiresore())),
       child: Scaffold(
         appBar: AppBar(

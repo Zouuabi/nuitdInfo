@@ -60,6 +60,7 @@ class Details extends StatelessWidget {
                     'assets/images/semi.svg',
                     width: 80,
                     height: 80,
+                    // ignore: deprecated_member_use
                     color: Colors.white60,
                   )),
 

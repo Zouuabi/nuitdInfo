@@ -6,6 +6,7 @@ abstract class PostState extends Equatable {
 }
 
 class InitialPost extends PostState {}
+class PostLoading extends PostState {}
 
 class PostError extends PostState {
   final String errrorMessage;

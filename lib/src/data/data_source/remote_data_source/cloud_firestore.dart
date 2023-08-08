@@ -29,13 +29,12 @@ class CloudFiresore {
 
   Future<List<Map<String, dynamic>>> readLoads() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await _firestore.collection('loads').get();
+        await _firestore.collection('loads').orderBy('loadDate').get();
 
     List<Map<String, dynamic>> loadsList =
         querySnapshot.docs.map((documentSnapshot) {
       return documentSnapshot.data();
     }).toList();
-    
 
     return loadsList;
   }
