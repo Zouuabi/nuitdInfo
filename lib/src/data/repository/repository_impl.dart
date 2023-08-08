@@ -83,4 +83,18 @@ class RepositoryImpl extends Repository {
     }
     return left(Failure(errrorMessage: 'There is no internet connection'));
   }
+
+  @override
+  Future<Either<Failure, void>> postLoad(Map<String, dynamic> load) async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await firestore.postLoad(load);
+        return right(null);
+      } catch (e) {
+        return left(Failure(errrorMessage: 'Something Went Wrong'));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'There is no internet connection'));
+    }
+  }
 }

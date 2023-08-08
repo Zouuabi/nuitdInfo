@@ -61,6 +61,7 @@ class _MainScreenState extends State<MainScreen> {
         unselectedItemColor: Colors.white,
         selectedItemColor: Colors.teal,
         items: const [
+          
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.travel_explore), label: ''),
           BottomNavigationBarItem(

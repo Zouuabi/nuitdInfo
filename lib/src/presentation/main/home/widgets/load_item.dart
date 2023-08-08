@@ -38,6 +38,7 @@ class LoadItem extends StatelessWidget {
                   'assets/images/semi.svg',
                   width: 50,
                   height: 50,
+                  // ignore: deprecated_member_use
                   color: Colors.white60,
                 ),
               ],

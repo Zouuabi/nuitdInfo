@@ -1,4 +1,4 @@
-import 'package:doft/src/presentation/main/post_load/post_load_screen.dart';
+import 'package:doft/src/presentation/main/post_load/pages/post_load_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:doft/src/presentation/main/load_details/load_details_screen.dart';
