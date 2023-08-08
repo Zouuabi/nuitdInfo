@@ -1,12 +1,11 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:doft/src/data/repository/repository_impl.dart';
-import 'package:doft/src/presentation/main/home/pages/home_state.dart';
+import 'package:doft/src/presentation/main/home/cubit/home_state.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../data/data_source/remote_data_source/cloud_firestore.dart';
@@ -14,7 +13,7 @@ import '../../../../data/data_source/remote_data_source/firebase_auth.dart';
 import '../../../../data/data_source/remote_data_source/firebase_storage.dart';
 import '../widgets/load_item.dart';
 
-import 'home_cubit.dart';
+import '../cubit/home_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
