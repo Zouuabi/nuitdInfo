@@ -58,22 +58,6 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.teal,
           onPressed: () async {
             Navigator.pushNamed(context, Routes.postLoad);
-            // await CloudFiresore().postLoad({
-            //   'broker': '123658',
-            //   'loadRef': 'foued',
-            //   'brokerPhone': ' 24586991',
-            //   'origin': 'Beja',
-            //   'destination': ' Monastir',
-            //   'loadDate': '2023-8-6',
-            //   'pickUpDate': 'pickUpDate',
-            //   'dropDownDate': 'dropDownDate',
-            //   'truckType': ' truckType',
-            //   'weigth': 2000,
-            //   'price': 100,
-            //   'description': ' description',
-            //   'originPoint': const GeoPoint(23.8, 56.1),
-            //   'desitinationPoint': const GeoPoint(2.8, 5.1),
-            // });
           },
           child: const Icon(
             Icons.add_road_sharp,
