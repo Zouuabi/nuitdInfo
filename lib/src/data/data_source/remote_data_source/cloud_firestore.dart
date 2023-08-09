@@ -5,6 +5,15 @@ class CloudFiresore {
   String collectionrRef = 'users';
   String documentRef = '';
 
+  Future<void> addToFavorites(
+      {required String loadRef, required String uid}) async {
+        
+
+    await _firestore.collection('users').doc(uid).update({
+    'loads': FieldValue.arrayUnion([loadRef]),
+  });
+  }
+
   Future<Map<String, dynamic>> getCurrentUserInformation(String uid) async {
     Map<String, dynamic>? user = await _firestore
         .collection('users')

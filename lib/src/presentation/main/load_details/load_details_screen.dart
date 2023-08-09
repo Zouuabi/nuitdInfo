@@ -1,6 +1,8 @@
+import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/load.dart';
+import '../../../injector.dart';
 import 'widgets/details.dart';
 import '../../shared/map_view.dart';
 
@@ -46,7 +48,7 @@ class LoadDetailsScreen extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          AddToMyload(
+          ToggleFavorites(
             onclicked: (isadd) {
               if (isadd == false) {
                 //load mawjouda w bech enna77ouha
@@ -62,15 +64,20 @@ class LoadDetailsScreen extends StatelessWidget {
   }
 }
 
-class AddToMyload extends StatefulWidget {
-  const AddToMyload({super.key, required this.onclicked});
+class ToggleFavorites extends StatefulWidget {
+  const ToggleFavorites({super.key, required this.onclicked});
   final void Function(bool isadd) onclicked;
 
   @override
-  State<AddToMyload> createState() => _AddToMyLoadState();
+  State<ToggleFavorites> createState() => _ToggoleFavoritesState();
+
+
+  
 }
 
-class _AddToMyLoadState extends State<AddToMyload> {
+class _ToggoleFavoritesState extends State<ToggleFavorites> {
+
+  final g = instance<RepositoryImpl>(); 
   bool isAdded = false;
   @override
   Widget build(BuildContext context) {
@@ -78,6 +85,7 @@ class _AddToMyLoadState extends State<AddToMyload> {
         onPressed: () {
           setState(() {
             isAdded = !isAdded;
+            g.addLoadToFavorites(loadRef); 
           });
           widget.onclicked(isAdded);
         },

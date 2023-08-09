@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../injector.dart';
 import 'home/pages/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,6 +13,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int index = 0;
   final pagecontroller = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    homeInstances();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
           },
           controller: pagecontroller,
           children: [
-            const HomeScreen(),
+            HomeScreen(),
             Container(
               color: const Color.fromARGB(255, 42, 17, 82),
             ),
@@ -61,7 +69,6 @@ class _MainScreenState extends State<MainScreen> {
         unselectedItemColor: Colors.white,
         selectedItemColor: Colors.teal,
         items: const [
-          
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.travel_explore), label: ''),
           BottomNavigationBarItem(

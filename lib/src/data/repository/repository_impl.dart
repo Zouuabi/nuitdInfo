@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../core/internet_checker.dart';
 import '../../domain/repositories/repositories.dart';
+import '../data_source/local_data_source/local_storage.dart';
 import '../data_source/remote_data_source/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 
@@ -16,12 +17,18 @@ import '../models/user.dart';
 
 class RepositoryImpl extends Repository {
   RepositoryImpl(
-      {required this.auth, required this.storage, required this.firestore});
+      {required this.auth,
+      required this.storage,
+      required this.firestore,
+      required this.internetChecker,
+      required this.localStorage});
 
   final FirebaseAuthentication auth;
   final CloudStorage storage;
   final CloudFiresore firestore;
-  final InternetCheckerImpl internetChecker = InternetCheckerImpl();
+  final InternetCheckerImpl internetChecker;
+
+  final LocalStorage localStorage;
 
   List<Load> _toLoad(List<Map<String, dynamic>> listmaps) {
     return listmaps.map((e) {
@@ -34,7 +41,8 @@ class RepositoryImpl extends Repository {
     if (await internetChecker.isConnected()) {
       try {
         await auth.signIn(email, password);
-        return const Right(null);
+
+        return right(null);
       } catch (e) {
         return Left(Failure(errrorMessage: 'SomeThing Went Wrong'));
       }
@@ -99,6 +107,7 @@ class RepositoryImpl extends Repository {
     }
   }
 
+  @override
   Future<Either<Failure, MyUser>> getCurrentUserInformation() async {
     try {
       Map<String, dynamic> a = await firestore
@@ -107,5 +116,26 @@ class RepositoryImpl extends Repository {
     } catch (e) {
       return left(Failure(errrorMessage: 'user not exist'));
     }
+  }
+
+  @override
+  Future<Either<Failure, void>> addLoadToFavorites(String loadRef) async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await firestore.addToFavorites(
+            loadRef: loadRef, uid: await auth.getCurrentUserId());
+
+        return right(null);
+      } catch (e) {
+        return left(Failure(errrorMessage: 'sdfdsfdsfsdfq'));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'sdfdsfd'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeLoadFromFavorites(String loadRef) {
+    throw UnimplementedError();
   }
 }

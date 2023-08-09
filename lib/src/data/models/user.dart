@@ -24,4 +24,13 @@ class MyUser {
         tel: map['tel'],
         favoritesLoads: map['favoritesLoads']);
   }
+
+  Map<String, dynamic> toFirestore() => {
+        'uid': id,
+        'username': username,
+        'email': email,
+        'birdhdate': birdhdate,
+        'tel': tel,
+        'favoritesLoads': favoritesLoads,
+      };
 }

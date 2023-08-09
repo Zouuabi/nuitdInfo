@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../core/failure.dart';
 import '../../data/models/load.dart';
+import '../../data/models/user.dart';
 
 abstract class Repository {
   Future<Either<Failure, void>> signIn(String email, String password);
@@ -16,5 +17,9 @@ abstract class Repository {
 
   Future<Either<Failure, List<Load>>> readLoads();
   Future<Either<Failure,void>> postLoad(Map<String,dynamic> load);
+  Future<Either<Failure, MyUser>> getCurrentUserInformation();
+  Future<Either<Failure, void>> addLoadToFavorites(String loadRef);
+  Future<Either<Failure, void>> removeLoadFromFavorites(String loadRef);
+  
+} 
 
-}

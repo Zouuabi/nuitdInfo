@@ -8,8 +8,10 @@ import '../../data/models/load.dart';
 import '../../presentation/login/pages/login_screen.dart';
 import '../../presentation/main/main_screen.dart';
 
+import '../../injector.dart';
+
 class Routes {
-  // mehouch tw
+
   static const String splash = "/";
   static const String login = "/login";
   static const String register = "/register";
@@ -24,23 +26,43 @@ class RouteGenerator {
     switch (settings.name) {
       // splash screen case
       case Routes.main:
-        return MaterialPageRoute(
-            builder: (BuildContext ctx) => const MainScreen());
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          homeInstances();
+          return const MainScreen();
+        });
+
+      // **************************
       case Routes.login:
-        return MaterialPageRoute(
-            builder: (BuildContext ctx) => const LoginScreen());
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          loginInstances();
+          return LoginScreen();
+        });
+
+      //************************* */
+
       case Routes.register:
-        return MaterialPageRoute(
-            builder: (BuildContext ctx) => const RegisterScreen());
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          registerInstances();
+          return const RegisterScreen();
+        });
+
+      //************************** */
+
       case Routes.loadDetails:
         return MaterialPageRoute(builder: (BuildContext ctx) {
           final Load arg = settings.arguments as Load;
 
           return LoadDetailsScreen(load: arg);
         });
+
+      //************************** */
+
       case Routes.postLoad:
-        return MaterialPageRoute(
-            builder: (BuildContext ctx) => const PostLoadScreen());
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          postInstances();
+          return const PostLoadScreen();
+        });
+      //************************** */
 
       default:
         // naamlou page 404

@@ -1,17 +1,21 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:doft/src/config/routes/routes.dart';
-import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';
-import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
-import 'package:doft/src/data/data_source/remote_data_source/firebase_storage.dart';
-import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:doft/src/presentation/main/post_load/cubits/post_load_cubit.dart';
 import 'package:doft/src/presentation/main/post_load/cubits/post_load_state.dart';
 import 'package:doft/src/presentation/shared/show_alert.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../../../core/internet_checker.dart';
+import '../../../../data/data_source/local_data_source/local_storage.dart';
+import '../../../../data/data_source/remote_data_source/cloud_firestore.dart';
+import '../../../../data/data_source/remote_data_source/firebase_auth.dart';
+import '../../../../data/data_source/remote_data_source/firebase_storage.dart';
+import '../../../../data/repository/repository_impl.dart';
+import '../../../../injector.dart';
 import '../../../shared/map_view.dart';
 import '../widgets/details_input.dart';
 import '../widgets/hint_text.dart';
@@ -25,9 +29,10 @@ class PostLoadScreen extends StatelessWidget {
     return BlocProvider<PostCubit>(
         create: (context) {
           return PostCubit(RepositoryImpl(
-              auth: FirebaseAuthentication(),
-              storage: CloudStorage(),
-              firestore: CloudFiresore()));
+        localStorage: LocalStorage(),        internetChecker: InternetCheckerImpl(),
+          auth: FirebaseAuthentication(),
+          firestore: CloudFiresore(),
+          storage: CloudStorage()));
         },
         child: Scaffold(
           appBar: AppBar(

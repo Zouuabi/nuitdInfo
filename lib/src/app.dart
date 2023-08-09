@@ -1,9 +1,10 @@
-
+import 'package:doft/src/presentation/login/pages/login_screen.dart';
 import 'package:doft/src/presentation/main/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'config/routes/routes.dart';
+import 'injector.dart';
 
 /// todo: change the Geopoint imp to four variables
 
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return const MainScreen(); //LoginScreen()
+            loginInstances();
+            return LoginScreen(); //LoginScreen()
           }
         },
       ),

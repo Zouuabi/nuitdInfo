@@ -1,15 +1,10 @@
-import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
+import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
+import 'package:doft/src/presentation/shared/show_date_picker.dart';
+import 'package:doft/src/presentation/shared/text_field.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:doft/src/presentation/shared/show_date_picker.dart';
-import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
-import 'package:doft/src/presentation/shared/text_field.dart';
-
-import '../../../data/data_source/remote_data_source/cloud_firestore.dart';
-import '../../../data/data_source/remote_data_source/firebase_storage.dart';
-import '../../../data/repository/repository_impl.dart';
+import '../../../injector.dart';
 import '../../shared/date.dart';
 import '../widgets/profile_photo.dart';
 
@@ -19,10 +14,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RegisterCubit>(
-      create: (context) => RegisterCubit(RepositoryImpl(
-          auth: FirebaseAuthentication(),
-          storage: CloudStorage(),
-          firestore: CloudFiresore())),
+      create: (context) => instance<RegisterCubit>(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Register'),
