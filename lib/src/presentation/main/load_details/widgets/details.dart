@@ -17,7 +17,7 @@ class Details extends StatelessWidget {
           children: [
             Text(load.loadDate.toString(),
                 style: const TextStyle(fontSize: 20)),
-            const Text('Ref#1582651'),
+            Text('Ref#${load.loadRef.substring(0, 6)}'),
           ],
         ),
         const SizedBox(height: 20),

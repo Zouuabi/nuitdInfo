@@ -23,6 +23,8 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
   String _pickUpDate = 'YYYY-MM-DD';
   String _dropDownDate = 'YYYY-MM-DD';
   String _truckType = 'Any';
+  String _origin = 'origin';
+  String _destination = 'destination';
 
   // Textfiled controlers
 
@@ -47,6 +49,11 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
           title: 'Error',
           context: context,
           message: 'Pick up date and Drop down date are both required');
+    } else if (_origin == 'origin' || _destination == 'destination') {
+      showAlert(
+          title: 'Error',
+          context: context,
+          message: 'origin and destination  are both required');
     } else if (_truckType == 'Any') {
       isValid = false;
       showAlert(
@@ -99,6 +106,29 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                   onDateChanged: (date) {
                     _dropDownDate = date;
                   }),
+            ),
+          ],
+        ),
+        const Divider(height: 30),
+
+        Row(
+          children: [
+            Expanded(
+              child: ChooseLocation(
+                onlocationschanged: (location) {
+                  _origin = location;
+                },
+              ),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+            Expanded(
+              child: ChooseLocation(
+                onlocationschanged: (location) {
+                  _destination = location;
+                },
+              ),
             ),
           ],
         ),
@@ -192,13 +222,11 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                 onPressed: () {
                   if (_checkForm()) {
                     widget.onFormSubmited(Load(
-                        loadRef: 'sdfdsf',
+                        loadRef: '',
                         brokerName: _nameController.text,
                         brokerPhone: _telController.text,
-                        origin: 'Bajbouja',
-                        destination: 'Jendouja',
-                        originPoint: const GeoPoint(10.9, 9.8),
-                        desitinationPoint: const GeoPoint(20, 9.8),
+                        origin: _origin.trim(),
+                        destination: _destination.trim(),
                         loadDate: DateTime.now().toString().substring(0, 10),
                         pickUpDate: _pickUpDate,
                         dropDownDate: _dropDownDate,
@@ -212,6 +240,69 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
           ],
         )
       ],
+    );
+  }
+}
+
+class ChooseLocation extends StatefulWidget {
+  const ChooseLocation({
+    super.key,
+    required this.onlocationschanged,
+  });
+
+  final void Function(String location) onlocationschanged;
+
+  @override
+  State<ChooseLocation> createState() => _ChooseLocationState();
+}
+
+class _ChooseLocationState extends State<ChooseLocation> {
+  List<String> towns = [
+    'Tunis',
+    'Sfax',
+    'Sousse',
+    'Kairouan',
+    'Bizerte',
+    'Gabes',
+    'Ariana',
+    'Gafsa',
+    'Kasserine',
+    'Monastir',
+    'Tataouine',
+    'Medenine',
+    'Nabeul',
+    'Beja',
+    'Ben Arous',
+    'Siliana',
+    'Jendouba',
+    'Mahdia',
+    'Kebili',
+    'La Manouba',
+    'Tozeur',
+    'Kef',
+    'Zaghouan',
+    'Sidi Bouzid',
+  ];
+  String selectedLocation = 'choose a place';
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      value: selectedLocation,
+      items: [
+        const DropdownMenuItem(
+            value: 'choose a place', child: Text('choose a place')),
+        ...(towns
+            .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+            .toList())
+      ],
+      onChanged: (value) {
+        if (value != null) {
+          widget.onlocationschanged(value);
+          setState(() {
+            selectedLocation = value;
+          });
+        }
+      },
     );
   }
 }

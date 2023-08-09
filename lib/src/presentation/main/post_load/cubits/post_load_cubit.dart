@@ -9,6 +9,7 @@ import '../../../../data/models/load.dart';
 
 class PostCubit extends Cubit<PostState> {
   PostCubit(this._repository) : super(InitialPost());
+
   final Repository _repository;
   String? truckType;
 

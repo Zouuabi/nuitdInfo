@@ -44,19 +44,45 @@ class LoadDetailsScreen extends StatelessWidget {
   AppBar _getAppBar() {
     return AppBar(
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(load.origin.toUpperCase()),
-          const SizedBox(width: 10),
-          const Icon(
-            Icons.arrow_right_alt,
-            size: 60,
-          ),
-          const SizedBox(width: 10),
-          Text(load.destination.toUpperCase()),
+          AddToMyload(
+            onclicked: (isadd) {
+              if (isadd == false) {
+                //load mawjouda w bech enna77ouha
+              } else {
+                //
+              }
+            },
+          )
         ],
       ),
       centerTitle: true,
     );
+  }
+}
+
+class AddToMyload extends StatefulWidget {
+  const AddToMyload({super.key, required this.onclicked});
+  final void Function(bool isadd) onclicked;
+
+  @override
+  State<AddToMyload> createState() => _AddToMyLoadState();
+}
+
+class _AddToMyLoadState extends State<AddToMyload> {
+  bool isAdded = false;
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            isAdded = !isAdded;
+          });
+          widget.onclicked(isAdded);
+        },
+        icon: isAdded
+            ? const Icon(Icons.bookmark)
+            : const Icon(Icons.bookmark_add_outlined));
   }
 }

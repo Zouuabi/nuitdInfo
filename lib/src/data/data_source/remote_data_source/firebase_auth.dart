@@ -7,6 +7,10 @@ class FirebaseAuthentication {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
+  Future<String> getCurrentUserId() async {
+    return _auth.currentUser!.uid;
+  }
+
   Future<User?> register(String email, String password) async {
     var cred = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);

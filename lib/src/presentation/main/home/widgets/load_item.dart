@@ -56,7 +56,7 @@ class LoadItem extends StatelessWidget {
                 ),
                 const Spacer(),
                 SvgPicture.asset(
-                  'assets/images/semi.svg',
+                  'assets/images/${load.truckType}.svg',
                   width: 50,
                   height: 50,
                   // ignore: deprecated_member_use
