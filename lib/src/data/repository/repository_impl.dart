@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doft/src/core/failure.dart';
 import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

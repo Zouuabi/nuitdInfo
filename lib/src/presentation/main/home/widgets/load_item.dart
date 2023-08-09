@@ -11,27 +11,7 @@ class LoadItem extends StatelessWidget {
   final Load load;
   final VoidCallback detailsButton;
 
-  String _formatDate(String date) {
-    final months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Juin',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ];
-    final parts = date.split('-');
 
-    final month = int.parse(parts[1]);
-    final day = int.parse(parts[2]);
-    return '$day ${months[month - 1]}';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +31,7 @@ class LoadItem extends StatelessWidget {
                 Text('age: ${DateHandler.handleAge(age)}'),
                 const Spacer(),
                 Text(
-                  _formatDate(load.loadDate.toString()),
+                  DateHandler.formatDate(load.loadDate.toString()),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const Spacer(),
@@ -80,7 +60,7 @@ class LoadItem extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
-                Text(_formatDate(load.pickUpDate))
+                Text(DateHandler.formatDate(load.pickUpDate))
               ],
             ),
             const SizedBox(
@@ -99,7 +79,7 @@ class LoadItem extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
-                Text(_formatDate(load.dropDownDate))
+                Text(DateHandler.formatDate(load.dropDownDate))
               ],
             ),
             const Divider(),

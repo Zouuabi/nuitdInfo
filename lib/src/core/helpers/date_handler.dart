@@ -1,4 +1,5 @@
 class DateHandler {
+
   static DateTime convertStringToDate({required String date}) {
     List<String> dateParts = date.split('-');
     int year = int.parse(dateParts[0]);
@@ -15,10 +16,38 @@ class DateHandler {
   }
 
   static String handleAge(Duration age) {
-    if (age.inDays > 0) {
-      return "${age.inDays} Days";
+    int d = age.inDays;
+
+    if (d > 0) {
+      if (d == 1) {
+        return "$d Day";
+      }
+      return "$d Days";
     } else {
       return 'Today';
     }
+  }
+
+
+   static  String formatDate(String date) {
+    final months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Juin',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    final parts = date.split('-');
+
+    final month = int.parse(parts[1]);
+    final day = int.parse(parts[2]);
+    return '$day ${months[month - 1]}';
   }
 }

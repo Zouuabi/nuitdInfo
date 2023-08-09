@@ -5,10 +5,11 @@ import 'package:flutter_svg/svg.dart';
 
 class SelectTruckType extends StatefulWidget {
   const SelectTruckType({
-    super.key, required this.onTypeChanged,
+    super.key,
+    required this.onTypeChanged,
   });
 
-  final void Function(String type) onTypeChanged ; 
+  final void Function(String type) onTypeChanged;
 
   @override
   State<SelectTruckType> createState() => _SelectTruckTypeState();
@@ -19,6 +20,8 @@ class _SelectTruckTypeState extends State<SelectTruckType> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
+      dropdownColor: const Color.fromARGB(255, 64, 173, 162),
+      borderRadius: BorderRadius.circular(20),
       iconSize: 30,
       value: value,
       items: const [
@@ -61,7 +64,7 @@ class TruckType extends StatelessWidget {
         imagePath,
         width: 40,
         height: 40,
-        color: Colors.teal,
+        color: Colors.white,
       ),
     );
   }

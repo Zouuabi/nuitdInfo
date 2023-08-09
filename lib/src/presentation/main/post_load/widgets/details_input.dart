@@ -1,8 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/load.dart';
 import '../../../shared/show_alert.dart';
+import 'choose_location_button.dart';
 import 'icon_text_field.dart';
 import 'pick_date_button.dart';
 import 'select_truck_type.dart';
@@ -114,7 +115,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
         Row(
           children: [
             Expanded(
-              child: ChooseLocation(
+              child: ChooseLocationButton(
                 onlocationschanged: (location) {
                   _origin = location;
                 },
@@ -124,7 +125,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
               width: 30,
             ),
             Expanded(
-              child: ChooseLocation(
+              child: ChooseLocationButton(
                 onlocationschanged: (location) {
                   _destination = location;
                 },
@@ -244,65 +245,3 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
   }
 }
 
-class ChooseLocation extends StatefulWidget {
-  const ChooseLocation({
-    super.key,
-    required this.onlocationschanged,
-  });
-
-  final void Function(String location) onlocationschanged;
-
-  @override
-  State<ChooseLocation> createState() => _ChooseLocationState();
-}
-
-class _ChooseLocationState extends State<ChooseLocation> {
-  List<String> towns = [
-    'Tunis',
-    'Sfax',
-    'Sousse',
-    'Kairouan',
-    'Bizerte',
-    'Gabes',
-    'Ariana',
-    'Gafsa',
-    'Kasserine',
-    'Monastir',
-    'Tataouine',
-    'Medenine',
-    'Nabeul',
-    'Beja',
-    'Ben Arous',
-    'Siliana',
-    'Jendouba',
-    'Mahdia',
-    'Kebili',
-    'La Manouba',
-    'Tozeur',
-    'Kef',
-    'Zaghouan',
-    'Sidi Bouzid',
-  ];
-  String selectedLocation = 'choose a place';
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton(
-      value: selectedLocation,
-      items: [
-        const DropdownMenuItem(
-            value: 'choose a place', child: Text('choose a place')),
-        ...(towns
-            .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-            .toList())
-      ],
-      onChanged: (value) {
-        if (value != null) {
-          widget.onlocationschanged(value);
-          setState(() {
-            selectedLocation = value;
-          });
-        }
-      },
-    );
-  }
-}
