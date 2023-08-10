@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (ctx) {
-        return LoginCubit(injector<RepositoryImpl>());
+        return LoginCubit(instance<RepositoryImpl>());
       },
       child: Scaffold(
         body: SafeArea(

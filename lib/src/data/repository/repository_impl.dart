@@ -61,10 +61,12 @@ class RepositoryImpl extends Repository {
             child: 'usersProfileImages', uid: usr!.uid, image: image);
       }
       await firestore.addNewUserInformations(
+          tel: 'mazzel na9ess',
           uid: usr!.uid,
           email: email,
-          userName: username,
-          birthDate: birthdate,
+          username: username,
+          favoriteLoads: [],
+          birdhdate: birthdate,
           imageLink: urlimage);
 
       return const Right(null);
@@ -105,11 +107,12 @@ class RepositoryImpl extends Repository {
   @override
   Future<Either<Failure, MyUser>> getCurrentUserInformation() async {
     try {
-      Map<String, dynamic> a = await firestore
-          .getCurrentUserInformation(await auth.getCurrentUserId());
+      var usr = await auth.getCurrentUserId();
+      Map<String, dynamic> a = await firestore.getCurrentUserInformation(usr);
+
       return right(MyUser.fromfirestore(a));
     } catch (e) {
-      return left(Failure(errrorMessage: 'user not exist'));
+      return left(Failure(errrorMessage: e.toString()));
     }
   }
 
@@ -130,7 +133,32 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, void>> removeLoadFromFavorites(String loadRef) {
-    throw UnimplementedError();
+  Future<Either<Failure, void>> removeLoadFromFavorites(String loadRef) async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await firestore.removeFromFavorites(
+            loadRef: loadRef, uid: await auth.getCurrentUserId());
+
+        return right(null);
+      } catch (e) {
+        return left(Failure(errrorMessage: 'remove load from favorite error'));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'remove load from favorite error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Load>>> readFavoriteLoads(MyUser user) async {
+    if (await internetChecker.isConnected()) {
+      try {
+        List<Load> favoriteLoads = await firestore.readFavoriteLoads(user);
+        return right(favoriteLoads);
+      } catch (e) {
+        return left(Failure(errrorMessage: 'Something went wrong ,Try Later'));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
+    }
   }
 }

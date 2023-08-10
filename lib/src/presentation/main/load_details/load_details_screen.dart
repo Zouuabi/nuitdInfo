@@ -1,6 +1,11 @@
+import 'package:dartz/dartz.dart' as dartz;
+import 'package:doft/src/core/failure.dart';
+import 'package:doft/src/data/repository/repository_impl.dart';
+import 'package:doft/src/injector.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/load.dart';
 
+import '../../../data/models/user.dart';
 import 'widgets/details.dart';
 import '../../shared/map_view.dart';
 
@@ -22,7 +27,7 @@ class LoadDetailsScreen extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      appBar: _getAppBar(),
+      //appBar: _getAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -31,6 +36,10 @@ class LoadDetailsScreen extends StatelessWidget {
               // *** kharita
               MapView(size: size),
               const SizedBox(height: 20),
+
+              ToggleFavorites(loadRef: load.loadRef),
+              const SizedBox(height: 20),
+
               Details(
                 load: load,
               )
@@ -48,13 +57,6 @@ class LoadDetailsScreen extends StatelessWidget {
         children: [
           ToggleFavorites(
             loadRef: load.loadRef,
-            onclicked: (isadd) {
-              if (isadd == false) {
-                //load mawjouda w bech enna77ouha
-              } else {
-                //
-              }
-            },
           )
         ],
       ),
@@ -64,27 +66,57 @@ class LoadDetailsScreen extends StatelessWidget {
 }
 
 class ToggleFavorites extends StatefulWidget {
-  const ToggleFavorites(
-      {super.key, required this.onclicked, required this.loadRef});
-  final void Function(bool isadd) onclicked;
+  const ToggleFavorites({super.key, required this.loadRef});
+
   final String loadRef;
 
   @override
   State<ToggleFavorites> createState() => _ToggoleFavoritesState();
-
-  // sdfsdf sdf
 }
 
 class _ToggoleFavoritesState extends State<ToggleFavorites> {
   bool isAdded = false;
+  late List<dynamic> favoriteLoads;
+
+  void test() async {
+    dartz.Either<Failure, MyUser> result =
+        await repositoryImpl.getCurrentUserInformation();
+
+    result.fold(
+      (l) {
+        isAdded = false;
+      },
+      (user) {
+        favoriteLoads = user.favoriteLoads;
+        if (favoriteLoads.contains(widget.loadRef)) {
+          isAdded = true;
+        }
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    test();
+  }
+
+  final repositoryImpl = instance<RepositoryImpl>();
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          setState(() {
-            isAdded = !isAdded;
-          });
-          widget.onclicked(isAdded);
+        onPressed: () async {
+          if (isAdded == true) {
+            repositoryImpl.removeLoadFromFavorites(widget.loadRef);
+            setState(() {
+              isAdded = false;
+            });
+          } else {
+            repositoryImpl.addLoadToFavorites(widget.loadRef);
+            setState(() {
+              isAdded = true;
+            });
+          }
         },
         icon: isAdded
             ? const Icon(Icons.bookmark)

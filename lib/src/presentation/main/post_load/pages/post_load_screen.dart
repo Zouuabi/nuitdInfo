@@ -8,12 +8,6 @@ import 'package:doft/src/config/routes/routes.dart';
 import 'package:doft/src/presentation/main/post_load/cubits/post_load_cubit.dart';
 import 'package:doft/src/presentation/main/post_load/cubits/post_load_state.dart';
 import 'package:doft/src/presentation/shared/show_alert.dart';
-
-import '../../../../core/internet_checker.dart';
-import '../../../../data/data_source/local_data_source/local_storage.dart';
-import '../../../../data/data_source/remote_data_source/cloud_firestore.dart';
-import '../../../../data/data_source/remote_data_source/firebase_auth.dart';
-import '../../../../data/data_source/remote_data_source/firebase_storage.dart';
 import '../../../../data/repository/repository_impl.dart';
 import '../../../../injector.dart';
 import '../../../shared/map_view.dart';
@@ -28,7 +22,7 @@ class PostLoadScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return BlocProvider<PostCubit>(
         create: (context) {
-          return PostCubit(injector<RepositoryImpl>());
+          return PostCubit(instance<RepositoryImpl>());
         },
         child: Scaffold(
           appBar: AppBar(

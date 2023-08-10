@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'home/pages/home_screen.dart';
+import 'myloads/pages/myloads.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -31,16 +33,18 @@ class _MainScreenState extends State<MainScreen> {
           },
           controller: pagecontroller,
           children: [
-            HomeScreen(),
+            const HomeScreen(),
             Container(
               color: const Color.fromARGB(255, 42, 17, 82),
             ),
-            Container(
-              color: Colors.green,
-            ),
-            Container(
-              color: Colors.red,
-            ),
+            const MyLoads(),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                  },
+                  child: const Text('Log out')),
+            )
           ],
         ),
       ),

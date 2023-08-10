@@ -4,7 +4,6 @@ import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dar
 import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
 import 'package:doft/src/data/data_source/remote_data_source/firebase_storage.dart';
 import 'package:doft/src/data/repository/repository_impl.dart';
-import 'package:doft/src/domain/repositories/repositories.dart';
 import 'package:doft/src/presentation/login/cubit/login_cubit.dart';
 import 'package:doft/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:doft/src/presentation/main/post_load/cubits/post_load_cubit.dart';
@@ -25,7 +24,7 @@ Future<void> globalInstances() async {
 
   instance.registerLazySingleton<CloudStorage>(() => CloudStorage());
 
-  instance.registerLazySingleton<Repository>(() =>
+  instance.registerLazySingleton<RepositoryImpl>(() =>
       RepositoryImpl(localStorage: instance(), internetChecker: instance()));
 }
 

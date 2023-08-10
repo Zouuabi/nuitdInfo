@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:doft/src/domain/repositories/repositories.dart';
+import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +14,7 @@ import '../cubit/home_cubit.dart';
 import '../widgets/load_item.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   // final ScrollController _scrollController = ScrollController();
 
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
-      create: (context) => instance<HomeCubit>(),
+      create: (context) => HomeCubit(instance<RepositoryImpl>()),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.teal,

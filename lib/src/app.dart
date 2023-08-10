@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return LoginScreen(); //LoginScreen()
+            return const LoginScreen(); //LoginScreen()
           }
         },
       ),

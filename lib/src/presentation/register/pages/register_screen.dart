@@ -15,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RegisterCubit>(
-      create: (context) => RegisterCubit(injector<RepositoryImpl>()),
+      create: (context) => RegisterCubit(instance<RepositoryImpl>()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Register'),

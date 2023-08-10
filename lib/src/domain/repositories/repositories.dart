@@ -16,10 +16,9 @@ abstract class Repository {
       required Uint8List? image});
 
   Future<Either<Failure, List<Load>>> readLoads();
-  Future<Either<Failure,void>> postLoad(Map<String,dynamic> load);
+  Future<Either<Failure, void>> postLoad(Map<String, dynamic> load);
   Future<Either<Failure, MyUser>> getCurrentUserInformation();
   Future<Either<Failure, void>> addLoadToFavorites(String loadRef);
   Future<Either<Failure, void>> removeLoadFromFavorites(String loadRef);
-  
-} 
-
+  Future<Either<Failure, List<Load>>> readFavoriteLoads(MyUser user);
+}

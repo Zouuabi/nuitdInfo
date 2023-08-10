@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doft/src/data/models/load.dart';
+
+import '../../models/user.dart';
 
 class CloudFiresore {
   final _firestore = FirebaseFirestore.instance;
@@ -7,12 +10,32 @@ class CloudFiresore {
 
   Future<void> addToFavorites(
       {required String loadRef, required String uid}) async {
-      
-        
-
     await _firestore.collection('users').doc(uid).update({
-    'loads': FieldValue.arrayUnion([loadRef]),
-  });
+      'favoriteLoads': FieldValue.arrayUnion([loadRef]),
+    });
+  }
+
+  Future<List<Load>> readFavoriteLoads(MyUser user) async {
+    List<dynamic> favoriteLoadsRef = user.favoriteLoads;
+    List<Load> favoriteLoads = [];
+    for (String loadRef in favoriteLoadsRef) {
+      DocumentSnapshot<Map<String, dynamic>> docSnapshot =
+          await _firestore.collection('loads').doc(loadRef).get();
+      if (docSnapshot.exists) {
+        favoriteLoads.add(Load.fromfirestore(docSnapshot.data()!));
+      } else {
+        removeFromFavorites(loadRef: loadRef, uid: user.id);
+        throw (Exception('load deleted'));
+      }
+    }
+    return favoriteLoads;
+  }
+
+  Future<void> removeFromFavorites(
+      {required String loadRef, required String uid}) async {
+    await _firestore.collection('users').doc(uid).update({
+      'favoriteLoads': FieldValue.arrayRemove([loadRef]),
+    });
   }
 
   Future<Map<String, dynamic>> getCurrentUserInformation(String uid) async {
@@ -24,20 +47,22 @@ class CloudFiresore {
     return user!;
   }
 
-  Future<void> addNewUserInformations({
-    required String uid,
-    required String imageLink,
-    required String email,
-    required String userName,
-    required String birthDate,
-  }) async {
+  Future<void> addNewUserInformations(
+      {required String uid,
+      required String imageLink,
+      required String username,
+      required String email,
+      required String birdhdate,
+      required String tel,
+      required List<String> favoriteLoads}) async {
     Map<String, dynamic> user = {
       'uid': uid,
       'image': imageLink,
       'email': email,
-      'username': userName,
-      'birthdate': birthDate,
-      'Loads': []
+      'tel': tel,
+      'username': username,
+      'birthdate': birdhdate,
+      'favoriteLoads': []
     };
     await _firestore.collection(collectionrRef).doc(uid).set(user);
   }

@@ -4,7 +4,7 @@ class MyUser {
   final String email;
   final String birdhdate;
   final String tel;
-  final List<String> favoritesLoads;
+  final List<dynamic> favoriteLoads;
 
   const MyUser({
     required this.id,
@@ -12,17 +12,18 @@ class MyUser {
     required this.email,
     required this.birdhdate,
     required this.tel,
-    required this.favoritesLoads,
+    required this.favoriteLoads,
   });
 
   factory MyUser.fromfirestore(Map<String, dynamic> map) {
     return MyUser(
-        id: map['uid'],
-        username: map['username'],
-        email: map['email'],
-        birdhdate: map['birdhdate'],
-        tel: map['tel'],
-        favoritesLoads: map['favoritesLoads']);
+      id: map['uid'] ?? 'null',
+      username: map['username'] ?? 'null',
+      email: map['email'] ?? 'null',
+      birdhdate: map['birdhdate'] ?? 'null',
+      tel: map['tel'] ?? 'null',
+      favoriteLoads: map['favoriteLoads'] ?? 'null',
+    );
   }
 
   Map<String, dynamic> toFirestore() => {
@@ -31,6 +32,6 @@ class MyUser {
         'email': email,
         'birdhdate': birdhdate,
         'tel': tel,
-        'favoritesLoads': favoritesLoads,
+        'favoriteLoads': favoriteLoads,
       };
 }
