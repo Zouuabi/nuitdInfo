@@ -28,11 +28,7 @@ class PostLoadScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return BlocProvider<PostCubit>(
         create: (context) {
-          return PostCubit(RepositoryImpl(
-        localStorage: LocalStorage(),        internetChecker: InternetCheckerImpl(),
-          auth: FirebaseAuthentication(),
-          firestore: CloudFiresore(),
-          storage: CloudStorage()));
+          return PostCubit(injector<RepositoryImpl>());
         },
         child: Scaffold(
           appBar: AppBar(

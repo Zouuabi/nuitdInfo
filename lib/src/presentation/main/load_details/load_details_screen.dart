@@ -1,6 +1,5 @@
 import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:flutter/material.dart';
-
 import '../../../data/models/load.dart';
 import '../../../injector.dart';
 import 'widgets/details.dart';
@@ -49,6 +48,7 @@ class LoadDetailsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ToggleFavorites(
+            loadRef: load.loadRef,
             onclicked: (isadd) {
               if (isadd == false) {
                 //load mawjouda w bech enna77ouha
@@ -65,19 +65,19 @@ class LoadDetailsScreen extends StatelessWidget {
 }
 
 class ToggleFavorites extends StatefulWidget {
-  const ToggleFavorites({super.key, required this.onclicked});
+  const ToggleFavorites(
+      {super.key, required this.onclicked, required this.loadRef});
   final void Function(bool isadd) onclicked;
+  final String loadRef;
 
   @override
   State<ToggleFavorites> createState() => _ToggoleFavoritesState();
 
-
-  // sdfsdf sdf 
+  // sdfsdf sdf
 }
 
 class _ToggoleFavoritesState extends State<ToggleFavorites> {
-
-  final g = instance<RepositoryImpl>(); 
+  final g = injector<RepositoryImpl>();
   bool isAdded = false;
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _ToggoleFavoritesState extends State<ToggleFavorites> {
         onPressed: () {
           setState(() {
             isAdded = !isAdded;
-            g.addLoadToFavorites(loadRef); 
+            g.addLoadToFavorites(widget.loadRef);
           });
           widget.onclicked(isAdded);
         },

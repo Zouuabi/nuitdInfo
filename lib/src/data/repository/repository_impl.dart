@@ -16,18 +16,13 @@ import '../models/load.dart';
 import '../models/user.dart';
 
 class RepositoryImpl extends Repository {
-  RepositoryImpl(
-      {required this.auth,
-      required this.storage,
-      required this.firestore,
-      required this.internetChecker,
-      required this.localStorage});
+  RepositoryImpl({required this.internetChecker, required this.localStorage});
 
-  final FirebaseAuthentication auth;
-  final CloudStorage storage;
-  final CloudFiresore firestore;
+  final FirebaseAuthentication auth = FirebaseAuthentication();
+  final CloudStorage storage = CloudStorage();
+  final CloudFiresore firestore = CloudFiresore();
+
   final InternetCheckerImpl internetChecker;
-
   final LocalStorage localStorage;
 
   List<Load> _toLoad(List<Map<String, dynamic>> listmaps) {

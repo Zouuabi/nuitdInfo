@@ -11,7 +11,6 @@ import '../../presentation/main/main_screen.dart';
 import '../../injector.dart';
 
 class Routes {
-
   static const String splash = "/";
   static const String login = "/login";
   static const String register = "/register";
@@ -27,14 +26,12 @@ class RouteGenerator {
       // splash screen case
       case Routes.main:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          homeInstances();
           return const MainScreen();
         });
 
       // **************************
       case Routes.login:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          loginInstances();
           return LoginScreen();
         });
 
@@ -42,7 +39,6 @@ class RouteGenerator {
 
       case Routes.register:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          registerInstances();
           return const RegisterScreen();
         });
 
@@ -59,7 +55,6 @@ class RouteGenerator {
 
       case Routes.postLoad:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          postInstances();
           return const PostLoadScreen();
         });
       //************************** */

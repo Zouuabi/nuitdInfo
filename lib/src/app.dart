@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             // anna donne jeya m stream
             if (snapshot.hasData) {
               // user is logged in => home Screen
-              return const MainScreen();
+              return LoginScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }
@@ -50,7 +50,6 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            loginInstances();
             return LoginScreen(); //LoginScreen()
           }
         },

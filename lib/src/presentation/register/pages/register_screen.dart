@@ -1,3 +1,4 @@
+import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
 import 'package:doft/src/presentation/shared/show_date_picker.dart';
 import 'package:doft/src/presentation/shared/text_field.dart';
@@ -14,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RegisterCubit>(
-      create: (context) => instance<RegisterCubit>(),
+      create: (context) => RegisterCubit(injector<RepositoryImpl>()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Register'),

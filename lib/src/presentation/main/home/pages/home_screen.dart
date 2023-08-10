@@ -48,15 +48,10 @@ class HomeScreen extends StatelessWidget {
   //   }
   // }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
-      create: (context) => HomeCubit(RepositoryImpl(
-        localStorage: LocalStorage(),        internetChecker: InternetCheckerImpl(),
-          auth: FirebaseAuthentication(),
-          firestore: CloudFiresore(),
-          storage: CloudStorage())),
+      create: (context) => HomeCubit(injector<RepositoryImpl>()),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.teal,

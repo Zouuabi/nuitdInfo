@@ -1,3 +1,4 @@
+import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,15 +13,13 @@ import '../widgets/myform.dart';
 import '../../../injector.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-
-  final loginCubit = instance<LoginCubit>();
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (ctx) {
-        return loginCubit;
+        return LoginCubit(injector<RepositoryImpl>());
       },
       child: Scaffold(
         body: SafeArea(

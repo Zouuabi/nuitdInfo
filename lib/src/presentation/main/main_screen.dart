@@ -17,7 +17,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    homeInstances();
   }
 
   @override
