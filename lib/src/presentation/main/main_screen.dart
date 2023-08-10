@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../injector.dart';
 import 'home/pages/home_screen.dart';
 
 class MainScreen extends StatefulWidget {

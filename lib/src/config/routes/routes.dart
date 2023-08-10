@@ -25,12 +25,14 @@ class RouteGenerator {
     switch (settings.name) {
       // splash screen case
       case Routes.main:
+        homeInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const MainScreen();
         });
 
       // **************************
       case Routes.login:
+        loginInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return LoginScreen();
         });
@@ -38,6 +40,7 @@ class RouteGenerator {
       //************************* */
 
       case Routes.register:
+        registerInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const RegisterScreen();
         });
@@ -54,6 +57,7 @@ class RouteGenerator {
       //************************** */
 
       case Routes.postLoad:
+        postInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const PostLoadScreen();
         });

@@ -8,11 +8,9 @@ import 'src/app.dart';
 import 'src/injector.dart';
 
 void main() async {
+  await globalInstances();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  GlobalInsatances();
 
   runApp(const MyApp());
 }
-
-// hive 

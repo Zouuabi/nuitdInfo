@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'config/routes/routes.dart';
 import 'injector.dart';
 
-/// todo: change the Geopoint imp to four variables
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -37,7 +35,8 @@ class MyApp extends StatelessWidget {
             // anna donne jeya m stream
             if (snapshot.hasData) {
               // user is logged in => home Screen
-              return LoginScreen();
+              homeInstances();
+              return const MainScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }

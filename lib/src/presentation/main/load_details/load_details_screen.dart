@@ -1,7 +1,6 @@
-import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/load.dart';
-import '../../../injector.dart';
+
 import 'widgets/details.dart';
 import '../../shared/map_view.dart';
 
@@ -77,7 +76,6 @@ class ToggleFavorites extends StatefulWidget {
 }
 
 class _ToggoleFavoritesState extends State<ToggleFavorites> {
-  final g = injector<RepositoryImpl>();
   bool isAdded = false;
   @override
   Widget build(BuildContext context) {
@@ -85,7 +83,6 @@ class _ToggoleFavoritesState extends State<ToggleFavorites> {
         onPressed: () {
           setState(() {
             isAdded = !isAdded;
-            g.addLoadToFavorites(widget.loadRef);
           });
           widget.onclicked(isAdded);
         },
