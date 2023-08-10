@@ -15,11 +15,10 @@ import 'presentation/register/cubit/register_cubit.dart';
 
 GetIt instance = GetIt.instance;
 
-void globalInstances() {
-
-
+Future<void> globalInstances() async {
   instance.registerLazySingleton<LocalStorage>(() => LocalStorage());
-  instance.registerLazySingleton<InternetChecker>(() => InternetCheckerImpl());
+  instance
+      .registerLazySingleton<InternetCheckerImpl>(() => InternetCheckerImpl());
 
   instance.registerLazySingleton<FirebaseAuthentication>(
       () => FirebaseAuthentication());
@@ -28,7 +27,7 @@ void globalInstances() {
 
   instance.registerLazySingleton<CloudStorage>(() => CloudStorage());
 
-  instance.registerLazySingleton<RepositoryImpl>(() => RepositoryImpl(
+  instance.registerLazySingleton<Repository>(() => RepositoryImpl(
       auth: instance(),
       storage: instance(),
       firestore: instance(),
@@ -53,6 +52,7 @@ void homeInstances() {
     instance.registerFactory<HomeCubit>(() => HomeCubit(instance()));
   }
 }
+
 void postInstances() {
   if (!GetIt.I.isRegistered<PostCubit>()) {
     instance.registerFactory<PostCubit>(() => PostCubit(instance()));

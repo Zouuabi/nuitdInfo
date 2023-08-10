@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../injector.dart';
+
 import 'home/pages/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    homeInstances();
+  
   }
 
   @override

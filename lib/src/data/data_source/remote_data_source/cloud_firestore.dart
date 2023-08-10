@@ -7,6 +7,7 @@ class CloudFiresore {
 
   Future<void> addToFavorites(
       {required String loadRef, required String uid}) async {
+      
         
 
     await _firestore.collection('users').doc(uid).update({
