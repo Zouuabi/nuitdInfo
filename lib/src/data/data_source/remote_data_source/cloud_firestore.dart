@@ -8,10 +8,28 @@ class CloudFiresore {
   String collectionrRef = 'users';
   String documentRef = '';
 
+  Future<List<Load>> fetchMyLoads({required String brokerUid}) async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+        .collection('loads')
+        .where('brokerUid', isEqualTo: brokerUid)
+        .get();
+
+    return querySnapshot.docs.map((load) {
+      return Load.fromfirestore(load.data());
+    }).toList();
+  }
+
   Future<void> addToFavorites(
       {required String loadRef, required String uid}) async {
     await _firestore.collection('users').doc(uid).update({
       'favoriteLoads': FieldValue.arrayUnion([loadRef]),
+    });
+  }
+
+  Future<void> removeFromFavorites(
+      {required String loadRef, required String uid}) async {
+    await _firestore.collection('users').doc(uid).update({
+      'favoriteLoads': FieldValue.arrayRemove([loadRef]),
     });
   }
 
@@ -29,13 +47,6 @@ class CloudFiresore {
       }
     }
     return favoriteLoads;
-  }
-
-  Future<void> removeFromFavorites(
-      {required String loadRef, required String uid}) async {
-    await _firestore.collection('users').doc(uid).update({
-      'favoriteLoads': FieldValue.arrayRemove([loadRef]),
-    });
   }
 
   Future<Map<String, dynamic>> getCurrentUserInformation(String uid) async {
@@ -67,9 +78,10 @@ class CloudFiresore {
     await _firestore.collection(collectionrRef).doc(uid).set(user);
   }
 
-  Future<void> postLoad(Map<String, dynamic> load) async {
+  Future<void> postLoad(Map<String, dynamic> load, String brokerUid) async {
     var refdoc = _firestore.collection('loads').doc();
     load['loadRef'] = refdoc.id;
+    load['brokerUid'] = brokerUid;
     await refdoc.set(load);
   }
 

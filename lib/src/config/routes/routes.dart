@@ -34,7 +34,7 @@ class RouteGenerator {
       case Routes.login:
         loginInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return LoginScreen();
+          return const LoginScreen();
         });
 
       //************************* */

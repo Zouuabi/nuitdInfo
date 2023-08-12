@@ -1,9 +1,9 @@
-
 import 'package:equatable/equatable.dart';
 
 class Load extends Equatable {
   const Load(
-      {required this.loadRef,
+      {required this.brokerUid,
+      required this.loadRef,
       required this.brokerName,
       required this.brokerPhone,
       required this.origin,
@@ -15,6 +15,8 @@ class Load extends Equatable {
       required this.price,
       required this.weigth,
       required this.description});
+
+  final String brokerUid;
 
   final String loadRef;
   final String brokerName;
@@ -42,10 +44,12 @@ class Load extends Equatable {
         'weigth': weigth,
         'price': price,
         'description': description,
+        'brokerUid': brokerUid,
       };
 
   factory Load.fromfirestore(Map<String, dynamic> map) {
     return Load(
+      brokerUid: map['brokerUid'],
       loadRef: map['loadRef'],
       brokerName: map['broker'],
       brokerPhone: map['brokerPhone'],
@@ -63,6 +67,7 @@ class Load extends Equatable {
 
   @override
   List<Object?> get props => [
+        brokerUid,
         loadRef,
         brokerName,
         brokerPhone,

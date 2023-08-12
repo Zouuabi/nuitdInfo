@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:doft/src/data/repository/repository_impl.dart';
+import 'package:doft/src/presentation/main/post_load/pages/post_load_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,7 @@ import '../../../../config/routes/routes.dart';
 
 import '../../../../injector.dart';
 import '../cubit/home_cubit.dart';
-import '../widgets/load_item.dart';
+import '../../../shared/load_item.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -70,19 +71,34 @@ class HomeScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is HomeLoading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is HomeLoadingCompeleted) {
+              } else if (state is HomeLoadingCompeleted &&
+                  state.loads.isNotEmpty) {
                 return ListView.builder(
                     padding: const EdgeInsets.all(20),
                     itemCount: state.loads.length,
                     itemBuilder: (context, index) {
-                      return LoadItem(
-                        detailsButton: () {
-                          Navigator.pushNamed(context, Routes.loadDetails,
-                              arguments: state.loads[index]);
-                        },
-                        load: state.loads[index],
-                      );
+                      if (index == 0) {
+                        // todo : kima add post
+                        return Container(
+                          color: Colors.teal,
+                          width: double.infinity,
+                          height: 300,
+                        );
+                      } else {
+                        return LoadItem(
+                          detailsButton: () {
+                            Navigator.pushNamed(context, Routes.loadDetails,
+                                arguments: state.loads[index]);
+                          },
+                          load: state.loads[index]!,
+                        );
+                      }
                     });
+              } else if (state is HomeLoadingCompeleted &&
+                  state.loads.isEmpty) {
+                return const Center(
+                  child: Text('No Loads Yet'),
+                );
               } else {
                 state as HomeError;
                 return Center(

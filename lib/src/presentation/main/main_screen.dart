@@ -1,8 +1,9 @@
+import 'package:doft/src/presentation/main/my_loads/my_loads_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'home/pages/home_screen.dart';
-import 'myloads/pages/myloads.dart';
+import 'favorite_loads/pages/favorites_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -34,10 +35,8 @@ class _MainScreenState extends State<MainScreen> {
           controller: pagecontroller,
           children: [
             const HomeScreen(),
-            Container(
-              color: const Color.fromARGB(255, 42, 17, 82),
-            ),
-            const MyLoads(),
+            const MyLoadsScreen(),
+            const FavoritesScreen(),
             Center(
               child: ElevatedButton(
                   onPressed: () {
@@ -72,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
         selectedItemColor: Colors.teal,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.travel_explore), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.work_history), label: ''),
           BottomNavigationBarItem(
               icon: Icon(Icons.bookmark_outlined), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),

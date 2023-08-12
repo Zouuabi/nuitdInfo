@@ -13,13 +13,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getloads() async {
     emit(HomeLoading());
-    Either<Failure, List<Load>> result = await repos.readLoads();
+    Either<Failure, List<Load?>> result = await repos.readLoads();
     result.fold(
       (failure) {
         emit(HomeError(message: failure.errrorMessage));
       },
       (loads) {
-        emit(HomeLoadingCompeleted(loads: loads));
+        emit(HomeLoadingCompeleted(loads: [null, ...loads]));
       },
     );
   }

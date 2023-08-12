@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/load.dart';
@@ -223,6 +222,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                 onPressed: () {
                   if (_checkForm()) {
                     widget.onFormSubmited(Load(
+                        brokerUid: '',
                         loadRef: '',
                         brokerName: _nameController.text,
                         brokerPhone: _telController.text,
@@ -244,4 +244,3 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
     );
   }
 }
-

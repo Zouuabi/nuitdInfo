@@ -76,7 +76,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, List<Load>>> readLoads() async {
+  Future<Either<Failure, List<Load?>>> readLoads() async {
     if (await internetChecker.isConnected()) {
       try {
         List<Map<String, dynamic>> list = await firestore.readLoads();
@@ -94,7 +94,7 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, void>> postLoad(Map<String, dynamic> load) async {
     if (await internetChecker.isConnected()) {
       try {
-        await firestore.postLoad(load);
+        await firestore.postLoad(load, await auth.getCurrentUserId());
         return right(null);
       } catch (e) {
         return left(Failure(errrorMessage: 'Something Went Wrong'));
@@ -149,13 +149,31 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, List<Load>>> readFavoriteLoads(MyUser user) async {
+  Future<Either<Failure, List<Load>>> readFavoriteLoads() async {
     if (await internetChecker.isConnected()) {
+      Map<String, dynamic> user = await firestore
+          .getCurrentUserInformation(await auth.getCurrentUserId());
       try {
-        List<Load> favoriteLoads = await firestore.readFavoriteLoads(user);
+        List<Load> favoriteLoads =
+            await firestore.readFavoriteLoads(MyUser.fromfirestore(user));
         return right(favoriteLoads);
       } catch (e) {
         return left(Failure(errrorMessage: 'Something went wrong ,Try Later'));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Load>>> readMyLoads() async {
+    if (await internetChecker.isConnected()) {
+      try {
+        List<Load> loads = await firestore.fetchMyLoads(
+            brokerUid: await auth.getCurrentUserId());
+        return right(loads);
+      } catch (e) {
+        return left(Failure(errrorMessage: 'Some thing Went Wrong'));
       }
     } else {
       return left(Failure(errrorMessage: 'there is no internet connection'));
