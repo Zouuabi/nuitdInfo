@@ -43,7 +43,7 @@ class _ChooseLocationButtonState extends State<ChooseLocationButton> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      dropdownColor: const Color.fromARGB(255, 64, 173, 162),
+      dropdownColor: Color.fromARGB(255, 42, 45, 45),
       borderRadius: BorderRadius.circular(20),
       menuMaxHeight: 400,
       value: selectedLocation,

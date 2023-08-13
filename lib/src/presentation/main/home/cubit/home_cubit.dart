@@ -10,6 +10,16 @@ class HomeCubit extends Cubit<HomeState> {
     getloads();
   }
   final Repository repos;
+  List<Load?> listLoads = [];
+
+  List<Load?> filterLoads({String? origin, String? destination, String? type}) {
+    List<Load?> filteredList = listLoads.where((load) {
+      return (origin == null || load!.origin == origin) &&
+          (destination == null || load!.destination == destination) &&
+          (type == null || load!.truckType == type);
+    }).toList();
+    return filteredList;
+  }
 
   void getloads() async {
     emit(HomeLoading());
@@ -19,6 +29,7 @@ class HomeCubit extends Cubit<HomeState> {
         emit(HomeError(message: failure.errrorMessage));
       },
       (loads) {
+        listLoads = loads;
         emit(HomeLoadingCompeleted(loads: [null, ...loads]));
       },
     );

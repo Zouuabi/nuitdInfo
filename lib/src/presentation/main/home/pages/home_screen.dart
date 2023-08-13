@@ -11,6 +11,8 @@ import 'package:doft/src/presentation/main/home/cubit/home_state.dart';
 import '../../../../config/routes/routes.dart';
 
 import '../../../../injector.dart';
+import '../../../shared/choose_location_button.dart';
+import '../../../shared/select_truck_type.dart';
 import '../cubit/home_cubit.dart';
 import '../../../shared/load_item.dart';
 
@@ -50,16 +52,61 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider<HomeCubit>(
       create: (context) => HomeCubit(instance<RepositoryImpl>()),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.teal,
-          onPressed: () async {
-            Navigator.pushNamed(context, Routes.postLoad);
-          },
-          child: const Icon(
-            Icons.add_road_sharp,
-            color: Colors.white,
-            size: 40,
-          ),
+        appBar: AppBar(
+          title: ListTile(
+              title: const Text(
+                'mouvema',
+                style: TextStyle(fontSize: 20),
+              ),
+              trailing: IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          String origin, destination, type;
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: 100),
+                            child: AlertDialog(
+                                title: const Text(
+                                  'Filter',
+                                ),
+                                content: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 50,
+                                      width: 250,
+                                      child: ChooseLocationButton(
+                                          onlocationschanged: (origin) {}),
+                                    ),
+                                    SizedBox(
+                                      height: 50,
+                                      width: 250,
+                                      child: ChooseLocationButton(
+                                          onlocationschanged: (destination) {}),
+                                    ),
+                                    SizedBox(
+                                      height: 50,
+                                      width: 250,
+                                      child: SelectTruckType(
+                                        onTypeChanged: (type) {},
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Cancel')),
+                                  ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('Search'))
+                                ]),
+                          );
+                        });
+                  },
+                  icon: const Icon(Icons.filter_alt_outlined, size: 30))),
         ),
         body: RefreshIndicator(
           onRefresh: () async {
@@ -79,10 +126,21 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         // todo : kima add post
-                        return Container(
-                          color: Colors.teal,
-                          width: double.infinity,
-                          height: 300,
+                        return SizedBox(
+                          height: 60,
+                          child: ElevatedButton.icon(
+                              style: ButtonStyle(
+                                  iconSize: MaterialStateProperty.all(30),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.teal)),
+                              onPressed: () {
+                                Navigator.pushNamed(context, Routes.postLoad);
+                              },
+                              icon: const Icon(Icons.add_road),
+                              label: const Text(
+                                'Add a Post',
+                                style: TextStyle(fontSize: 20),
+                              )),
                         );
                       } else {
                         return LoadItem(

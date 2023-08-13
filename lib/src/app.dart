@@ -15,6 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
           iconTheme: const IconThemeData(color: Colors.teal),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Color.fromARGB(66, 61, 58, 58)),
           dividerColor: Colors.teal.shade200,
           colorScheme: const ColorScheme(
               brightness: Brightness.dark,

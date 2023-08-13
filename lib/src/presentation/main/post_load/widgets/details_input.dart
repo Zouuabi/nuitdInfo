@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/models/load.dart';
 import '../../../shared/show_alert.dart';
-import 'choose_location_button.dart';
+import '../../../shared/choose_location_button.dart';
 import 'icon_text_field.dart';
 import 'pick_date_button.dart';
-import 'select_truck_type.dart';
+import '../../../shared/select_truck_type.dart';
 
 class LoadDetailsForm extends StatefulWidget {
   const LoadDetailsForm({
