@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../data/models/load.dart';
@@ -38,10 +40,6 @@ class LoadDetailsScreen extends StatelessWidget {
               // *** kharita
               MapView(size: size),
               const SizedBox(height: 20),
-
-              ToggleFavorites(loadRef: load.loadRef),
-              const SizedBox(height: 20),
-
               Details(
                 load: load,
               )
