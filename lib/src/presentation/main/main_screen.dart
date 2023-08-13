@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
           },
           controller: pagecontroller,
           children: [
-            const HomeScreen(),
+            HomeScreen(),
             const MyLoadsScreen(),
             const FavoritesScreen(),
             Center(

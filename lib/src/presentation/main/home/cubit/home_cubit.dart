@@ -1,35 +1,40 @@
 import 'package:dartz/dartz.dart';
 import 'package:doft/src/core/failure.dart';
-import 'package:doft/src/domain/repositories/repositories.dart';
+
 import 'package:doft/src/presentation/main/home/cubit/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/load.dart';
+import '../../../../data/repository/repository_impl.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.repos) : super(HomeLoading()) {
     getloads();
   }
-  final Repository repos;
+  final RepositoryImpl repos;
   List<Load?> listLoads = [];
 
-  List<Load?> filterLoads({String? origin, String? destination, String? type}) {
+  void filterLoads({String? origin, String? destination, String? type}) {
+    emit(HomeLoading());
     List<Load?> filteredList = listLoads.where((load) {
       return (origin == null || load!.origin == origin) &&
           (destination == null || load!.destination == destination) &&
           (type == null || load!.truckType == type);
     }).toList();
-    return filteredList;
+    emit(HomeLoadingCompeleted(loads: [null, ...filteredList]));
   }
 
-  void getloads() async {
-    emit(HomeLoading());
+  void getloads({bool isrefresh = false}) async {
+    if (!isrefresh) {
+      emit(HomeLoading());
+    }
     Either<Failure, List<Load?>> result = await repos.readLoads();
     result.fold(
       (failure) {
         emit(HomeError(message: failure.errrorMessage));
       },
       (loads) {
-        listLoads = loads;
+        listLoads.addAll(loads);
+
         emit(HomeLoadingCompeleted(loads: [null, ...loads]));
       },
     );
