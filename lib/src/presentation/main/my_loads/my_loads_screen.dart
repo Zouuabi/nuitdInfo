@@ -56,7 +56,9 @@ class MyLoadsScreen extends StatelessWidget {
               );
             } else {
               return const Center(
-                child: Text('Something Went Wrong'),
+                child: Text(
+                  'Something Went Wrong',
+                ),
               );
             }
           },
