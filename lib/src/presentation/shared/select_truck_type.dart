@@ -20,7 +20,6 @@ class _SelectTruckTypeState extends State<SelectTruckType> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      dropdownColor: const Color.fromARGB(255, 64, 173, 162),
       borderRadius: BorderRadius.circular(20),
       iconSize: 30,
       value: value,
@@ -64,7 +63,6 @@ class TruckType extends StatelessWidget {
         imagePath,
         width: 40,
         height: 40,
-        color: Colors.white,
       ),
     );
   }

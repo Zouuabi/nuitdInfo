@@ -1,3 +1,4 @@
+import 'package:doft/src/core/utils/colors_manager.dart';
 import 'package:doft/src/presentation/main/my_loads/my_loads_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +55,10 @@ class _MainScreenState extends State<MainScreen> {
     return Container(
       decoration: const BoxDecoration(
         boxShadow: [
-          BoxShadow(blurRadius: 20, spreadRadius: 1),
+          BoxShadow(blurRadius: 10),
         ],
       ),
       child: BottomNavigationBar(
-        backgroundColor: Colors.red,
         iconSize: 40,
         currentIndex: index,
         onTap: (value) {
@@ -67,8 +67,8 @@ class _MainScreenState extends State<MainScreen> {
             pagecontroller.jumpToPage(index);
           });
         },
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.teal,
+        unselectedItemColor: ColorManager.mouvemaPink400,
+        selectedItemColor: ColorManager.mouvemaBrown900,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.work_history), label: ''),

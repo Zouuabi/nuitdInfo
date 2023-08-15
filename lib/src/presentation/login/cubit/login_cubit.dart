@@ -45,7 +45,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     emit(LoginLoading());
     if (!isValidEmail(_emailController.text)) {
-      emit(const LoginError(errorMessage: 'hot email mte3k f termtk'));
+      emit(const LoginError(errorMessage: 'Invalid Email'));
       return;
     }
     Either<Failure, void> result = await repositoryImpl.signIn(

@@ -38,7 +38,6 @@ class LoadItem extends StatelessWidget {
                   width: 50,
                   height: 50,
                   // ignore: deprecated_member_use
-                  color: Colors.white60,
                 ),
               ],
             ),
@@ -96,7 +95,7 @@ class LoadItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                ElevatedButton(
+                FilledButton(
                   onPressed: detailsButton,
                   child: const Text(
                     'View Details',
