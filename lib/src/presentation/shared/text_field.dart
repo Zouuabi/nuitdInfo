@@ -33,7 +33,7 @@ class _MyTextFieldState extends State<MyTextField> {
 
   final Icon invisibleIcon = const Icon(
     Icons.remove_red_eye_outlined,
-    color: ColorManager.mouvemaPink400,
+    color: ColorManager.mouvemaTeal,
   );
   final Icon visibleIcon = const Icon(
     Icons.panorama_fish_eye,

@@ -19,6 +19,7 @@ class RegisterScreen extends StatelessWidget {
       create: (context) => RegisterCubit(instance<RepositoryImpl>()),
       child: Scaffold(
         appBar: AppBar(
+          elevation: 4,
           title: const Text('Register'),
           centerTitle: true,
         ),

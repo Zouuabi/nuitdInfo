@@ -1,9 +1,8 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:doft/src/config/themes/themes.dart';
 import 'package:doft/src/presentation/login/pages/login_screen.dart';
-import 'package:doft/src/presentation/main/home/pages/home_screen.dart';
+
 import 'package:doft/src/presentation/main/main_screen.dart';
-import 'package:doft/src/presentation/register/pages/register_screen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -59,6 +58,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               // user is logged in => home Screen
               homeInstances();
+              fillProfileInstances();
               return const MainScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
@@ -72,8 +72,9 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
+            loginInstances();
             homeInstances();
-            return const MainScreen(); //LoginScreen()
+            return const LoginScreen(); //LoginScreen()
           }
         },
       ),

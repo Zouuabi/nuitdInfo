@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart' show Color;
+import 'package:flutter/material.dart';
 
 class ColorManager {
-  static const mouvemaPink50 = Color(0xFFFEEAE6);
+  static const mouvemaTeal = Colors.teal;
   static const mouvemaPink100 = Color(0xFFFEDBD0);
   static const mouvemaPink300 = Color(0xFFFBB8AC);
   static const mouvemaPink400 = Color(0xFFEAA4A4);

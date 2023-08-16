@@ -1,3 +1,5 @@
+import 'package:doft/src/presentation/login/pages/login_with_password.dart';
+import 'package:doft/src/presentation/main/fill_profil/fill_profile_screen.dart';
 import 'package:doft/src/presentation/main/post_load/pages/post_load_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,28 +15,40 @@ import '../../injector.dart';
 class Routes {
   static const String splash = "/";
   static const String login = "/login";
+  static const String loginWithPassword = "/loginWithPassword";
   static const String register = "/register";
-  static const String home = "/home";
+
   static const String main = "/main";
   static const String loadDetails = "/loadDetails";
   static const String postLoad = "/postLoad";
+  static const String fillProfil = "/fillProfil";
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.login:
+        loginInstances();
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          return const LoginScreen();
+        });
+      case Routes.loginWithPassword:
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          return const LoginWithPassword();
+        });
       // splash screen case
       case Routes.main:
         homeInstances();
+        fillProfileInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const MainScreen();
         });
 
       // **************************
-      case Routes.login:
-        loginInstances();
+      case Routes.fillProfil:
+        fillProfileInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const LoginScreen();
+          return const FillProfileScreen();
         });
 
       //************************* */

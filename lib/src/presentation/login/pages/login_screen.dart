@@ -1,5 +1,5 @@
 import 'package:doft/src/core/utils/colors_manager.dart';
-import 'package:doft/src/data/repository/repository_impl.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,14 +17,14 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (ctx) {
-        return LoginCubit(instance<RepositoryImpl>());
+      create: (context) {
+        return instance<LoginScreenCubit>();
       },
       child: Scaffold(
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-            child: BlocConsumer<LoginCubit, LoginScreenState>(
+            child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
               listener: (ctx, state) {
                 if (state.status == Status.failed) {
                   showDialog(
@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Ahla b nahla ',
+                              'Risk Money Money theb flouuuuus !',
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.headlineLarge,
                             ),
@@ -75,7 +75,10 @@ class LoginScreen extends StatelessWidget {
                                   Icons.g_mobiledata,
                                   size: 50,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  instance<LoginScreenCubit>()
+                                      .continueWithGoogle();
+                                },
                                 label: Text(
                                   'Continue With Google  ',
                                   style: Theme.of(context).textTheme.labelLarge,
@@ -109,7 +112,10 @@ class LoginScreen extends StatelessWidget {
                             SizedBox(
                               height: 70,
                               child: FilledButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, Routes.loginWithPassword);
+                                  },
                                   child: const Text(
                                     'Sign in with password',
                                   )),
@@ -118,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Don\t have an account ? ',
+                                  'Don\'t have an account ? ',
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
                                 ),

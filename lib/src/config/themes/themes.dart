@@ -66,6 +66,8 @@ ThemeData buildTheme(BuildContext context) {
     scaffoldBackgroundColor: const Color.fromARGB(255, 216, 233, 231),
 
     appBarTheme: const AppBarTheme(
+      titleSpacing: 2,
+      centerTitle: true,
       foregroundColor: ColorManager.mouvemaBrown900,
       backgroundColor: Color.fromARGB(255, 120, 213, 191),
     ),
@@ -79,12 +81,14 @@ ThemeData buildTheme(BuildContext context) {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: const Color.fromARGB(255, 234, 255, 253),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(
-          width: 2.0,
-          color: ColorManager.mouvemaBrown900,
+          width: 1.0,
+          color: Colors.teal,
         ),
       ),
       floatingLabelStyle: const TextStyle(

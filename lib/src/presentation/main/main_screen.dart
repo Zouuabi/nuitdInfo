@@ -9,6 +9,8 @@ import 'home/pages/home_screen.dart';
 import 'favorite_loads/pages/favorites_screen.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 
+import 'profile/profile_screen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -76,13 +78,7 @@ class _MainScreenState extends State<MainScreen> {
           HomeScreen(),
           const MyLoadsScreen(),
           const FavoritesScreen(),
-          Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                child: const Text('Log out')),
-          )
+          const ProfileScreen()
         ],
       ),
     );
