@@ -31,13 +31,13 @@ class MyTextField extends StatefulWidget {
 class _MyTextFieldState extends State<MyTextField> {
   bool isVisible = false;
 
-  final Icon invisibleIcon = Icon(
+  final Icon invisibleIcon = const Icon(
     Icons.remove_red_eye_outlined,
-    color: ColorsManager.enabled,
+    color: ColorManager.mouvemaTeal,
   );
-  final Icon visibleIcon = Icon(
+  final Icon visibleIcon = const Icon(
     Icons.panorama_fish_eye,
-    color: ColorsManager.primary,
+    color: ColorManager.mouvemaBrown900,
   );
 
   @override
@@ -49,8 +49,6 @@ class _MyTextFieldState extends State<MyTextField> {
       controller: widget.controller,
       obscureText: widget.isPassword ? !isVisible : isVisible,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white24,
         prefixIcon: Icon(widget.icon),
         hintText: widget.hintText,
         errorText: widget.isError ? widget.errorMessage : null,

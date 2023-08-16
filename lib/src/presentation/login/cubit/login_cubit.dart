@@ -1,17 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:doft/src/core/helpers/email_checker.dart';
+import 'package:doft/src/presentation/login/pages/login_screen.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../core/failure.dart';
+import '../../../data/repository/repository_impl.dart';
 import '../../../domain/repositories/repositories.dart';
-
 part 'login_state.dart';
 
-class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this.repositoryImpl) : super(LoginInitial());
-  Repository repositoryImpl;
+class LoginScreenCubit extends Cubit<LoginScreenState> {
+  LoginScreenCubit(this.repositoryImpl)
+      : super(const LoginScreenState(status: Status.initial));
+  RepositoryImpl repositoryImpl;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -19,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
   bool isPasswordEmpty = false;
 
   TextEditingController get emailController => _emailController;
-  TextEditingController get passwordContriller => _passwordController;
+  TextEditingController get passwordController => _passwordController;
 
   bool _isvalid() {
     bool valid = true;
@@ -35,24 +37,28 @@ class LoginCubit extends Cubit<LoginState> {
     return valid;
   }
 
-  void signIn() async {
-    emit(LoginInitial());
-    if (!_isvalid()) {
-      return;
-    }
-
-    isValidEmail(_emailController.text);
-
-    emit(LoginLoading());
-    if (!isValidEmail(_emailController.text)) {
-      emit(const LoginError(errorMessage: 'hot email mte3k f termtk'));
-      return;
-    }
+  void logIn() async {
+    emit(const LoginScreenState(status: Status.loading));
     Either<Failure, void> result = await repositoryImpl.signIn(
         _emailController.text, _passwordController.text);
 
     result.fold(
-        (failure) => emit(LoginError(errorMessage: failure.errrorMessage)),
-        (complete) => emit(LoginComplete()));
+        (failure) => emit(LoginScreenState(
+            status: Status.failed,
+            errorMessage: failure.errrorMessage)), (complete) async {
+      emit(const LoginScreenState(status: Status.success));
+    });
+  }
+
+  void continueWithGoogle() async {
+    emit(const LoginScreenState(status: Status.loading));
+
+    Either<Failure, void> result = await repositoryImpl.continueWithGoogle();
+    result.fold((failure) {
+      emit(LoginScreenState(
+          status: Status.failed, errorMessage: failure.errrorMessage));
+    }, (success) {
+      emit(const LoginScreenState(status: Status.success));
+    });
   }
 }

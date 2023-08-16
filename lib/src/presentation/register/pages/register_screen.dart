@@ -5,6 +5,7 @@ import 'package:doft/src/presentation/shared/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../config/routes/routes.dart';
 import '../../../injector.dart';
 import '../../shared/date.dart';
 import '../widgets/profile_photo.dart';
@@ -18,6 +19,7 @@ class RegisterScreen extends StatelessWidget {
       create: (context) => RegisterCubit(instance<RepositoryImpl>()),
       child: Scaffold(
         appBar: AppBar(
+          elevation: 4,
           title: const Text('Register'),
           centerTitle: true,
         ),
@@ -52,23 +54,114 @@ class RegisterScreen extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              var mycubit = BlocProvider.of<RegisterCubit>(context);
-
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // profile photo
                   Expanded(
-                      flex: 2,
-                      child: ProfilePhotoSelector(
-                          pictureFile: mycubit.photo,
-                          onPressed: () {
-                            mycubit.addPhoto();
-                          })),
+                      child: Text(
+                    'Create your \nAccount',
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.displayMedium,
+                  )),
                   Expanded(
                     flex: 3,
                     child: SingleChildScrollView(
-                      child: _getForm(mycubit, state, context),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // email field
+                          const MyTextField(
+                              labelText: 'Email',
+                              errorMessage: 'Email is required',
+                              keyboardType: TextInputType.emailAddress,
+                              icon: Icons.email_outlined,
+                              controller: null,
+                              hintText: 'user@example.com',
+                              isError: false),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          // password field
+                          const MyTextField(
+                              isPassword: true,
+                              labelText: 'Password',
+                              errorMessage: 'Password is required',
+                              keyboardType: TextInputType.emailAddress,
+                              icon: Icons.lock_open_sharp,
+                              controller: null,
+                              hintText: 'Enter your password',
+                              isError: false),
+                          const SizedBox(height: 30),
+                          // remember me button
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  height: 30,
+                                  width: 30,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                'Remember me',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 30),
+                          SizedBox(
+                            height: 70,
+                            child: FilledButton(
+                                onPressed: () {}, child: const Text('Sign up')),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Center(
+                              child: Text(
+                            'or continue with',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          )),
+                          const SizedBox(height: 30),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.facebook,
+                                size: 60,
+                              ),
+                              Icon(
+                                Icons.g_mobiledata,
+                                size: 60,
+                              ),
+                              Icon(
+                                Icons.apple,
+                                size: 60,
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Already have an account ? ',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Log in')),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -125,6 +218,7 @@ class RegisterScreen extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         MyTextField(
+          isPassword: true,
           labelText: 'password',
           errorMessage: 'password is required',
           keyboardType: TextInputType.name,

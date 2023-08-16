@@ -54,86 +54,7 @@ class HomeScreen extends StatelessWidget {
           insta.getloads(isrefresh: true);
         },
         child: Scaffold(
-          appBar: AppBar(
-            title: ListTile(
-                title: const Text(
-                  'mouvema',
-                  style: TextStyle(fontSize: 20),
-                ),
-                trailing: IconButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (ctx) {
-                            String? origin, destination, type;
-                            return AlertDialog(
-                                title: const Text(
-                                  'Filter',
-                                ),
-                                content: SizedBox(
-                                  height: 200,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Text('Origin'),
-                                          ChooseLocationButton(
-                                              onlocationschanged: (originz) {
-                                            origin = originz;
-                                          }),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Text('Destination'),
-                                          ChooseLocationButton(
-                                              onlocationschanged:
-                                                  (destinationz) {
-                                            destination = destinationz;
-                                          }),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Text('Truck Type'),
-                                          SelectTruckType(
-                                            onTypeChanged: (typez) {
-                                              type = typez;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Cancel')),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        insta.filterLoads(
-                                            destination: destination,
-                                            origin: origin,
-                                            type: type);
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Search'))
-                                ]);
-                          });
-                    },
-                    icon: const Icon(Icons.filter_alt_outlined, size: 30))),
-          ),
+          appBar: _getAppBar(context),
           body: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               if (state is HomeLoading) {
@@ -146,12 +67,19 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         // todo : kima add post
-                        return const AddLoad();
+                        return Container();
                       } else {
                         return LoadItem(
                           detailsButton: () {
-                            Navigator.pushNamed(context, Routes.loadDetails,
-                                arguments: state.loads[index]);
+                            if (BlocProvider.of<HomeCubit>(context)
+                                    .isFirstTime ==
+                                true) {
+                              Navigator.popAndPushNamed(
+                                  context, Routes.fillProfil);
+                            } else {
+                              Navigator.pushNamed(context, Routes.loadDetails,
+                                  arguments: state.loads[index]);
+                            }
                           },
                           load: state.loads[index]!,
                         );
@@ -182,6 +110,88 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar _getAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 4,
+      title: ListTile(
+          title: const Text(
+            'mouvema',
+            style: TextStyle(fontSize: 20),
+          ),
+          trailing: IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (ctx) {
+                      String? origin, destination, type;
+                      return AlertDialog(
+                          title: const Text(
+                            'Filter',
+                          ),
+                          content: SizedBox(
+                            height: 200,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Text('Origin'),
+                                    ChooseLocationButton(
+                                        onlocationschanged: (originz) {
+                                      origin = originz;
+                                    }),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Text('Destination'),
+                                    ChooseLocationButton(
+                                        onlocationschanged: (destinationz) {
+                                      destination = destinationz;
+                                    }),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Text('Truck Type'),
+                                    SelectTruckType(
+                                      onTypeChanged: (typez) {
+                                        type = typez;
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Cancel')),
+                            ElevatedButton(
+                                onPressed: () {
+                                  insta.filterLoads(
+                                      destination: destination,
+                                      origin: origin,
+                                      type: type);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Search'))
+                          ]);
+                    });
+              },
+              icon: const Icon(Icons.filter_alt_outlined, size: 30))),
     );
   }
 }

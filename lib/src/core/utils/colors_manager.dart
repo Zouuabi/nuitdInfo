@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
+class ColorManager {
+  static const mouvemaTeal = Colors.teal;
+  static const mouvemaPink100 = Color(0xFFFEDBD0);
+  static const mouvemaPink300 = Color(0xFFFBB8AC);
+  static const mouvemaPink400 = Color(0xFFEAA4A4);
 
-class ColorsManager{
- 
-  /// 
-  static Color primary = Colors.white ;
-  static Color secondary = Colors.white ;
+  static const mouvemaBrown900 = Color(0xFF442B2D);
 
-  static Color scafoldBackground = Colors.black ;
-  static Color error = Colors.red ;
-  static Color enabled = Colors.grey ;
- 
-  
+  static const mouvemaErrorRed = Color(0xFFC5032B);
 
-
+  static const mouvemaSurfaceWhite = Color(0xFFFFFBFA);
+  static const mouvemaBackgroundWhite = Color(0xffffffff);
 }

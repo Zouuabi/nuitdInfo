@@ -8,6 +8,17 @@ class CloudFiresore {
   String collectionrRef = 'users';
   String documentRef = '';
 
+  Future<bool> isFirstTime(String uid) async {
+    // Check if the user exists in Firestore by their UID
+    DocumentSnapshot userDoc =
+        await _firestore.collection('users').doc(uid).get();
+    if (userDoc.exists) {
+      return false; // User is registered in Firestore
+    }
+
+    return true; // User is not registered in Firestore
+  }
+
   Future<List<Load>> fetchMyLoads({required String brokerUid}) async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
         .collection('loads')

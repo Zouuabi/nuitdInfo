@@ -218,7 +218,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                 },
                 child: const Text('Cancel')),
             const SizedBox(width: 20),
-            ElevatedButton(
+            FilledButton(
                 onPressed: () {
                   if (_checkForm()) {
                     widget.onFormSubmited(Load(

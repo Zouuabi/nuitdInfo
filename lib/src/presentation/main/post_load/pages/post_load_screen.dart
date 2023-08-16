@@ -26,7 +26,9 @@ class PostLoadScreen extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('L form Stateful chaden yed w barra '),
+            elevation: 4,
+            title: const Text('Post Load'),
+            centerTitle: true,
           ),
           body: BlocConsumer<PostCubit, PostState>(
             listener: ((context, state) {
@@ -50,7 +52,7 @@ class PostLoadScreen extends StatelessWidget {
             }),
             builder: (context, state) {
               return Container(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 height: double.infinity,
                 child: SingleChildScrollView(
                   child: Column(

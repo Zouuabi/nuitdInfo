@@ -7,6 +7,7 @@ import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:doft/src/presentation/login/cubit/login_cubit.dart';
 import 'package:doft/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:doft/src/presentation/main/post_load/cubits/post_load_cubit.dart';
+import 'package:doft/src/presentation/main/profile/profile_screen_cubit.dart';
 import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -29,8 +30,9 @@ Future<void> globalInstances() async {
 }
 
 void loginInstances() {
-  if (!GetIt.I.isRegistered<LoginCubit>()) {
-    instance.registerFactory<LoginCubit>(() => LoginCubit(instance()));
+  if (!GetIt.I.isRegistered<LoginScreenCubit>()) {
+    instance
+        .registerFactory<LoginScreenCubit>(() => LoginScreenCubit(instance()));
   }
 }
 
@@ -49,5 +51,12 @@ void homeInstances() {
 void postInstances() {
   if (!GetIt.I.isRegistered<PostCubit>()) {
     instance.registerFactory<PostCubit>(() => PostCubit(instance()));
+  }
+}
+
+void fillProfileInstances() {
+  if (!GetIt.I.isRegistered<ProfileScreenCubit>()) {
+    instance.registerFactory<ProfileScreenCubit>(
+        () => ProfileScreenCubit(instance()));
   }
 }

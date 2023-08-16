@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../../../data/models/load.dart';
@@ -18,33 +16,26 @@ class LoadDetailsScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        elevation: 4,
         title: const Text('Details'),
         actions: [ToggleFavorites(loadRef: load.loadRef)],
         centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 4,
-        backgroundColor: Colors.green,
-        onPressed: () {},
-        child: const Icon(
-          Icons.call,
-          color: Colors.white,
-        ),
-      ),
+
       //appBar: _getAppBar(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              // *** kharita
-              MapView(size: size),
-              const SizedBox(height: 20),
-              Details(
+        child: Column(
+          children: [
+            // *** kharita
+            MapView(size: size),
+
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Details(
                 load: load,
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

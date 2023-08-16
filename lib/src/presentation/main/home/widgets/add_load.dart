@@ -7,19 +7,20 @@ class AddLoad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(bottom: 40),
       height: 100,
       child: ElevatedButton.icon(
-          style: ButtonStyle(
-              iconSize: MaterialStateProperty.all(30),
-              backgroundColor: MaterialStateProperty.all(Colors.green)),
           onPressed: () {
             Navigator.pushNamed(context, Routes.postLoad);
           },
-          icon: const Icon(Icons.add_road),
+          icon: const Icon(
+            Icons.add_road,
+            size: 50,
+          ),
           label: Text(
             'Add a Load',
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.headlineLarge,
           )),
     );
   }

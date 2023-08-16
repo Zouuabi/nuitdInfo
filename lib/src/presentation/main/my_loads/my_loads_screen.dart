@@ -21,8 +21,9 @@ class MyLoadsScreen extends StatelessWidget {
           MyLoadsCubit(instance<RepositoryImpl>()),
       child: Scaffold(
         appBar: AppBar(
+          elevation: 4,
           title: const Text(
-            'My Posts',
+            'My Laods',
           ),
           centerTitle: true,
         ),

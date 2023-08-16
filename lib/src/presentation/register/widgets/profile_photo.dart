@@ -19,16 +19,16 @@ class ProfilePhotoSelector extends StatelessWidget {
             ? SvgPicture.asset(
                 ImageManager.profile,
                 // ignore: deprecated_member_use
-                color: Colors.white,
                 height: 200,
+                width: 200,
                 fit: BoxFit.cover,
               )
             : Image.memory(pictureFile!,
                 width: 200, height: 200, fit: BoxFit.cover),
       ),
       Positioned(
-          bottom: 30,
-          right: 18,
+          bottom: 120,
+          right: 10,
           child: IconButton(
               onPressed: onPressed,
               icon: const Icon(Icons.add_a_photo_outlined)))

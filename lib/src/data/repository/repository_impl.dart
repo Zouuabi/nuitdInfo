@@ -35,11 +35,26 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, void>> signIn(String email, String password) async {
     if (await internetChecker.isConnected()) {
       try {
-        await auth.signIn(email, password);
+        await auth.signIn(email: email, password: password);
 
         return right(null);
-      } catch (e) {
-        return Left(Failure(errrorMessage: 'SomeThing Went Wrong'));
+      } on FirebaseAuthException catch (e) {
+        print('ye samir rani error fel impl => auth.');
+        return Left(Failure(errrorMessage: e.code));
+      }
+    } else {
+      return Left(Failure(errrorMessage: ' There is no internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> logOut() async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await auth.logOut();
+        return right(null);
+      } on FirebaseAuthException catch (error) {
+        return left(Failure(errrorMessage: error.code));
       }
     } else {
       return Left(Failure(errrorMessage: ' There is no internet connection'));
@@ -125,10 +140,10 @@ class RepositoryImpl extends Repository {
 
         return right(null);
       } catch (e) {
-        return left(Failure(errrorMessage: 'sdfdsfdsfsdfq'));
+        return left(Failure(errrorMessage: e.toString()));
       }
     } else {
-      return left(Failure(errrorMessage: 'sdfdsfd'));
+      return left(Failure(errrorMessage: 'No internet connection'));
     }
   }
 
@@ -175,6 +190,31 @@ class RepositoryImpl extends Repository {
       } catch (e) {
         return left(Failure(errrorMessage: 'Some thing Went Wrong'));
       }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> continueWithGoogle() async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await auth.signInWithGoogle();
+        return right(null);
+      } catch (e) {
+        return left(Failure(errrorMessage: e.toString()));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> isFirstTime() async {
+    if (await internetChecker.isConnected()) {
+      bool f = await firestore.isFirstTime(await auth.getCurrentUserId());
+      print('impl $f');
+      return right(f);
     } else {
       return left(Failure(errrorMessage: 'there is no internet connection'));
     }
