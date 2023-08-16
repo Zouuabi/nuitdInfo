@@ -53,8 +53,6 @@ class RegisterScreen extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              var mycubit = BlocProvider.of<RegisterCubit>(context);
-
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

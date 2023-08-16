@@ -55,6 +55,7 @@ class HomeScreen extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
+            elevation: 4,
             title: ListTile(
                 title: const Text(
                   'mouvema',
@@ -146,7 +147,7 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         // todo : kima add post
-                        return const AddLoad();
+                        return Container();
                       } else {
                         return LoadItem(
                           detailsButton: () {

@@ -1,5 +1,7 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:doft/src/config/themes/themes.dart';
 import 'package:doft/src/presentation/login/pages/login_screen.dart';
+import 'package:doft/src/presentation/main/home/pages/home_screen.dart';
 import 'package:doft/src/presentation/main/main_screen.dart';
 import 'package:doft/src/presentation/register/pages/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,8 +16,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
-      theme: buildTheme(),
+      theme: buildTheme(context),
       // theme: ThemeData.light().copyWith(
       //     textTheme: TextTheme().copyWith(),
       //     colorScheme: const ColorScheme(

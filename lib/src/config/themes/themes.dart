@@ -1,37 +1,40 @@
 import 'package:doft/src/core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
 
-TextTheme _buildShrineTextTheme(TextTheme base) {
+TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
+  final textScaleFactor = MediaQuery.of(context).textScaleFactor;
+  final size = MediaQuery.of(context).size;
   return base
       .copyWith(
         displayMedium: base.displayMedium!.copyWith(
           fontWeight: FontWeight.w500,
+          fontSize: size.width * 0.12,
         ),
         headlineLarge: base.headlineLarge!
-            .copyWith(fontWeight: FontWeight.w500, fontSize: 40),
-        headlineMedium: base.headlineMedium!.copyWith(
-          fontWeight: FontWeight.w500,
-        ),
+            .copyWith(fontWeight: FontWeight.w500, fontSize: size.width * 0.1),
+        headlineMedium:
+            base.headlineMedium!.copyWith(fontWeight: FontWeight.w500),
         headlineSmall: base.headlineSmall!.copyWith(
           fontWeight: FontWeight.w300,
         ),
         titleLarge: base.titleLarge!.copyWith(
-          fontSize: 20,
+          fontSize: 20 * textScaleFactor,
         ),
         titleMedium: base.titleMedium!.copyWith(
-          fontSize: 20,
+          fontSize: 20 * textScaleFactor,
         ),
         bodySmall: base.bodySmall!.copyWith(
           fontWeight: FontWeight.w400,
-          fontSize: 14.0,
+          fontSize: 14.0 * textScaleFactor,
         ),
         bodyLarge: base.bodyLarge!.copyWith(
           fontWeight: FontWeight.w500,
-          fontSize: 16.0,
+          fontSize: 16.0 * textScaleFactor,
         ),
-        labelLarge: base.labelLarge!.copyWith(fontSize: 20.0),
-        labelMedium: base.labelMedium!.copyWith(fontSize: 16.0),
-        labelSmall: base.labelSmall!.copyWith(fontSize: 13.0),
+        labelLarge: base.labelLarge!.copyWith(fontSize: size.width * 0.05),
+        labelMedium:
+            base.labelMedium!.copyWith(fontSize: 16.0 * textScaleFactor),
+        labelSmall: base.labelSmall!.copyWith(fontSize: 13.0 * textScaleFactor),
       )
       .apply(
         fontFamily: 'Rubik',
@@ -40,35 +43,42 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
       );
 }
 
-ThemeData buildTheme() {
+ThemeData buildTheme(BuildContext context) {
   final ThemeData base = ThemeData.light(useMaterial3: true);
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
       brightness: Brightness.light,
-      primary: ColorManager.mouvemaPink400,
+      primary: Colors.teal,
       onPrimary: Colors.white,
-      secondary: ColorManager.mouvemaBrown900,
       error: ColorManager.mouvemaErrorRed,
-      outline: ColorManager.mouvemaPink100,
-      surface: const Color.fromARGB(255, 255, 238, 233),
+      outline: const Color.fromARGB(255, 234, 255, 253),
+      surface: const Color.fromARGB(255, 234, 255, 253),
     ),
+    // divider
     dividerColor: ColorManager.mouvemaPink100,
 
     /// App Text Theme
-    textTheme: _buildShrineTextTheme(base.textTheme),
+    textTheme: _buildShrineTextTheme(base.textTheme, context),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: ColorManager.mouvemaPink100,
+      selectionColor: Color.fromARGB(255, 234, 255, 253),
     ),
-    scaffoldBackgroundColor: ColorManager.mouvemaBackgroundWhite,
+    // Scaffold
+    scaffoldBackgroundColor: const Color.fromARGB(255, 216, 233, 231),
 
     appBarTheme: const AppBarTheme(
       foregroundColor: ColorManager.mouvemaBrown900,
-      backgroundColor: ColorManager.mouvemaPink100,
+      backgroundColor: Color.fromARGB(255, 120, 213, 191),
     ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
+        iconSize: 40,
+        shape: CircleBorder(),
+        splashColor: Color.fromARGB(255, 120, 213, 191)),
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color.fromARGB(255, 243, 222, 216),
+      fillColor: const Color.fromARGB(255, 234, 255, 253),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),

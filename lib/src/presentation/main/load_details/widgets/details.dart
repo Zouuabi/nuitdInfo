@@ -40,7 +40,7 @@ class Details extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(
                   Icons.person,
-                  color: ColorManager.mouvemaPink400,
+                  color: Colors.teal,
                   size: 50,
                 ),
                 title: Text(
@@ -148,9 +148,8 @@ class PickAndDrop extends StatelessWidget {
     return Column(
       children: [
         TimelineTile(
-          indicatorStyle:
-              const IndicatorStyle(color: ColorManager.mouvemaPink400),
-          afterLineStyle: const LineStyle(color: ColorManager.mouvemaPink100),
+          indicatorStyle: const IndicatorStyle(color: Colors.teal),
+          afterLineStyle: const LineStyle(color: Colors.teal),
           isFirst: true,
           endChild: ListTile(
             title: Text(
@@ -162,9 +161,8 @@ class PickAndDrop extends StatelessWidget {
           ),
         ),
         TimelineTile(
-          indicatorStyle:
-              const IndicatorStyle(color: ColorManager.mouvemaPink400),
-          beforeLineStyle: const LineStyle(color: ColorManager.mouvemaPink100),
+          indicatorStyle: const IndicatorStyle(color: Colors.teal),
+          beforeLineStyle: const LineStyle(color: Colors.teal),
           isLast: true,
           endChild: ListTile(
             title: Text(
