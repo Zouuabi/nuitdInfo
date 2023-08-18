@@ -1,17 +1,13 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-<<<<<<< HEAD
-=======
-import 'package:doft/src/config/routes/routes.dart';
-import 'package:doft/src/core/utils/color_manager.dart';
-import 'package:doft/src/presentation/main/my_loads/my_loads_screen.dart';
->>>>>>> mouyou3a
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mouvema/src/presentation/main/fill_profil/pages/fill_profile_screen.dart';
+
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
 import '../../config/routes/routes.dart';
-import '../../core/utils/colors_manager.dart';
+
+import '../../core/utils/color_manager.dart';
 import '../../injector.dart';
 import 'home/pages/home_screen.dart';
 import 'favorite_loads/pages/favorites_screen.dart';
@@ -78,8 +74,17 @@ class _MainScreenState extends State<MainScreen> {
                 leftCornerRadius: 32,
                 rightCornerRadius: 32,
                 onTap: (val) => setState(() {
-                  index = val;
-                  pagecontroller.jumpToPage(index);
+                  if (val == 3) {
+                    if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
+                      Navigator.pushNamed(context, Routes.fillProfil);
+                    } else {
+                      index = val;
+                      pagecontroller.jumpToPage(index);
+                    }
+                  } else {
+                    index = val;
+                    pagecontroller.jumpToPage(index);
+                  }
                 }),
                 //other params
               ),
@@ -94,9 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                   HomeScreen(),
                   const MyLoadsScreen(),
                   const FavoritesScreen(),
-                  (BlocProvider.of<HomeCubit>(context).isFirstTime)
-                      ? const FillProfileScreen()
-                      : const ProfileScreen()
+                  const ProfileScreen()
                 ],
               ),
             );
@@ -115,10 +118,7 @@ class _MainScreenState extends State<MainScreen> {
           iconSize: 40,
           currentIndex: index,
           onTap: (value) {
-            setState(() {
-              index = value;
-              pagecontroller.jumpToPage(index);
-            });
+            setState(() {});
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),

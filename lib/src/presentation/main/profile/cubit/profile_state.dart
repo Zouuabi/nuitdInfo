@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mouvema/src/data/models/user.dart';
 
-enum Status { initial, loading, success, failed }
+enum Status { initial, loading, success, failed, logOut }
 
 class ProfileState extends Equatable {
   const ProfileState({required this.status, this.data, this.errorMessage});

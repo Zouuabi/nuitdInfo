@@ -14,9 +14,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     if (!refresh) {
       emit(const FavoritesState(status: States.loading));
     }
-    print('bdaa');
+
     var readingLoadsResult = await repositoryImpl.readFavoriteLoads();
-    print('kammel');
+
     if (!isClosed) {
       readingLoadsResult.fold(
         (l) {

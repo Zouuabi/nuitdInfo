@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mouvema/src/data/models/user.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_cubit.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_state.dart';
+import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/image_manager.dart';
 import '../../../../injector.dart';
 
@@ -39,17 +40,19 @@ class ProfileScreen extends StatelessWidget {
                         ]);
                   },
                 );
+              } else if (state.status == Status.logOut) {
+                Navigator.pushReplacementNamed(context, Routes.login);
               }
             },
             builder: (context, state) {
-              if (state.status == Status.loading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state.status == Status.success) {
-                return _getProfile(BlocProvider.of<ProfileCubit>(context),
-                    context, state.data!);
-              } else {
-                return const Center(child: Text('Initial State'));
-              }
+              return state.status == Status.loading
+                  ? const Center(child: CircularProgressIndicator())
+                  : _getProfile(
+                      user: state.data!,
+                      context: context,
+                      onLogoutPressed: () {
+                        BlocProvider.of<ProfileCubit>(context).logOut();
+                      });
             },
           ),
         ),
@@ -58,7 +61,10 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-Widget _getProfile(ProfileCubit mycubit, BuildContext context, MyUser user) {
+Widget _getProfile(
+    {required MyUser user,
+    required BuildContext context,
+    required VoidCallback onLogoutPressed}) {
   return SingleChildScrollView(
     child: Padding(
       padding: const EdgeInsets.all(10),
@@ -120,10 +126,7 @@ Widget _getProfile(ProfileCubit mycubit, BuildContext context, MyUser user) {
           ),
           const SizedBox(height: 10),
           ElevatedButton(
-              onPressed: () {
-                mycubit.logOut();
-              },
-              child: const Text('Log Out')),
+              onPressed: onLogoutPressed, child: const Text('Log Out')),
         ],
       ),
     ),

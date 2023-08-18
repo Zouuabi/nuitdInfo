@@ -38,7 +38,6 @@ class RepositoryImpl extends Repository {
 
         return right(null);
       } on FirebaseAuthException catch (e) {
-        print('ye samir rani error fel impl => auth.');
         return Left(Failure(errrorMessage: e.code));
       }
     } else {
