@@ -1,7 +1,12 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+<<<<<<< HEAD
+=======
+import 'package:doft/src/config/routes/routes.dart';
+import 'package:doft/src/core/utils/color_manager.dart';
+import 'package:doft/src/presentation/main/my_loads/my_loads_screen.dart';
+>>>>>>> mouyou3a
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mouvema/src/presentation/main/fill_profil/cubit/fill_profile_cubit.dart';
 import 'package:mouvema/src/presentation/main/fill_profil/pages/fill_profile_screen.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';

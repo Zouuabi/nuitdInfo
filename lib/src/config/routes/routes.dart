@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/models/load.dart';
+import '../../presentation/forgot_password/pages/forgot_password_screen.dart';
 import '../../presentation/login/pages/login_screen.dart';
 import '../../presentation/login/pages/login_with_password.dart';
 import '../../presentation/main/fill_profil/pages/fill_profile_screen.dart';
@@ -16,6 +17,7 @@ class Routes {
   static const String login = "/login";
   static const String loginWithPassword = "/loginWithPassword";
   static const String register = "/register";
+  static const String forgotPassword = "/forgortPassword";
 
   static const String main = "/main";
   static const String loadDetails = "/loadDetails";
@@ -27,21 +29,28 @@ class Routes {
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+      // login screen
       case Routes.login:
         loginInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const LoginScreen();
         });
+      // login With password
       case Routes.loginWithPassword:
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const LoginWithPassword();
         });
-      // splash screen case
+      // main screen
       case Routes.main:
         homeInstances();
         fillProfileInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const MainScreen();
+        });
+      // forgot password
+      case Routes.forgotPassword:
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          return const ForgotPasswordScreen();
         });
 
       // **************************

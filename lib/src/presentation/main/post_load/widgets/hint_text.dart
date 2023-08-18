@@ -9,11 +9,9 @@ class HintText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: Alignment.topLeft,
-        child: Text(
-          hint,
-          style: Theme.of(context).textTheme.titleLarge,
-        ));
+    return Text(
+      hint,
+      style: Theme.of(context).textTheme.bodyLarge,
+    );
   }
 }

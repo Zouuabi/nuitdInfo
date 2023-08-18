@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routes/routes.dart';
-import '../../../core/utils/colors_manager.dart';
+
+import '../../../core/utils/color_manager.dart';
 import '../../../core/utils/image_manager.dart';
 
 import '../../../injector.dart';
@@ -54,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Risk Money Money theb flouuuuus !',
+                              'Ahla b Nahla',
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.headlineLarge,
                             ),

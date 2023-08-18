@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/utils/colors_manager.dart';
+import '../../core/utils/color_manager.dart';
 import 'text_field.dart';
 
 class DateWidget extends StatelessWidget {

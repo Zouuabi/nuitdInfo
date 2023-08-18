@@ -21,7 +21,6 @@ class _SelectTruckTypeState extends State<SelectTruckType> {
   Widget build(BuildContext context) {
     return DropdownButton(
       borderRadius: BorderRadius.circular(20),
-      iconSize: 30,
       value: value,
       items: const [
         DropdownMenuItem(value: 'Any', child: Center(child: Text('Any'))),
