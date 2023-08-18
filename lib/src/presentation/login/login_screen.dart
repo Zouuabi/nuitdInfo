@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              const SizedBox(
                 height: 200,
                 width: 200,
               ),

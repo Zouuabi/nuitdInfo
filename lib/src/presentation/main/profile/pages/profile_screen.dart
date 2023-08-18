@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mouvema/src/data/models/user.dart';
-import 'package:mouvema/src/data/repository/repository_impl.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_cubit.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_state.dart';
 import '../../../../core/utils/image_manager.dart';
