@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:doft/src/presentation/main/home/cubit/home_state.dart';
-
 import '../../../../config/routes/routes.dart';
 import '../../../../injector.dart';
 import '../../../shared/choose_location_button.dart';
 import '../../../shared/load_item.dart';
 import '../../../shared/select_truck_type.dart';
 import '../cubit/home_cubit.dart';
-import '../widgets/add_load.dart';
+import '../cubit/home_state.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -74,8 +72,7 @@ class HomeScreen extends StatelessWidget {
                             if (BlocProvider.of<HomeCubit>(context)
                                     .isFirstTime ==
                                 true) {
-                              Navigator.popAndPushNamed(
-                                  context, Routes.fillProfil);
+                              Navigator.pushNamed(context, Routes.fillProfil);
                             } else {
                               Navigator.pushNamed(context, Routes.loadDetails,
                                   arguments: state.loads[index]);
@@ -115,7 +112,7 @@ class HomeScreen extends StatelessWidget {
 
   AppBar _getAppBar(BuildContext context) {
     return AppBar(
-      elevation: 4,
+      elevation: 10,
       title: ListTile(
           title: const Text(
             'mouvema',

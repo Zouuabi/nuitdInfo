@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doft/src/data/models/load.dart';
-
+import '../../models/load.dart';
 import '../../models/user.dart';
 
 class CloudFiresore {

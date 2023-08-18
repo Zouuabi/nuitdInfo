@@ -15,6 +15,11 @@ abstract class Repository {
       required String email,
       required String password,
       required Uint8List? image});
+  Future<Either<Failure, void>> fillProfil(
+      {required String username,
+      required String birthdate,
+      required String tel,
+      required Uint8List? image});
   Future<Either<Failure, void>> logOut();
   Future<Either<Failure, bool>> isFirstTime();
   Future<Either<Failure, List<Load?>>> readLoads();

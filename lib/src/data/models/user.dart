@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class MyUser {
   final String id;
   final String username;
@@ -5,6 +7,7 @@ class MyUser {
   final String birdhdate;
   final String tel;
   final List<dynamic> favoriteLoads;
+  final String image;
 
   const MyUser({
     required this.id,
@@ -13,6 +16,7 @@ class MyUser {
     required this.birdhdate,
     required this.tel,
     required this.favoriteLoads,
+    required this.image,
   });
 
   factory MyUser.fromfirestore(Map<String, dynamic> map) {
@@ -23,6 +27,7 @@ class MyUser {
       birdhdate: map['birdhdate'] ?? 'null',
       tel: map['tel'] ?? 'null',
       favoriteLoads: map['favoriteLoads'] ?? 'null',
+      image: map['image'],
     );
   }
 
@@ -33,5 +38,6 @@ class MyUser {
         'birdhdate': birdhdate,
         'tel': tel,
         'favoriteLoads': favoriteLoads,
+        'image': image,
       };
 }

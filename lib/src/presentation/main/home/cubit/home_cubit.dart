@@ -1,17 +1,15 @@
 import 'package:dartz/dartz.dart';
-import 'package:doft/src/core/failure.dart';
 
-import 'package:doft/src/presentation/main/home/cubit/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
+import '../../../../core/failure.dart';
 import '../../../../data/models/load.dart';
 import '../../../../data/repository/repository_impl.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.repos) : super(HomeLoading()) {
     getloads();
-    // fonction thabet awwl marra wella le
     _checkFirstTime();
-    print(isFirstTime);
   }
   final RepositoryImpl repos;
   List<Load?> listLoads = [];
@@ -22,7 +20,6 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeError(message: l.errrorMessage));
     }, (r) {
       isFirstTime = r;
-      print('sddff$isFirstTime');
     });
   }
 

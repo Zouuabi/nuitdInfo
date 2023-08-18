@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:doft/src/core/failure.dart';
-import 'package:doft/src/domain/repositories/repositories.dart';
-import 'package:doft/src/presentation/main/post_load/cubits/post_load_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/presentation/main/post_load/cubits/post_load_state.dart';
 
+import '../../../../core/failure.dart';
 import '../../../../data/models/load.dart';
+import '../../../../domain/repositories/repositories.dart';
 
 class PostCubit extends Cubit<PostState> {
   PostCubit(this._repository) : super(InitialPost());

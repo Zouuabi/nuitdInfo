@@ -1,15 +1,13 @@
-import 'package:doft/src/core/utils/colors_manager.dart';
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:doft/src/presentation/login/cubit/login_cubit.dart';
-
 import '../../../config/routes/routes.dart';
+import '../../../core/utils/colors_manager.dart';
 import '../../../core/utils/image_manager.dart';
 
 import '../../../injector.dart';
+import '../cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

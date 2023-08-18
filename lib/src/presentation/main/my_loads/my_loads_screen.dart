@@ -1,14 +1,14 @@
-import 'package:doft/src/data/repository/repository_impl.dart';
-import 'package:doft/src/presentation/main/my_loads/my_loads_cubit.dart';
-import 'package:doft/src/presentation/main/my_loads/my_loads_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routes/routes.dart';
 // import '../../../data/repository/repository_impl.dart';
 // import '../../../injector.dart';
+import '../../../data/repository/repository_impl.dart';
 import '../../../injector.dart';
 import '../../shared/load_item.dart';
+import 'my_loads_cubit.dart';
+import 'my_loads_state.dart';
 
 class MyLoadsScreen extends StatelessWidget {
   const MyLoadsScreen({super.key});

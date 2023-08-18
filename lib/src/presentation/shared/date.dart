@@ -34,7 +34,7 @@ class DateWidget extends StatelessWidget {
                   isEnabled: false),
               const SizedBox(height: 5),
               isError
-                  ? Text(
+                  ? const Text(
                       'Date is Required',
                       style: TextStyle(
                         color: ColorManager.mouvemaErrorRed,

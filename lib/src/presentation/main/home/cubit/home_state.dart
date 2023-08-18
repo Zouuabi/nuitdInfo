@@ -1,5 +1,6 @@
-import 'package:doft/src/data/models/load.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../../data/models/load.dart';
 
 abstract class HomeState extends Equatable {
   @override

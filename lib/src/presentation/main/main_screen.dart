@@ -1,15 +1,11 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:doft/src/config/routes/routes.dart';
-import 'package:doft/src/core/utils/colors_manager.dart';
-import 'package:doft/src/presentation/main/my_loads/my_loads_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import '../../config/routes/routes.dart';
+import '../../core/utils/colors_manager.dart';
 import 'home/pages/home_screen.dart';
 import 'favorite_loads/pages/favorites_screen.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-
-import 'profile/profile_screen.dart';
+import 'my_loads/my_loads_screen.dart';
+import 'profile/pages/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

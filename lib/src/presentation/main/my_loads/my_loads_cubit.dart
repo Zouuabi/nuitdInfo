@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:doft/src/core/failure.dart';
-import 'package:doft/src/domain/repositories/repositories.dart';
-import 'package:doft/src/presentation/main/my_loads/my_loads_state.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/failure.dart';
 import '../../../data/models/load.dart';
+import '../../../domain/repositories/repositories.dart';
+import 'my_loads_state.dart';
 
 class MyLoadsCubit extends Cubit<MyloadsState> {
   MyLoadsCubit(this._repository)

@@ -1,7 +1,7 @@
-import 'package:doft/src/data/repository/repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/routes/routes.dart';
+import '../../../../data/repository/repository_impl.dart';
 import '../../../../injector.dart';
 import '../../../shared/load_item.dart';
 import '../cubit/favorites_state.dart';

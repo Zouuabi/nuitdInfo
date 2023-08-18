@@ -1,7 +1,7 @@
-import 'package:doft/src/core/helpers/date_handler.dart';
-import 'package:doft/src/core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/helpers/date_handler.dart';
 import '../../../../data/models/load.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -101,8 +101,8 @@ class Details extends StatelessWidget {
                   ),
                   const Expanded(
                     child: ListTile(
-                      title: const Text('Commodity'),
-                      subtitle: const Text('Fresh food'),
+                      title: Text('Commodity'),
+                      subtitle: Text('Fresh food'),
                       // trailing: Text('${load.weigth} KG '),
                       leading: Icon(
                         Icons.file_copy_outlined,
@@ -121,12 +121,24 @@ class Details extends StatelessWidget {
                   height: 70,
                   width: double.infinity,
                   child: FilledButton(
-                      onPressed: () {}, child: const Text('Call Broker')))
+                      onPressed: () {
+                        callNumber('50508159');
+                      },
+                      child: const Text('Call Broker')))
             ],
           ),
         ),
       ],
     );
+  }
+}
+
+callNumber(String phoneNumber) async {
+  var tel = Uri.parse('tel:+216$phoneNumber');
+  if (await canLaunchUrl(tel)) {
+    await launchUrl(tel);
+  } else {
+    throw 'Could not launch $phoneNumber';
   }
 }
 

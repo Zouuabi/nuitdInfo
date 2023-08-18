@@ -1,5 +1,6 @@
-import 'package:doft/src/core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/utils/colors_manager.dart';
 
 TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
   final textScaleFactor = MediaQuery.of(context).textScaleFactor;

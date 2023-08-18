@@ -1,16 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:doft/src/config/routes/routes.dart';
-import 'package:doft/src/presentation/main/post_load/cubits/post_load_cubit.dart';
-import 'package:doft/src/presentation/main/post_load/cubits/post_load_state.dart';
-import 'package:doft/src/presentation/shared/show_alert.dart';
+import '../../../../config/routes/routes.dart';
 import '../../../../data/repository/repository_impl.dart';
 import '../../../../injector.dart';
 import '../../../shared/map_view.dart';
+import '../../../shared/show_alert.dart';
+import '../cubits/post_load_cubit.dart';
+import '../cubits/post_load_state.dart';
 import '../widgets/details_input.dart';
 import '../widgets/hint_text.dart';
 

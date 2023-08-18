@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:doft/src/core/helpers/date_handler.dart';
-
+import '../../core/helpers/date_handler.dart';
 import '../../data/models/load.dart';
 
 class LoadItem extends StatelessWidget {

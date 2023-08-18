@@ -1,16 +1,15 @@
-import 'package:doft/src/presentation/login/pages/login_with_password.dart';
-import 'package:doft/src/presentation/main/fill_profil/fill_profile_screen.dart';
-import 'package:doft/src/presentation/main/post_load/pages/post_load_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'package:doft/src/presentation/main/load_details/load_details_screen.dart';
-import 'package:doft/src/presentation/register/pages/register_screen.dart';
 
 import '../../data/models/load.dart';
 import '../../presentation/login/pages/login_screen.dart';
+import '../../presentation/login/pages/login_with_password.dart';
+import '../../presentation/main/fill_profil/pages/fill_profile_screen.dart';
+import '../../presentation/main/load_details/load_details_screen.dart';
 import '../../presentation/main/main_screen.dart';
-
 import '../../injector.dart';
+import '../../presentation/main/post_load/pages/post_load_screen.dart';
+import '../../presentation/main/profile/pages/profile_screen.dart';
+import '../../presentation/register/pages/register_screen.dart';
 
 class Routes {
   static const String splash = "/";
@@ -22,6 +21,7 @@ class Routes {
   static const String loadDetails = "/loadDetails";
   static const String postLoad = "/postLoad";
   static const String fillProfil = "/fillProfil";
+  static const String profil = "/Profil";
 }
 
 class RouteGenerator {
@@ -49,6 +49,10 @@ class RouteGenerator {
         fillProfileInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const FillProfileScreen();
+        });
+      case Routes.profil:
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          return const ProfileScreen();
         });
 
       //************************* */

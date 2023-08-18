@@ -1,14 +1,12 @@
-import 'package:doft/src/data/repository/repository_impl.dart';
-import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
-import 'package:doft/src/presentation/shared/show_date_picker.dart';
-import 'package:doft/src/presentation/shared/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../config/routes/routes.dart';
+import '../../../data/repository/repository_impl.dart';
 import '../../../injector.dart';
 import '../../shared/date.dart';
-import '../widgets/profile_photo.dart';
+import '../../shared/show_date_picker.dart';
+import '../../shared/text_field.dart';
+import '../cubit/register_cubit.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});

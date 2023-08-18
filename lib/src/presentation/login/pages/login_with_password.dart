@@ -1,10 +1,10 @@
-import 'package:doft/src/presentation/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routes/routes.dart';
 import '../../../injector.dart';
 import '../../shared/text_field.dart';
+import '../cubit/login_cubit.dart';
 
 // ?Login = sign in
 // ?register = sign up

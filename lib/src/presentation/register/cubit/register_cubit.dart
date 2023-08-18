@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
-import 'package:doft/src/domain/repositories/repositories.dart';
 import 'package:flutter/material.dart' show TextEditingController;
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/image_picker.dart';
+import '../../../domain/repositories/repositories.dart';
 
 part 'register_state.dart';
 

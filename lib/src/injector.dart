@@ -1,15 +1,16 @@
-import 'package:doft/src/core/internet_checker.dart';
-import 'package:doft/src/data/data_source/local_data_source/local_storage.dart';
-import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';
-import 'package:doft/src/data/data_source/remote_data_source/firebase_auth.dart';
-import 'package:doft/src/data/data_source/remote_data_source/firebase_storage.dart';
-import 'package:doft/src/data/repository/repository_impl.dart';
-import 'package:doft/src/presentation/login/cubit/login_cubit.dart';
-import 'package:doft/src/presentation/main/home/cubit/home_cubit.dart';
-import 'package:doft/src/presentation/main/post_load/cubits/post_load_cubit.dart';
-import 'package:doft/src/presentation/main/profile/profile_screen_cubit.dart';
-import 'package:doft/src/presentation/register/cubit/register_cubit.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mouvema/src/presentation/login/cubit/login_cubit.dart';
+import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
+import 'package:mouvema/src/presentation/main/post_load/cubits/post_load_cubit.dart';
+import 'package:mouvema/src/presentation/main/fill_profil/cubit/fill_profile_cubit.dart';
+import 'package:mouvema/src/presentation/main/profile/cubit/profile_cubit.dart';
+import 'package:mouvema/src/presentation/register/cubit/register_cubit.dart';
+import 'core/internet_checker.dart';
+import 'data/data_source/local_data_source/local_storage.dart';
+import 'data/data_source/remote_data_source/cloud_firestore.dart';
+import 'data/data_source/remote_data_source/firebase_auth.dart';
+import 'data/data_source/remote_data_source/firebase_storage.dart';
+import 'data/repository/repository_impl.dart';
 
 GetIt instance = GetIt.instance;
 
@@ -54,9 +55,15 @@ void postInstances() {
   }
 }
 
+void profilInstances() {
+  if (!GetIt.I.isRegistered<ProfileCubit>()) {
+    instance.registerFactory<ProfileCubit>(() => ProfileCubit(instance()));
+  }
+}
+
 void fillProfileInstances() {
-  if (!GetIt.I.isRegistered<ProfileScreenCubit>()) {
-    instance.registerFactory<ProfileScreenCubit>(
-        () => ProfileScreenCubit(instance()));
+  if (!GetIt.I.isRegistered<FillProfilCubit>()) {
+    instance
+        .registerFactory<FillProfilCubit>(() => FillProfilCubit(instance()));
   }
 }

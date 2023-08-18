@@ -1,12 +1,10 @@
-import 'package:doft/src/config/themes/themes.dart';
-import 'package:doft/src/presentation/login/pages/login_screen.dart';
-
-import 'package:doft/src/presentation/main/main_screen.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mouvema/src/presentation/login/pages/login_screen.dart';
+import 'package:mouvema/src/presentation/main/main_screen.dart';
 
 import 'config/routes/routes.dart';
+import 'config/themes/themes.dart';
 import 'injector.dart';
 
 class MyApp extends StatelessWidget {

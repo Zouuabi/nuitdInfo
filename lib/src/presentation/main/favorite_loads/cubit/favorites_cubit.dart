@@ -1,6 +1,7 @@
-import 'package:doft/src/data/repository/repository_impl.dart';
-import 'package:doft/src/presentation/main/favorite_loads/cubit/favorites_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../data/repository/repository_impl.dart';
+import 'favorites_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
   FavoritesCubit({required this.repositoryImpl})

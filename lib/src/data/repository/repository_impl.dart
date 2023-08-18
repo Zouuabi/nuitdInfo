@@ -1,13 +1,13 @@
 import 'dart:async';
-
-import 'package:doft/src/core/failure.dart';
-import 'package:doft/src/data/data_source/remote_data_source/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../core/failure.dart';
 import '../../core/internet_checker.dart';
 import '../../domain/repositories/repositories.dart';
 import '../data_source/local_data_source/local_storage.dart';
+import '../data_source/remote_data_source/cloud_firestore.dart';
 import '../data_source/remote_data_source/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 
@@ -58,6 +58,39 @@ class RepositoryImpl extends Repository {
       }
     } else {
       return Left(Failure(errrorMessage: ' There is no internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> fillProfil(
+      {required String username,
+      required String birthdate,
+      required String tel,
+      required Uint8List? image}) async {
+    String urlimage = '';
+    if (await internetChecker.isConnected()) {
+      try {
+        User? usr = FirebaseAuth.instance.currentUser;
+
+        if (image != null) {
+          urlimage = await storage.storeImage(
+              child: 'usersProfileImages', uid: usr!.uid, image: image);
+        }
+        await firestore.addNewUserInformations(
+            tel: tel,
+            uid: usr!.uid,
+            email: usr.email!,
+            username: username,
+            favoriteLoads: [],
+            birdhdate: birthdate,
+            imageLink: urlimage);
+
+        return const Right(null);
+      } on FirebaseAuthException catch (error) {
+        return Left(Failure(errrorMessage: error.code));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
     }
   }
 
@@ -121,13 +154,17 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<Either<Failure, MyUser>> getCurrentUserInformation() async {
-    try {
-      var usr = await auth.getCurrentUserId();
-      Map<String, dynamic> a = await firestore.getCurrentUserInformation(usr);
+    if (await internetChecker.isConnected()) {
+      try {
+        var usr = await auth.getCurrentUserId();
+        Map<String, dynamic> a = await firestore.getCurrentUserInformation(usr);
 
-      return right(MyUser.fromfirestore(a));
-    } catch (e) {
-      return left(Failure(errrorMessage: e.toString()));
+        return right(MyUser.fromfirestore(a));
+      } catch (e) {
+        return left(Failure(errrorMessage: e.toString()));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'No internet connection'));
     }
   }
 
@@ -213,7 +250,6 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, bool>> isFirstTime() async {
     if (await internetChecker.isConnected()) {
       bool f = await firestore.isFirstTime(await auth.getCurrentUserId());
-      print('impl $f');
       return right(f);
     } else {
       return left(Failure(errrorMessage: 'there is no internet connection'));

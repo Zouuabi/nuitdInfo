@@ -1,13 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:doft/src/core/helpers/email_checker.dart';
-import 'package:doft/src/presentation/login/pages/login_screen.dart';
+
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/failure.dart';
 import '../../../data/repository/repository_impl.dart';
-import '../../../domain/repositories/repositories.dart';
 part 'login_state.dart';
 
 class LoginScreenCubit extends Cubit<LoginScreenState> {
