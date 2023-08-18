@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:doft/src/core/failure.dart';
-import 'package:doft/src/domain/repositories/repositories.dart';
-import 'package:doft/src/presentation/main/cubit/user_state.dart';
+import 'package:mouvema/src/core/failure.dart';
+import 'package:mouvema/src/domain/repositories/repositories.dart';
+import 'package:mouvema/src/presentation/main/cubit/user_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/user.dart';

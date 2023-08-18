@@ -1,4 +1,3 @@
-
 class MyUser {
   final String id;
   final String username;
@@ -23,7 +22,7 @@ class MyUser {
       id: map['uid'] ?? 'null',
       username: map['username'] ?? 'null',
       email: map['email'] ?? 'null',
-      birdhdate: map['birdhdate'] ?? 'null',
+      birdhdate: map['birthdate'] ?? 'null',
       tel: map['tel'] ?? 'null',
       favoriteLoads: map['favoriteLoads'] ?? 'null',
       image: map['image'],

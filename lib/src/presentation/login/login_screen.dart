@@ -1,4 +1,4 @@
-import 'package:doft/src/presentation/shared/text_field.dart';
+import 'package:mouvema/src/presentation/shared/text_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/data_source/remote_data_source/firebase_auth.dart';
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                   TextButton(
                       onPressed: () async {
                         var a = FirebaseAuthentication();
-                        await a.signIn('sdfdsf', '12346');
+                        await a.signIn(email: 'dqsdqs', password: 'qsdqdqsdq');
                       },
                       child: const Text('Register'))
                 ],

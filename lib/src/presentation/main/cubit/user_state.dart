@@ -1,4 +1,4 @@
-import 'package:doft/src/data/models/user.dart';
+import 'package:mouvema/src/data/models/user.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserState extends Equatable {

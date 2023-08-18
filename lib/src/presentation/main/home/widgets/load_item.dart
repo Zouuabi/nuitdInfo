@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:doft/src/core/helpers/date_handler.dart';
+import 'package:mouvema/src/core/helpers/date_handler.dart';
 
 import '../../../../data/models/load.dart';
 
@@ -10,8 +10,6 @@ class LoadItem extends StatelessWidget {
   const LoadItem({super.key, required this.load, required this.detailsButton});
   final Load load;
   final VoidCallback detailsButton;
-
-
 
   @override
   Widget build(BuildContext context) {

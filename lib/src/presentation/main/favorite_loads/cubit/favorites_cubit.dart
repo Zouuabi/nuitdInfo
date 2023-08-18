@@ -14,13 +14,13 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     if (!refresh) {
       emit(const FavoritesState(status: States.loading));
     }
-
+    print('bdaa');
     var readingLoadsResult = await repositoryImpl.readFavoriteLoads();
+    print('kammel');
     if (!isClosed) {
       readingLoadsResult.fold(
         (l) {
-          emit(const FavoritesState(
-              status: States.error, message: 'something went wrong'));
+          emit(FavoritesState(status: States.error, message: l.errrorMessage));
         },
         (r) {
           emit(FavoritesState(status: States.compelted, data: r));

@@ -51,10 +51,12 @@ class FavoritesScreen extends StatelessWidget {
               return const Center(
                 child: Text('Nothing Yet'),
               );
-            } else {
+            } else if (state.status == States.error) {
               return Center(
                 child: Text(state.message!),
               );
+            } else {
+              return Center(child: Text('${state.status}'));
             }
           },
         ),

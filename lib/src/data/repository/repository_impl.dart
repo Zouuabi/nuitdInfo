@@ -202,9 +202,9 @@ class RepositoryImpl extends Repository {
   @override
   Future<Either<Failure, List<Load>>> readFavoriteLoads() async {
     if (await internetChecker.isConnected()) {
-      Map<String, dynamic> user = await firestore
-          .getCurrentUserInformation(await auth.getCurrentUserId());
       try {
+        Map<String, dynamic> user = await firestore
+            .getCurrentUserInformation(await auth.getCurrentUserId());
         List<Load> favoriteLoads =
             await firestore.readFavoriteLoads(MyUser.fromfirestore(user));
         return right(favoriteLoads);

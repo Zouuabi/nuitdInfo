@@ -1,7 +1,13 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/presentation/main/fill_profil/cubit/fill_profile_cubit.dart';
+import 'package:mouvema/src/presentation/main/fill_profil/pages/fill_profile_screen.dart';
+import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
+import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
 import '../../config/routes/routes.dart';
 import '../../core/utils/colors_manager.dart';
+import '../../injector.dart';
 import 'home/pages/home_screen.dart';
 import 'favorite_loads/pages/favorites_screen.dart';
 import 'my_loads/my_loads_screen.dart';
@@ -25,59 +31,72 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.postLoad);
-        },
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        iconSize: 35,
-        backgroundColor: const Color.fromARGB(255, 216, 233, 231),
+    return BlocProvider(
+        create: (context) => instance<HomeCubit>(),
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
+                    Navigator.pushNamed(context, Routes.fillProfil);
+                  } else {
+                    Navigator.pushNamed(context, Routes.postLoad);
+                  }
+                },
+                child: const Icon(Icons.add),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              bottomNavigationBar: AnimatedBottomNavigationBar(
+                iconSize: 35,
+                backgroundColor: const Color.fromARGB(255, 216, 233, 231),
 
-        // borderColor: ColorManager.mouvemaBrown900,
-        // borderWidth: 3,
-        elevation: 2,
-        borderWidth: 5,
-        borderColor: Colors.teal,
-        height: 70,
-        activeColor: Colors.teal,
-        inactiveColor: ColorManager.mouvemaBrown900,
+                // borderColor: ColorManager.mouvemaBrown900,
+                // borderWidth: 3,
+                elevation: 2,
+                borderWidth: 5,
+                borderColor: Colors.teal,
+                height: 70,
+                activeColor: Colors.teal,
+                inactiveColor: ColorManager.mouvemaBrown900,
 
-        icons: const [
-          Icons.home,
-          Icons.work_history,
-          Icons.bookmark_outlined,
-          Icons.person
-        ],
-        activeIndex: index,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.verySmoothEdge,
-        leftCornerRadius: 32,
-        rightCornerRadius: 32,
-        onTap: (val) => setState(() {
-          index = val;
-          pagecontroller.jumpToPage(index);
-        }),
-        //other params
-      ),
-      body: PageView(
-        onPageChanged: (value) {
-          setState(() {
-            index = value;
-          });
-        },
-        controller: pagecontroller,
-        children: [
-          HomeScreen(),
-          const MyLoadsScreen(),
-          const FavoritesScreen(),
-          const ProfileScreen()
-        ],
-      ),
-    );
+                icons: const [
+                  Icons.home,
+                  Icons.work_history,
+                  Icons.bookmark_outlined,
+                  Icons.person
+                ],
+                activeIndex: index,
+                gapLocation: GapLocation.center,
+                notchSmoothness: NotchSmoothness.verySmoothEdge,
+                leftCornerRadius: 32,
+                rightCornerRadius: 32,
+                onTap: (val) => setState(() {
+                  index = val;
+                  pagecontroller.jumpToPage(index);
+                }),
+                //other params
+              ),
+              body: PageView(
+                onPageChanged: (value) {
+                  setState(() {
+                    index = value;
+                  });
+                },
+                controller: pagecontroller,
+                children: [
+                  HomeScreen(),
+                  const MyLoadsScreen(),
+                  const FavoritesScreen(),
+                  (BlocProvider.of<HomeCubit>(context).isFirstTime)
+                      ? const FillProfileScreen()
+                      : const ProfileScreen()
+                ],
+              ),
+            );
+          },
+        ));
   }
 
   Container _getBottomNavigationBar() {

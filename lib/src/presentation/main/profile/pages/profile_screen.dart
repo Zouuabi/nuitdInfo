@@ -69,17 +69,36 @@ Widget _getProfile(ProfileCubit mycubit, BuildContext context, MyUser user) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(children: [
-                ClipOval(
-                  child: (user.image == '')
-                      ? SvgPicture.asset(
-                          ImageManager.profile,
-                          // ignore: deprecated_member_use
-                          height: 200,
-                          width: 200,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.network(user.image),
+                SizedBox(
+                  width: 150,
+                  height: 150,
+                  child: ClipOval(
+                    child: (user.image == '')
+                        ? SvgPicture.asset(
+                            ImageManager.profile,
+                            // ignore: deprecated_member_use
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            user.image,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
+
+                // ClipOval(
+                //   child: (user.image == '')
+                //       ? SvgPicture.asset(
+                //           ImageManager.profile,
+                //           // ignore: deprecated_member_use
+                //           height: 200,
+                //           width: 200,
+                //           fit: BoxFit.cover,
+                //         )
+                //       : Image.network(user.image),
+                // ),
               ])
             ],
           ),
