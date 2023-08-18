@@ -8,7 +8,9 @@ class FillProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO : hedhi hya lii lezm teklm
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(),
+    );
   }
 
   //  Column _getForm(

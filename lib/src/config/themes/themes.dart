@@ -1,4 +1,4 @@
-import 'package:doft/src/core/utils/colors_manager.dart';
+import 'package:doft/src/core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
@@ -18,18 +18,18 @@ TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
           fontWeight: FontWeight.w300,
         ),
         titleLarge: base.titleLarge!.copyWith(
-          fontSize: 20 * textScaleFactor,
+          fontSize: size.height * 0.03,
         ),
         titleMedium: base.titleMedium!.copyWith(
-          fontSize: 20 * textScaleFactor,
-        ),
-        bodySmall: base.bodySmall!.copyWith(
-          fontWeight: FontWeight.w400,
-          fontSize: 14.0 * textScaleFactor,
+          fontSize: size.width * 0.04,
         ),
         bodyLarge: base.bodyLarge!.copyWith(
           fontWeight: FontWeight.w500,
-          fontSize: 16.0 * textScaleFactor,
+          fontSize: size.width * 0.04,
+        ),
+        bodySmall: base.bodySmall!.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: size.width * 0.03,
         ),
         labelLarge: base.labelLarge!.copyWith(fontSize: size.width * 0.05),
         labelMedium:
@@ -45,6 +45,7 @@ TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
 
 ThemeData buildTheme(BuildContext context) {
   final ThemeData base = ThemeData.light(useMaterial3: true);
+  final size = MediaQuery.of(context).size;
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
       brightness: Brightness.light,
@@ -63,13 +64,15 @@ ThemeData buildTheme(BuildContext context) {
       selectionColor: Color.fromARGB(255, 234, 255, 253),
     ),
     // Scaffold
-    scaffoldBackgroundColor: const Color.fromARGB(255, 216, 233, 231),
+    scaffoldBackgroundColor: ColorManager.scaffoldBackgroundColor,
+    // each icon will have this default size
+    iconTheme: IconThemeData(size: size.width * 0.07),
 
     appBarTheme: const AppBarTheme(
       titleSpacing: 2,
       centerTitle: true,
       foregroundColor: ColorManager.mouvemaBrown900,
-      backgroundColor: Color.fromARGB(255, 120, 213, 191),
+      backgroundColor: Color.fromARGB(255, 60, 182, 154),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.teal,

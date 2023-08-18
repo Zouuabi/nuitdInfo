@@ -219,4 +219,19 @@ class RepositoryImpl extends Repository {
       return left(Failure(errrorMessage: 'there is no internet connection'));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> sendPasswordResetEmail(
+      {required String email}) async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await auth.sendPasswordResetEmail(email: email);
+        return right(null);
+      } on FirebaseAuthException catch (e) {
+        return left(Failure(errrorMessage: e.code));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import 'package:doft/src/core/utils/colors_manager.dart';
+import 'package:doft/src/core/utils/color_manager.dart';
 
 import 'package:flutter/material.dart';
 
@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Risk Money Money theb flouuuuus !',
+                              'Ahla b Nahla',
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.headlineLarge,
                             ),

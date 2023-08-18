@@ -1,4 +1,4 @@
-import '../../core/utils/colors_manager.dart';
+import '../../core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatefulWidget {

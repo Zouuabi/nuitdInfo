@@ -29,10 +29,12 @@ class _PickDateButtonState extends State<PickDateButton> {
       child: ListTile(
         leading: const Icon(
           Icons.calendar_month_outlined,
-          size: 40,
         ),
         title: Text(widget.title),
-        subtitle: Text(selectedDate),
+        subtitle: Text(
+          selectedDate,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
       ),
       onTap: () async {
         DateTime? date = await pickDate(context);

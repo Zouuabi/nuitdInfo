@@ -1,5 +1,5 @@
 import 'package:doft/src/core/helpers/date_handler.dart';
-import 'package:doft/src/core/utils/colors_manager.dart';
+import 'package:doft/src/core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/load.dart';

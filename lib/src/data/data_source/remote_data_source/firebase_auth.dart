@@ -33,6 +33,10 @@ class FirebaseAuthentication {
     return cred.user;
   }
 
+  Future<void> sendPasswordResetEmail({required String email}) async {
+    await _auth.sendPasswordResetEmail(email: email);
+  }
+
   Future<void> logOut() async {
     _auth.signOut();
   }

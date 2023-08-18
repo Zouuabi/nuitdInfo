@@ -112,15 +112,19 @@ class LoginWithPassword extends StatelessWidget {
                 const SizedBox(height: 30),
                 SizedBox(
                   height: 70,
-                  child: FilledButton(
+                  child: ElevatedButton(
                       onPressed: () {
                         BlocProvider.of<LoginScreenCubit>(context).logIn();
                       },
                       child: const Text('Login')),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 10),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.forgotPassword);
+                    },
+                    child: const Text('Forgot password ?')),
+                const SizedBox(height: 30),
                 Center(
                     child: Text(
                   'or continue with',

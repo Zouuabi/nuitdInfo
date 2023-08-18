@@ -94,15 +94,22 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
         Row(
           children: [
             Expanded(
+              flex: 2,
               child: PickDateButton(
-                  title: 'Pick Up Date',
+                  title: 'Pick Up',
                   onDateChanged: (date) {
                     _pickUpDate = date;
                   }),
             ),
+          ],
+        ),
+
+        Row(
+          children: [
             Expanded(
+              flex: 2,
               child: PickDateButton(
-                  title: 'Drop DownDate',
+                  title: 'Drop down',
                   onDateChanged: (date) {
                     _dropDownDate = date;
                   }),
@@ -110,44 +117,62 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
           ],
         ),
         const Divider(height: 30),
+        // choose origin
 
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ChooseLocationButton(
-                onlocationschanged: (location) {
-                  _origin = location;
-                },
-              ),
+            Text(
+              'Origin',
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            const SizedBox(
-              width: 30,
+            const SizedBox(width: 20),
+            ChooseLocationButton(
+              onlocationschanged: (location) {
+                _origin = location;
+              },
             ),
-            Expanded(
-              child: ChooseLocationButton(
-                onlocationschanged: (location) {
-                  _destination = location;
-                },
-              ),
+          ],
+        ),
+        // choose destination
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Destination',
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
+            const SizedBox(width: 20),
+            ChooseLocationButton(
+              onlocationschanged: (location) {
+                _destination = location;
+              },
+            ),
+          ],
+        ),
+        const Divider(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Truck',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(width: 20),
+            SelectTruckType(onTypeChanged: (type) {
+              _truckType = type;
+            }),
           ],
         ),
         const Divider(height: 30),
 
         // truck Type and Weigth
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Spacer(),
             Expanded(
               flex: 2,
-              child: SelectTruckType(onTypeChanged: (type) {
-                _truckType = type;
-              }),
-            ),
-            const Spacer(),
-            Expanded(
-              flex: 4,
               child: IconTextField(
                   inputController: _weigthController,
                   errorText: 'Weigth is required',
@@ -157,13 +182,11 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
             ),
           ],
         ),
-        const Divider(height: 30),
 
-        // name and tel
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
+              flex: 2,
               child: IconTextField(
                   inputController: _nameController,
                   errorText: 'The name is required',
@@ -172,29 +195,48 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                   icon: const Icon(Icons.person),
                   keyboard: TextInputType.name),
             ),
+            const Spacer(
+              flex: 1,
+            ),
+          ],
+        ),
+
+        // name and tel
+        Row(
+          children: [
+            const Spacer(
+              flex: 1,
+            ),
             Expanded(
+                flex: 2,
                 child: IconTextField(
                     inputController: _telController,
                     errorText: 'Phone number is required',
                     isError: _telError,
                     hint: 'Tel',
                     icon: const Icon(Icons.phone),
-                    keyboard: TextInputType.number))
+                    keyboard: TextInputType.number)),
           ],
         ),
+
         const Divider(height: 30),
-
-        // Price
-
-        SizedBox(
-          child: IconTextField(
-            inputController: _priceController,
-            errorText: 'Price is required',
-            isError: _priceError,
-            hint: 'price',
-            icon: const Icon(Icons.attach_money),
-            keyboard: TextInputType.number,
-          ),
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: IconTextField(
+                inputController: _priceController,
+                errorText: 'Price is required',
+                isError: _priceError,
+                hint: 'price',
+                icon: const Icon(Icons.attach_money),
+                keyboard: TextInputType.number,
+              ),
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+          ],
         ),
 
         const Divider(height: 30),
@@ -202,9 +244,9 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
         TextField(
           controller: _descriptionController,
           maxLines: 4, // Allow multiple lines
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             hintText: 'Enter your load description ...',
-            border: OutlineInputBorder(),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
           ),
         ),
         // **** Buttons

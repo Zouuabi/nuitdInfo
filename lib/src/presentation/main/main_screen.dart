@@ -1,6 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:doft/src/config/routes/routes.dart';
-import 'package:doft/src/core/utils/colors_manager.dart';
+import 'package:doft/src/core/utils/color_manager.dart';
 import 'package:doft/src/presentation/main/my_loads/my_loads_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
