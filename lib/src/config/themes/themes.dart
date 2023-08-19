@@ -19,7 +19,7 @@ TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
           fontWeight: FontWeight.w300,
         ),
         titleLarge: base.titleLarge!.copyWith(
-          fontSize: size.height * 0.03,
+          fontSize: size.height * 0.02,
         ),
         titleMedium: base.titleMedium!.copyWith(
           fontSize: size.width * 0.04,

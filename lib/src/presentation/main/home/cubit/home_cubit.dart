@@ -34,19 +34,21 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getloads({bool isrefresh = false}) async {
-    if (!isrefresh) {
-      emit(HomeLoading());
-    }
-    Either<Failure, List<Load?>> result = await repos.readLoads();
-    result.fold(
-      (failure) {
-        emit(HomeError(message: failure.errrorMessage));
-      },
-      (loads) {
-        listLoads.addAll(loads);
+    if (!isClosed) {
+      if (!isrefresh) {
+        emit(HomeLoading());
+      }
+      Either<Failure, List<Load?>> result = await repos.readLoads();
+      result.fold(
+        (failure) {
+          emit(HomeError(message: failure.errrorMessage));
+        },
+        (loads) {
+          listLoads.addAll(loads);
 
-        emit(HomeLoadingCompeleted(loads: [null, ...loads]));
-      },
-    );
+          emit(HomeLoadingCompeleted(loads: [null, ...loads]));
+        },
+      );
+    }
   }
 }

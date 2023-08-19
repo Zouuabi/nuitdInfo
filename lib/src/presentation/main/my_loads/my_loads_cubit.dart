@@ -16,15 +16,17 @@ class MyLoadsCubit extends Cubit<MyloadsState> {
   final Repository _repository;
 
   void fetchMyLoads({bool refresh = false}) async {
-    if (!refresh) {
-      emit(const MyloadsState(status: States.loading));
+    if (!isClosed) {
+      if (!refresh) {
+        emit(const MyloadsState(status: States.loading));
+      }
+
+      Either<Failure, List<Load>> result = await _repository.readMyLoads();
+
+      result.fold(
+          (l) => emit(
+              MyloadsState(status: States.error, message: l.errrorMessage)),
+          (r) => emit(MyloadsState(status: States.complete, data: r)));
     }
-
-    Either<Failure, List<Load>> result = await _repository.readMyLoads();
-
-    result.fold(
-        (l) =>
-            emit(MyloadsState(status: States.error, message: l.errrorMessage)),
-        (r) => emit(MyloadsState(status: States.complete, data: r)));
   }
 }

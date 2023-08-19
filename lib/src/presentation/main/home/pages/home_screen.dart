@@ -53,57 +53,64 @@ class HomeScreen extends StatelessWidget {
         },
         child: Scaffold(
           appBar: _getAppBar(context),
-          body: BlocBuilder<HomeCubit, HomeState>(
-            builder: (context, state) {
-              if (state is HomeLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is HomeLoadingCompeleted &&
-                  state.loads.length > 1) {
-                return ListView.builder(
-                    padding: const EdgeInsets.all(20),
-                    itemCount: state.loads.length,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        // todo : kima add post
-                        return Container();
-                      } else {
-                        return LoadItem(
-                          detailsButton: () {
-                            if (BlocProvider.of<HomeCubit>(context)
-                                    .isFirstTime ==
-                                true) {
-                              Navigator.pushNamed(context, Routes.fillProfil);
-                            } else {
-                              Navigator.pushNamed(context, Routes.loadDetails,
-                                  arguments: state.loads[index]);
-                            }
-                          },
-                          load: state.loads[index]!,
-                        );
-                      }
-                    });
-              } else if (state is HomeLoadingCompeleted &&
-                  state.loads.length <= 1) {
-                return Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text('No Loads Found , '),
-                      TextButton(
-                          onPressed: () {
-                            insta.getloads(isrefresh: true);
-                          },
-                          child: const Text('Refresh'))
-                    ],
-                  ),
-                );
-              } else {
-                state as HomeError;
-                return Center(
-                  child: Text(state.message),
-                );
-              }
-            },
+          body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                if (state is HomeLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is HomeLoadingCompeleted &&
+                    state.loads.length > 1) {
+                  return ListView.builder(
+                      itemCount: state.loads.length,
+                      itemBuilder: (context, index) {
+                        if (index == 0) {
+                          // todo : kima add post
+                          return Container();
+                        } else {
+                          return SizedBox(
+                            height: 200,
+                            child: LoadItem(
+                              detailsButton: () {
+                                if (BlocProvider.of<HomeCubit>(context)
+                                        .isFirstTime ==
+                                    true) {
+                                  Navigator.pushNamed(
+                                      context, Routes.fillProfil);
+                                } else {
+                                  Navigator.pushNamed(
+                                      context, Routes.loadDetails,
+                                      arguments: state.loads[index]);
+                                }
+                              },
+                              load: state.loads[index]!,
+                            ),
+                          );
+                        }
+                      });
+                } else if (state is HomeLoadingCompeleted &&
+                    state.loads.length <= 1) {
+                  return Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('No Loads Found , '),
+                        TextButton(
+                            onPressed: () {
+                              insta.getloads(isrefresh: true);
+                            },
+                            child: const Text('Refresh'))
+                      ],
+                    ),
+                  );
+                } else {
+                  state as HomeError;
+                  return Center(
+                    child: Text(state.message),
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),

@@ -24,6 +24,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int index = 0;
   final pagecontroller = PageController();
+  final pages = [
+    HomeScreen(),
+    const MyLoadsScreen(),
+    const FavoritesScreen(),
+    const ProfileScreen()
+  ];
 
   @override
   void initState() {
@@ -37,72 +43,68 @@ class _MainScreenState extends State<MainScreen> {
         child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             return Scaffold(
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
-                    Navigator.pushNamed(context, Routes.fillProfil);
-                  } else {
-                    Navigator.pushNamed(context, Routes.postLoad);
-                  }
-                },
-                child: const Icon(Icons.add),
-              ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              bottomNavigationBar: AnimatedBottomNavigationBar(
-                iconSize: 35,
-                backgroundColor: const Color.fromARGB(255, 216, 233, 231),
-
-                // borderColor: ColorManager.mouvemaBrown900,
-                // borderWidth: 3,
-                elevation: 2,
-                borderWidth: 5,
-                borderColor: Colors.teal,
-                height: 70,
-                activeColor: Colors.teal,
-                inactiveColor: ColorManager.mouvemaBrown900,
-
-                icons: const [
-                  Icons.home,
-                  Icons.work_history,
-                  Icons.bookmark_outlined,
-                  Icons.person
-                ],
-                activeIndex: index,
-                gapLocation: GapLocation.center,
-                notchSmoothness: NotchSmoothness.verySmoothEdge,
-                leftCornerRadius: 32,
-                rightCornerRadius: 32,
-                onTap: (val) => setState(() {
-                  if (val == 3) {
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
                     if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
                       Navigator.pushNamed(context, Routes.fillProfil);
+                    } else {
+                      Navigator.pushNamed(context, Routes.postLoad);
+                    }
+                  },
+                  child: const Icon(Icons.add),
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                bottomNavigationBar: AnimatedBottomNavigationBar(
+                  iconSize: 35,
+                  backgroundColor: const Color.fromARGB(255, 216, 233, 231),
+
+                  // borderColor: ColorManager.mouvemaBrown900,
+                  // borderWidth: 3,
+                  elevation: 2,
+                  borderWidth: 5,
+                  borderColor: Colors.teal,
+                  height: 70,
+                  activeColor: Colors.teal,
+                  inactiveColor: ColorManager.mouvemaBrown900,
+
+                  icons: const [
+                    Icons.home,
+                    Icons.work_history,
+                    Icons.bookmark_outlined,
+                    Icons.person
+                  ],
+                  activeIndex: index,
+                  gapLocation: GapLocation.center,
+                  notchSmoothness: NotchSmoothness.verySmoothEdge,
+                  leftCornerRadius: 32,
+                  rightCornerRadius: 32,
+                  onTap: (val) => setState(() {
+                    if (val == 3) {
+                      if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
+                        Navigator.pushNamed(context, Routes.fillProfil);
+                      } else {
+                        index = val;
+                        pagecontroller.jumpToPage(index);
+                      }
                     } else {
                       index = val;
                       pagecontroller.jumpToPage(index);
                     }
-                  } else {
-                    index = val;
-                    pagecontroller.jumpToPage(index);
-                  }
-                }),
-                //other params
-              ),
-              body: PageView(
-                onPageChanged: (value) {
-                  setState(() {
-                    index = value;
-                  });
-                },
-                controller: pagecontroller,
-                children: [
-                  HomeScreen(),
-                  const MyLoadsScreen(),
-                  const FavoritesScreen(),
-                  const ProfileScreen()
-                ],
-              ),
-            );
+                  }),
+                  //other params
+                ),
+                body: PageView.builder(
+                    controller: pagecontroller,
+                    itemCount: 4,
+                    onPageChanged: (value) {
+                      setState(() {
+                        index = value;
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      return pages[index];
+                    }));
           },
         ));
   }

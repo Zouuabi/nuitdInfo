@@ -14,14 +14,17 @@ class ProfileCubit extends Cubit<ProfileState> {
   final RepositoryImpl repositoryImpl;
 
   void getProfile() async {
-    emit(const ProfileState(status: Status.loading));
-    Either<Failure, MyUser> result =
-        await repositoryImpl.getCurrentUserInformation();
-    result.fold((l) {
-      emit(ProfileState(status: Status.failed, errorMessage: l.errrorMessage));
-    }, (r) {
-      emit(ProfileState(status: Status.success, data: r));
-    });
+    if (!isClosed) {
+      emit(const ProfileState(status: Status.loading));
+      Either<Failure, MyUser> result =
+          await repositoryImpl.getCurrentUserInformation();
+      result.fold((l) {
+        emit(
+            ProfileState(status: Status.failed, errorMessage: l.errrorMessage));
+      }, (r) {
+        emit(ProfileState(status: Status.success, data: r));
+      });
+    }
   }
 
   void logOut() async {

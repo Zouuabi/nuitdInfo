@@ -34,8 +34,8 @@ class LoadItem extends StatelessWidget {
                 const Spacer(),
                 SvgPicture.asset(
                   'assets/images/${load.truckType}.svg',
-                  width: 50,
-                  height: 50,
+                  width: 30,
+                  height: 30,
                   // ignore: deprecated_member_use
                 ),
               ],
@@ -45,7 +45,7 @@ class LoadItem extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.arrow_circle_up,
-                  size: 35,
+                  size: 25,
                   color: Colors.green,
                 ),
                 const SizedBox(
@@ -60,13 +60,13 @@ class LoadItem extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 8,
             ),
             Row(
               children: [
                 const Icon(
                   Icons.arrow_circle_down,
-                  size: 35,
+                  size: 25,
                   color: Colors.red,
                 ),
                 const SizedBox(width: 15),
@@ -99,7 +99,7 @@ class LoadItem extends StatelessWidget {
                   child: const Text(
                     'View Details',
                   ),
-                )
+                ),
               ],
             )
           ]),

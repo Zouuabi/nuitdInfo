@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'src/config/routes/routes.dart';
 import 'src/presentation/login/pages/login_screen.dart';
+import 'package:device_preview/device_preview.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,8 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // theme: myThemeData(),
-
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
