@@ -61,7 +61,7 @@ class RouteGenerator {
         });
       case Routes.profil:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const ProfileScreen();
+          return ProfileScreen();
         });
 
       //************************* */

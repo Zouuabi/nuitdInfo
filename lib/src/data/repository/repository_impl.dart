@@ -23,7 +23,6 @@ class RepositoryImpl extends Repository {
 
   final InternetCheckerImpl internetChecker;
   final LocalStorage localStorage;
-
   List<Load> _toLoad(List<Map<String, dynamic>> listmaps) {
     return listmaps.map((e) {
       return Load.fromfirestore(e);
@@ -122,7 +121,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, List<Load?>>> readLoads() async {
+  Future<Either<Failure, List<Load>>> fetchLoads() async {
     if (await internetChecker.isConnected()) {
       try {
         List<Map<String, dynamic>> list = await firestore.readLoads();

@@ -13,9 +13,11 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   final RepositoryImpl repositoryImpl;
 
-  void getProfile() async {
+  void getProfile({bool isRefresh = false}) async {
     if (!isClosed) {
-      emit(const ProfileState(status: Status.loading));
+      if (!isRefresh) {
+        emit(const ProfileState(status: Status.loading));
+      }
       Either<Failure, MyUser> result =
           await repositoryImpl.getCurrentUserInformation();
       result.fold((l) {

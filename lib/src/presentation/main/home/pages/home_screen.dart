@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:mouvema/src/core/colors_manager.dart';
+import 'package:mouvema/src/core/utils/color_manager.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../injector.dart';
@@ -13,11 +16,6 @@ import '../cubit/home_state.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  // final ScrollController _scrollController = ScrollController();
-
-  ///  just tojrab bl statefull widget
-
-  // List<Load> loadsList = [];
   // @override
   // void initState() {
   //   super.initState();
@@ -40,162 +38,130 @@ class HomeScreen extends StatelessWidget {
   //     });
   //   }
   // }
-// HomeCubit(instance<RepositoryImpl>())
-  final insta = instance<HomeCubit>();
+
+  final homeCubit = instance<HomeCubit>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
-      create: (context) => insta,
-      child: RefreshIndicator(
-        onRefresh: () async {
-          insta.getloads(isrefresh: true);
-        },
-        child: Scaffold(
-          appBar: _getAppBar(context),
-          body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: BlocBuilder<HomeCubit, HomeState>(
+      create: (context) => homeCubit,
+      child: LiquidPullToRefresh(
+          height: 300,
+          color: ColorManager.mouvemaTeal,
+          backgroundColor: ColorManager.scaffoldBackgroundColor,
+          animSpeedFactor: 1,
+          onRefresh: () async {
+            homeCubit.fetchLoads(isrefresh: true);
+          },
+          child: BlocConsumer<HomeCubit, HomeState>(
+              listener: (context, state) {},
               builder: (context, state) {
-                if (state is HomeLoading) {
+                if (state.status == Status.loading) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (state is HomeLoadingCompeleted &&
-                    state.loads.length > 1) {
-                  return ListView.builder(
-                      itemCount: state.loads.length,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          // todo : kima add post
-                          return Container();
-                        } else {
-                          return SizedBox(
-                            height: 200,
-                            child: LoadItem(
-                              detailsButton: () {
-                                if (BlocProvider.of<HomeCubit>(context)
-                                        .isFirstTime ==
-                                    true) {
-                                  Navigator.pushNamed(
-                                      context, Routes.fillProfil);
-                                } else {
-                                  Navigator.pushNamed(
-                                      context, Routes.loadDetails,
-                                      arguments: state.loads[index]);
-                                }
-                              },
-                              load: state.loads[index]!,
+                } else if (state.status == Status.fetchSuccess) {
+                  return CustomScrollView(
+                    controller: ScrollController(),
+                    slivers: [
+                      SliverAppBar(
+                        elevation: 10,
+                        title: ListTile(
+                            title: const Text(
+                              'mouvema',
+                              style: TextStyle(fontSize: 20),
                             ),
-                          );
-                        }
-                      });
-                } else if (state is HomeLoadingCompeleted &&
-                    state.loads.length <= 1) {
-                  return Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('No Loads Found , '),
-                        TextButton(
-                            onPressed: () {
-                              insta.getloads(isrefresh: true);
-                            },
-                            child: const Text('Refresh'))
-                      ],
-                    ),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) {
+                                        String? origin, destination, type;
+                                        return AlertDialog(
+                                            title: const Text(
+                                              'Filter',
+                                            ),
+                                            content: SizedBox(
+                                              height: 200,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      const Text('Origin'),
+                                                      ChooseLocationButton(
+                                                          onlocationschanged:
+                                                              (originz) {
+                                                        origin = originz;
+                                                      }),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      const Text('Destination'),
+                                                      ChooseLocationButton(
+                                                          onlocationschanged:
+                                                              (destinationz) {
+                                                        destination =
+                                                            destinationz;
+                                                      }),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      const Text('Truck Type'),
+                                                      SelectTruckType(
+                                                        onTypeChanged: (typez) {
+                                                          type = typez;
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('Cancel')),
+                                              ElevatedButton(
+                                                  onPressed: () {
+                                                    homeCubit.filterLoads(
+                                                        destination:
+                                                            destination,
+                                                        origin: origin,
+                                                        type: type);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Search'))
+                                            ]);
+                                      });
+                                },
+                                icon: const Icon(Icons.filter_alt_outlined,
+                                    size: 30))),
+                      ),
+                      SliverList.builder(
+                          itemCount: state.data!.length,
+                          itemBuilder: (context, index) {
+                            return LoadItem(
+                                load: state.data![index], detailsButton: () {});
+                          })
+                    ],
                   );
                 } else {
-                  state as HomeError;
-                  return Center(
-                    child: Text(state.message),
-                  );
+                  return Text('sdfsdf');
                 }
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  AppBar _getAppBar(BuildContext context) {
-    return AppBar(
-      elevation: 10,
-      title: ListTile(
-          title: const Text(
-            'mouvema',
-            style: TextStyle(fontSize: 20),
-          ),
-          trailing: IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (ctx) {
-                      String? origin, destination, type;
-                      return AlertDialog(
-                          title: const Text(
-                            'Filter',
-                          ),
-                          content: SizedBox(
-                            height: 200,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Text('Origin'),
-                                    ChooseLocationButton(
-                                        onlocationschanged: (originz) {
-                                      origin = originz;
-                                    }),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Text('Destination'),
-                                    ChooseLocationButton(
-                                        onlocationschanged: (destinationz) {
-                                      destination = destinationz;
-                                    }),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Text('Truck Type'),
-                                    SelectTruckType(
-                                      onTypeChanged: (typez) {
-                                        type = typez;
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Cancel')),
-                            ElevatedButton(
-                                onPressed: () {
-                                  insta.filterLoads(
-                                      destination: destination,
-                                      origin: origin,
-                                      type: type);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Search'))
-                          ]);
-                    });
-              },
-              icon: const Icon(Icons.filter_alt_outlined, size: 30))),
+              })),
     );
   }
 }
