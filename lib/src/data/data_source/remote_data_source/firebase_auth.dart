@@ -27,10 +27,9 @@ class FirebaseAuthentication {
     return _auth.currentUser!.uid;
   }
 
-  Future<User?> register(String email, String password) async {
-    var cred = await _auth.createUserWithEmailAndPassword(
+  Future<void> register(String email, String password) async {
+    await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    return cred.user;
   }
 
   Future<void> sendPasswordResetEmail({required String email}) async {

@@ -15,6 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: DevicePreview.appBuilder,
+      locale: DevicePreview.locale(context),
       theme: buildTheme(context),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
