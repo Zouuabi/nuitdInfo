@@ -11,11 +11,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(const MyApp()
-      // DevicePreview(
-      //     backgroundColor: Colors.blue,
-      //     isToolbarVisible: false,
-      //     enabled: true,
-      //     builder: (context) => const MyApp()), // Wrap your app
-      );
+  runApp(
+    const MyApp(),
+  );
+
 }

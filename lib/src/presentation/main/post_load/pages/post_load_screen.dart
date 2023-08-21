@@ -12,8 +12,8 @@ import '../cubits/post_load_state.dart';
 import '../widgets/details_input.dart';
 import '../widgets/hint_text.dart';
 
-class PostLoadScreen extends StatelessWidget {
-  const PostLoadScreen({super.key});
+class MyLoadsScreen extends StatelessWidget {
+  const MyLoadsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

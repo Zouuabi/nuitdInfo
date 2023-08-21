@@ -18,7 +18,7 @@ class CloudFiresore {
     return true; // User is not registered in Firestore
   }
 
-  Future<List<Load>> fetchMyLoads({required String brokerUid}) async {
+  Future<List<Load>> fetchMyPosts({required String brokerUid}) async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
         .collection('loads')
         .where('brokerUid', isEqualTo: brokerUid)
@@ -107,5 +107,11 @@ class CloudFiresore {
     }).toList();
 
     return loadsList;
+  }
+
+  Future<void> deleteLoad(List<String> loads) async {
+    for (String loadRef in loads) {
+      await _firestore.collection('loads').doc(loadRef).delete();
+    }
   }
 }

@@ -86,7 +86,7 @@ class RouteGenerator {
       case Routes.postLoad:
         postInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const PostLoadScreen();
+          return const MyLoadsScreen();
         });
       //************************** */
 

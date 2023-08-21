@@ -203,7 +203,7 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, List<Load>>> readMyLoads() async {
     if (await internetChecker.isConnected()) {
       try {
-        List<Load> loads = await firestore.fetchMyLoads(
+        List<Load> loads = await firestore.fetchMyPosts(
             brokerUid: await auth.getCurrentUserId());
         return right(loads);
       } catch (e) {
@@ -244,6 +244,21 @@ class RepositoryImpl extends Repository {
     if (await internetChecker.isConnected()) {
       try {
         await auth.sendPasswordResetEmail(email: email);
+        return right(null);
+      } on FirebaseAuthException catch (e) {
+        return left(Failure(errrorMessage: e.code));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteLoads(
+      {required List<String> loads}) async {
+    if (await internetChecker.isConnected()) {
+      try {
+        await firestore.deleteLoad(loads);
         return right(null);
       } on FirebaseAuthException catch (e) {
         return left(Failure(errrorMessage: e.code));
