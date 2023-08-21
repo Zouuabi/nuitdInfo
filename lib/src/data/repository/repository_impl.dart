@@ -216,7 +216,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, List<Load>>> readMyPosts() async {
+  Future<Either<Failure, List<Load>>> readMyLoads() async {
     if (await internetChecker.isConnected()) {
       try {
         List<Load> loads = await firestore.fetchMyPosts(

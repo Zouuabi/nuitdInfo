@@ -42,7 +42,7 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
                 body: RefreshIndicator(
                   onRefresh: () async {
                     BlocProvider.of<MyLoadsCubit>(context)
-                        .fetchMyPsots(refresh: true);
+                        .fetchMyLoads(refresh: true);
                   },
                   child: ListView.builder(
                       padding: const EdgeInsets.all(20),

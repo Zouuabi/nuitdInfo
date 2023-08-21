@@ -10,17 +10,17 @@ import 'my_loads_state.dart';
 class MyLoadsCubit extends Cubit<MyloadsState> {
   MyLoadsCubit(this._repository)
       : super(const MyloadsState(status: States.initial)) {
-    fetchMyPsots();
+    fetchMyLoads();
   }
 
   final Repository _repository;
 
-  void fetchMyPsots({bool refresh = false}) async {
+  void fetchMyLoads({bool refresh = false}) async {
     if (!refresh) {
       emit(const MyloadsState(status: States.loading));
     }
 
-    Either<Failure, List<Load>> result = await _repository.readMyPosts();
+    Either<Failure, List<Load>> result = await _repository.readMyLoads();
 
     result.fold(
         (l) =>
@@ -33,7 +33,7 @@ class MyLoadsCubit extends Cubit<MyloadsState> {
     result.fold((l) {
       emit(MyloadsState(status: States.error, message: l.errrorMessage));
     }, (r) {
-      fetchMyPsots();
+      fetchMyLoads();
     });
   }
 }
