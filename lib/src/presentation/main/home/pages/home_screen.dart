@@ -59,7 +59,6 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state.status == Status.loading) {
                   return const Center(child: CircularProgressIndicator());
-
                 } else if (state.status == Status.fetchSuccess) {
                   return CustomScrollView(
                     controller: ScrollController(),
@@ -68,11 +67,8 @@ class HomeScreen extends StatelessWidget {
                         floating: true,
                         elevation: 10,
                         title: ListTile(
-                            title: const Text(
-                              'mouvema',
-                              style: TextStyle(fontSize: 20),
-
-               
+                            title: const Text('mouvema',
+                                style: TextStyle(fontSize: 20)),
                             trailing: IconButton(
                                 onPressed: () {
                                   showDialog(

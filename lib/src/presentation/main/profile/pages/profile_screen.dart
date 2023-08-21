@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mouvema/src/data/models/user.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_cubit.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_state.dart';
 import '../../../../config/routes/routes.dart';
-
-import '../../../../core/utils/color_manager.dart';
 import '../../../../injector.dart';
 
 class ProfileScreen extends StatelessWidget {

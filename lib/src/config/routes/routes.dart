@@ -44,6 +44,7 @@ class RouteGenerator {
       case Routes.main:
         homeInstances();
         fillProfileInstances();
+        profilInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const MainScreen();
         });

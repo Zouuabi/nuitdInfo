@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'src/data/data_source/remote_data_source/firebase_options.dart';
@@ -14,5 +13,4 @@ void main() async {
   runApp(
     const MyApp(),
   );
-
 }
