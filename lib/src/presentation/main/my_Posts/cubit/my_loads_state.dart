@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/load.dart';
+import '../../../../data/models/load.dart';
 
 enum States { initial, loading, complete, error }
 
