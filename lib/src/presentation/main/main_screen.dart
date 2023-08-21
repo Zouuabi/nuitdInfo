@@ -11,7 +11,7 @@ import '../../core/utils/color_manager.dart';
 import '../../injector.dart';
 import 'home/pages/home_screen.dart';
 import 'favorite_loads/pages/favorites_screen.dart';
-import 'my_loads/my_loads_screen.dart';
+import 'my_loads/pages/post_load_screen.dart';
 import 'profile/pages/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
