@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mouvema/src/presentation/main/my_loads/cubits/post_load_state.dart';
+import 'package:mouvema/src/presentation/main/post_load/cubits/post_load_state.dart';
 
 import '../../../../core/failure.dart';
 import '../../../../data/models/load.dart';
