@@ -3,20 +3,20 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthentication {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<void> signInWithGoogle() async {
-    final GoogleSignInAccount? googleSignInAccount =
-        await _googleSignIn.signIn();
+    // final GoogleSignInAccount? googleSignInAccount =
+    //     await _googleSignIn.signIn();
 
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
+    // final GoogleSignInAuthentication googleSignInAuthentication =
+    //     await googleSignInAccount!.authentication;
+    // final AuthCredential credential = GoogleAuthProvider.credential(
+    //   accessToken: googleSignInAuthentication.accessToken,
+    //   idToken: googleSignInAuthentication.idToken,
+    // );
 
-    await _auth.signInWithCredential(credential);
+    // await _auth.signInWithCredential(credential);
   }
 
   Future<void> signIn({required String email, required String password}) async {
@@ -27,10 +27,9 @@ class FirebaseAuthentication {
     return _auth.currentUser!.uid;
   }
 
-  Future<User?> register(String email, String password) async {
-    var cred = await _auth.createUserWithEmailAndPassword(
+  Future<void> register(String email, String password) async {
+    await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    return cred.user;
   }
 
   Future<void> sendPasswordResetEmail({required String email}) async {
@@ -39,6 +38,6 @@ class FirebaseAuthentication {
 
   Future<void> logOut() async {
     await _auth.signOut();
-    await _googleSignIn.signOut();
+    // await _googleSignIn.signOut();
   }
 }

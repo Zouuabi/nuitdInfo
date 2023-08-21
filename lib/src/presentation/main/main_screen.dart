@@ -23,12 +23,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int index = 0;
-  final pagecontroller = PageController();
+  final pagecontroller = PageController(initialPage: 0);
   final pages = [
     HomeScreen(),
     const MyLoadsScreen(),
-    const FavoritesScreen(),
-    const ProfileScreen()
+    FavoritesScreen(),
+    ProfileScreen()
   ];
 
   @override

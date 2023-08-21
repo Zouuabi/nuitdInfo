@@ -6,6 +6,7 @@ import 'package:mouvema/src/presentation/main/main_screen.dart';
 import 'config/routes/routes.dart';
 import 'config/themes/themes.dart';
 import 'injector.dart';
+import 'package:device_preview/device_preview.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,6 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: DevicePreview.appBuilder,
+      locale: DevicePreview.locale(context),
       theme: buildTheme(context),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),

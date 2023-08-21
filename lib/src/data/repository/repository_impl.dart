@@ -23,7 +23,6 @@ class RepositoryImpl extends Repository {
 
   final InternetCheckerImpl internetChecker;
   final LocalStorage localStorage;
-
   List<Load> _toLoad(List<Map<String, dynamic>> listmaps) {
     return listmaps.map((e) {
       return Load.fromfirestore(e);
@@ -93,27 +92,12 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, void>> register(
-      {required String username,
-      required String birthdate,
-      required String email,
-      required String password,
-      required Uint8List? image}) async {
-    String urlimage = '';
+  Future<Either<Failure, void>> register({
+    required String email,
+    required String password,
+  }) async {
     try {
-      User? usr = await auth.register(email, password);
-      if (image != null) {
-        urlimage = await storage.storeImage(
-            child: 'usersProfileImages', uid: usr!.uid, image: image);
-      }
-      await firestore.addNewUserInformations(
-          tel: 'mazzel na9ess',
-          uid: usr!.uid,
-          email: email,
-          username: username,
-          favoriteLoads: [],
-          birdhdate: birthdate,
-          imageLink: urlimage);
+      await auth.register(email, password);
 
       return const Right(null);
     } on FirebaseAuthException catch (error) {
@@ -122,7 +106,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, List<Load?>>> readLoads() async {
+  Future<Either<Failure, List<Load>>> fetchLoads() async {
     if (await internetChecker.isConnected()) {
       try {
         List<Map<String, dynamic>> list = await firestore.readLoads();

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart' show ScrollController;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
@@ -7,46 +8,49 @@ import '../../../../data/models/load.dart';
 import '../../../../data/repository/repository_impl.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.repos) : super(HomeLoading()) {
-    getloads();
+  HomeCubit(this.repos) : super(const HomeState(status: Status.initial)) {
+    fetchLoads();
     _checkFirstTime();
   }
   final RepositoryImpl repos;
-  List<Load?> listLoads = [];
+  final ScrollController _scrollController = ScrollController();
+  List<Load> listLoads = [];
   bool isFirstTime = false;
+
   void _checkFirstTime() async {
     var result = await repos.isFirstTime();
     result.fold((l) {
-      emit(HomeError(message: l.errrorMessage));
+      emit(HomeState(
+          status: Status.fetchSuccess, errorMessage: l.errrorMessage));
     }, (r) {
       isFirstTime = r;
     });
   }
 
   void filterLoads({String? origin, String? destination, String? type}) {
-    emit(HomeLoading());
-    List<Load?> filteredList = listLoads.where((load) {
-      return (origin == null || load!.origin == origin) &&
-          (destination == null || load!.destination == destination) &&
-          (type == null || load!.truckType == type);
+    emit(const HomeState(status: Status.loading));
+    List<Load> filteredList = listLoads.where((load) {
+      return (origin == null || load.origin == origin) &&
+          (destination == null || load.destination == destination) &&
+          (type == null || load.truckType == type);
     }).toList();
-    emit(HomeLoadingCompeleted(loads: [null, ...filteredList]));
+    emit(HomeState(status: Status.fetchSuccess, data: filteredList));
   }
 
-  void getloads({bool isrefresh = false}) async {
+  void fetchLoads({bool isrefresh = false}) async {
     if (!isClosed) {
       if (!isrefresh) {
-        emit(HomeLoading());
+        emit(const HomeState(status: Status.loading));
       }
-      Either<Failure, List<Load?>> result = await repos.readLoads();
+      Either<Failure, List<Load>> result = await repos.fetchLoads();
       result.fold(
         (failure) {
-          emit(HomeError(message: failure.errrorMessage));
+          emit(HomeState(
+              status: Status.fetchFailed, errorMessage: failure.errrorMessage));
         },
         (loads) {
           listLoads.addAll(loads);
-
-          emit(HomeLoadingCompeleted(loads: [null, ...loads]));
+          emit(HomeState(status: Status.fetchSuccess, data: loads));
         },
       );
     }

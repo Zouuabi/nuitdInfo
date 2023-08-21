@@ -31,6 +31,8 @@ class MyLoadsScreen extends StatelessWidget {
           body: BlocConsumer<PostCubit, PostState>(
             listener: ((context, state) {
               if (state is PostComplete) {
+                // TODO : resolve unwanted behavior push replacemen 
+                // / arrow back is appearing when popoing
                 showAlert(
                         title: 'Success',
                         message: 'Load Posted',

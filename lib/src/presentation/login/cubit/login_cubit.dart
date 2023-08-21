@@ -48,14 +48,14 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
   }
 
   void continueWithGoogle() async {
-    emit(const LoginScreenState(status: Status.loading));
+    // emit(const LoginScreenState(status: Status.loading));
 
-    Either<Failure, void> result = await repositoryImpl.continueWithGoogle();
-    result.fold((failure) {
-      emit(LoginScreenState(
-          status: Status.failed, errorMessage: failure.errrorMessage));
-    }, (success) {
-      emit(const LoginScreenState(status: Status.success));
-    });
+    // Either<Failure, void> result = await repositoryImpl.continueWithGoogle();
+    // result.fold((failure) {
+    //   emit(LoginScreenState(
+    //       status: Status.failed, errorMessage: failure.errrorMessage));
+    // }, (success) {
+    //   emit(const LoginScreenState(status: Status.success));
+    // });
   }
 }

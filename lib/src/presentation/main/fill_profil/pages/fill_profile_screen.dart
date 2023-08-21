@@ -13,9 +13,11 @@ class FillProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO : hedhi hya lii lezm teklm
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text('Fill Profile'),
+          elevation: 4,
+        ),
         body: BlocProvider(
             create: (context) => instance<FillProfilCubit>(),
             child: BlocConsumer<FillProfilCubit, FillProfilState>(

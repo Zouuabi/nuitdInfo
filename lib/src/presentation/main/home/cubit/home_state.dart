@@ -2,23 +2,15 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../data/models/load.dart';
 
-abstract class HomeState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+enum Status { initial, loading, fetchSuccess, fetchFailed }
 
-class HomeLoading extends HomeState {}
+class HomeState extends Equatable {
+  const HomeState({required this.status, this.errorMessage, this.data});
+  final Status status;
 
-class HomeError extends HomeState {
-  HomeError({required this.message});
-  final String message;
-  @override
-  List<Object?> get props => [message];
-}
+  final String? errorMessage;
+  final List<Load>? data;
 
-class HomeLoadingCompeleted extends HomeState {
-  HomeLoadingCompeleted({required this.loads});
-  final List<Load?> loads;
   @override
-  List<Object?> get props => [loads];
+  List<Object?> get props => [status, errorMessage, data];
 }
