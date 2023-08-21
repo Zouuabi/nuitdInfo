@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/config/routes/routes.dart';
 
 import '../../../core/utils/image_manager.dart';
 import '../../../data/repository/repository_impl.dart';
@@ -32,6 +33,8 @@ class ResetAccountScreen extends StatelessWidget {
                       message: 'Oops!',
                       title: state.errorMessage!);
                 } else if (state.status == Status.emailSent) {
+                  Navigator.pushReplacementNamed(
+                      context, Routes.loginWithPassword);
                   showAlert(
                       message: 'We sent you an email Check inbox',
                       context: context,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mouvema/src/presentation/forgot_password/pages/reset_account.dart';
+import 'package:mouvema/src/presentation/shared/show_alert.dart';
 
 import '../../../core/utils/image_manager.dart';
 import '../widgets/option_button.dart';
@@ -16,7 +17,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  bool smsPressed = false;
+  // bool smsPressed = false;
   bool emailPressed = false;
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   onPressed: () {
                     setState(() {
                       emailPressed ^= true;
-                      smsPressed = false;
                     });
                   },
                 ),
@@ -72,8 +72,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => ResetAccountScreen())));
+                        if (emailPressed) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => ResetAccountScreen())));
+                        } else {
+                          showAlert(
+                              message: 'You need to choose an option',
+                              context: context,
+                              title: 'Error');
+                        }
                       },
                       child: const Text('Continue')),
                 )

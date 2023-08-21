@@ -43,6 +43,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // todo : view details problem
     return BlocProvider<HomeCubit>(
       create: (context) => homeCubit,
       child: LiquidPullToRefresh(
@@ -63,6 +64,7 @@ class HomeScreen extends StatelessWidget {
                     controller: ScrollController(),
                     slivers: [
                       SliverAppBar(
+                        floating: true,
                         elevation: 10,
                         title: ListTile(
                             title: const Text(
@@ -159,7 +161,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   );
                 } else {
-                  return Text('sdfsdf');
+                  return const Text('Some thing went wrong');
                 }
               })),
     );
