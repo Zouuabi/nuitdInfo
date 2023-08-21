@@ -30,12 +30,15 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void logOut() async {
-    emit(const ProfileState(status: Status.loading));
-    Either<Failure, void> result = await repositoryImpl.logOut();
-    result.fold((l) {
-      emit(ProfileState(status: Status.failed, errorMessage: l.errrorMessage));
-    }, (r) {
-      emit(const ProfileState(status: Status.logOut));
-    });
+    if (!isClosed) {
+      emit(const ProfileState(status: Status.loading));
+      Either<Failure, void> result = await repositoryImpl.logOut();
+      result.fold((l) {
+        emit(
+            ProfileState(status: Status.failed, errorMessage: l.errrorMessage));
+      }, (r) {
+        emit(const ProfileState(status: Status.logOut));
+      });
+    }
   }
 }
