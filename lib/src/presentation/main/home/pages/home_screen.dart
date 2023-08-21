@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                           return Container();
                         } else {
                           return SizedBox(
-                            height: 200,
+                            height: 220,
                             child: LoadItem(
                               detailsButton: () {
                                 if (BlocProvider.of<HomeCubit>(context)

@@ -115,10 +115,14 @@ class _LoadItemState extends State<LoadItem> {
                   ],
                 ),
                 const Spacer(),
-                FilledButton(
-                  onPressed: widget.detailsButton,
-                  child: const Text(
-                    'View Details',
+                SizedBox(
+                  width: 100,
+                  height: 30,
+                  child: FilledButton(
+                    onPressed: widget.detailsButton,
+                    child: const Text(
+                      'View Details',
+                    ),
                   ),
                 ),
               ],
