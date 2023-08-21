@@ -11,6 +11,7 @@ import '../../shared/text_field.dart';
 import '../cubit/forgot_password_cubit.dart';
 
 class ResetAccountScreen extends StatelessWidget {
+  // torichika l tandhim l code
   ResetAccountScreen({super.key});
 
   final TextEditingController controller = TextEditingController();
