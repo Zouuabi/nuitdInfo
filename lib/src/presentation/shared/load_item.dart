@@ -5,21 +5,42 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/helpers/date_handler.dart';
 import '../../data/models/load.dart';
 
-class LoadItem extends StatelessWidget {
-  const LoadItem({super.key, required this.load, required this.detailsButton});
+class LoadItem extends StatefulWidget {
+  LoadItem({
+    super.key,
+    required this.load,
+    required this.detailsButton,
+    this.longPressed,
+  });
   final Load load;
   final VoidCallback detailsButton;
+  void Function()? longPressed;
 
+  @override
+  State<LoadItem> createState() => _LoadItemState();
+}
+
+class _LoadItemState extends State<LoadItem> {
+  bool ispressed = false;
   @override
   Widget build(BuildContext context) {
     Duration age = DateHandler.diffBetween2Dates(
-        start: DateHandler.convertStringToDate(date: load.loadDate),
+        start: DateHandler.convertStringToDate(date: widget.load.loadDate),
         end: DateHandler.convertStringToDate(
             date: DateTime.now().toString().substring(0, 10)));
 
     return GestureDetector(
+      onLongPress: () {
+        ispressed = !ispressed;
+        widget.longPressed!();
+      },
       child: Card(
         child: Container(
+          decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 198, 234, 230),
+              borderRadius: BorderRadius.circular(13),
+              border:
+                  ispressed ? Border.all(color: Colors.teal, width: 2) : null),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(children: [
             // ***** little banner ******
@@ -28,14 +49,14 @@ class LoadItem extends StatelessWidget {
                 Text('age: ${DateHandler.handleAge(age)}'),
                 const Spacer(),
                 Text(
-                  DateHandler.formatDate(load.loadDate.toString()),
+                  DateHandler.formatDate(widget.load.loadDate.toString()),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const Spacer(),
                 SvgPicture.asset(
-                  'assets/images/${load.truckType}.svg',
-                  width: 30,
-                  height: 30,
+                  'assets/images/${widget.load.truckType}.svg',
+                  width: 50,
+                  height: 50,
                   // ignore: deprecated_member_use
                 ),
               ],
@@ -52,11 +73,11 @@ class LoadItem extends StatelessWidget {
                   width: 15,
                 ),
                 Text(
-                  load.origin.toUpperCase(),
+                  widget.load.origin.toUpperCase(),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
-                Text(DateHandler.formatDate(load.pickUpDate))
+                Text(DateHandler.formatDate(widget.load.pickUpDate))
               ],
             ),
             const SizedBox(
@@ -71,11 +92,11 @@ class LoadItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 15),
                 Text(
-                  load.destination.toUpperCase(),
+                  widget.load.destination.toUpperCase(),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
-                Text(DateHandler.formatDate(load.dropDownDate))
+                Text(DateHandler.formatDate(widget.load.dropDownDate))
               ],
             ),
             const Divider(),
@@ -88,16 +109,20 @@ class LoadItem extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
-                      load.brokerName,
+                      widget.load.brokerName,
                       style: Theme.of(context).textTheme.titleMedium,
                     )
                   ],
                 ),
                 const Spacer(),
-                FilledButton(
-                  onPressed: detailsButton,
-                  child: const Text(
-                    'View Details',
+                SizedBox(
+                  width: 100,
+                  height: 30,
+                  child: FilledButton(
+                    onPressed: widget.detailsButton,
+                    child: const Text(
+                      'View Details',
+                    ),
                   ),
                 ),
               ],

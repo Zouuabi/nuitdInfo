@@ -28,4 +28,5 @@ abstract class Repository {
   Future<Either<Failure, List<Load>>> readFavoriteLoads();
   Future<Either<Failure, List<Load>>> readMyLoads();
   Future<Either<Failure, void>> sendPasswordResetEmail({required String email});
+  Future<Either<Failure, void>> deleteLoads({required List<String> loads});
 }
