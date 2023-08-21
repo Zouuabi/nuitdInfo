@@ -156,7 +156,18 @@ class HomeScreen extends StatelessWidget {
                           itemCount: state.data!.length,
                           itemBuilder: (context, index) {
                             return LoadItem(
-                                load: state.data![index], detailsButton: () {});
+                                load: state.data![index],
+                                detailsButton: () {
+                                  if (BlocProvider.of<HomeCubit>(context)
+                                      .isFirstTime) {
+                                    Navigator.pushNamed(
+                                        context, Routes.fillProfil);
+                                  } else {
+                                    Navigator.pushNamed(
+                                        context, Routes.loadDetails,
+                                        arguments: state.data![index]);
+                                  }
+                                });
                           })
                     ],
                   );

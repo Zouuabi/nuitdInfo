@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/config/routes/routes.dart';
+import 'package:mouvema/src/core/email_checker.dart';
 
 import '../../../core/utils/image_manager.dart';
 import '../../../data/repository/repository_impl.dart';
@@ -30,8 +31,8 @@ class ResetAccountScreen extends StatelessWidget {
                 if (state.status == Status.failed) {
                   showAlert(
                       context: context,
-                      message: 'Oops!',
-                      title: state.errorMessage!);
+                      message: state.errorMessage!,
+                      title: 'Oops!');
                 } else if (state.status == Status.emailSent) {
                   Navigator.pushReplacementNamed(
                       context, Routes.loginWithPassword);
@@ -75,7 +76,16 @@ class ResetAccountScreen extends StatelessWidget {
                             children: [
                               const Text('Didn\'t recieve an email ?'),
                               TextButton(
-                                  onPressed: () {}, child: const Text('Resend'))
+                                  onPressed: () {
+                                    if (controller.text.isNotEmpty &&
+                                        isValidEmail(controller.text.trim())) {
+                                      BlocProvider.of<ForgotPasswordCubit>(
+                                              context)
+                                          .sendPasswordResetEmail(
+                                              email: controller.text.trim());
+                                    }
+                                  },
+                                  child: const Text('Resend'))
                             ],
                           ),
                           SizedBox(
@@ -84,9 +94,13 @@ class ResetAccountScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 child: const Text('Send'),
                                 onPressed: () {
-                                  BlocProvider.of<ForgotPasswordCubit>(context)
-                                      .sendPasswordResetEmail(
-                                          email: controller.text.trim());
+                                  if (controller.text.isNotEmpty &&
+                                      isValidEmail(controller.text.trim())) {
+                                    BlocProvider.of<ForgotPasswordCubit>(
+                                            context)
+                                        .sendPasswordResetEmail(
+                                            email: controller.text.trim());
+                                  }
                                 },
                               ))
                         ]),
