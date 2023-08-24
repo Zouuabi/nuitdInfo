@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../data/models/load.dart';
 import '../../shared/map_view.dart';
 import '../../shared/toggle_farvorite_button.dart';
+import 'package:latlong2/latlong.dart';
 
 import 'widgets/details.dart';
 
 class LoadDetailsScreen extends StatelessWidget {
-  const LoadDetailsScreen({super.key, required this.load});
+  const LoadDetailsScreen({
+    super.key,
+    required this.load,
+  });
 
   final Load load;
 
@@ -27,7 +31,7 @@ class LoadDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             // *** kharita
-            MapView(size: size),
+            MapView(onchange: null, size: size),
 
             Padding(
               padding: const EdgeInsets.all(20.0),

@@ -1,18 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:latlong2/latlong.dart';
 
-abstract class PostState extends Equatable {
+enum Status { initial, success, loading, failed, onPositionChanged }
+
+class PostState extends Equatable {
+  const PostState({this.message, this.data, required this.status});
+  final Status status;
+  final String? message;
+  final List<LatLng?>? data;
   @override
-  get props => [];
+  get props => [status, message, data];
 }
-
-class InitialPost extends PostState {}
-class PostLoading extends PostState {}
-
-class PostError extends PostState {
-  final String errrorMessage;
-  PostError({required this.errrorMessage});
-  @override
-  get props => [errrorMessage];
-}
-
-class PostComplete extends PostState {}

@@ -1,52 +1,76 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart'
-    show FlutterMap, MapController, MapOptions, Marker, MarkerLayer, TileLayer;
-
+import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:geocoding/geocoding.dart';
 
-// ignore: must_be_immutable
-class MapView extends StatefulWidget {
-  MapView({
-    super.key,
-    required this.onchange,
-    required this.size,
-  });
-  final Size size;
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key, this.onchange});
   final void Function(LatLng?, LatLng?)? onchange;
 
   @override
-  State<MapView> createState() => _MapViewState();
+  State<MapScreen> createState() => MapScreenState();
 }
 
-class _MapViewState extends State<MapView> {
-  final MapController _mapController = MapController();
+class MapScreenState extends State<MapScreen> {
+  MapController mapController = MapController();
+  final TextEditingController _searchController = TextEditingController();
+  LatLng? _selectedLocation;
   LatLng? origin;
   LatLng? destination;
   List<Marker> markers = [];
+
+  void _searchLocation() async {
+    String query = _searchController.text;
+    if (query.isNotEmpty) {
+      List<Location> locations = await locationFromAddress(query);
+      if (locations.isNotEmpty) {
+        setState(() {
+          _selectedLocation =
+              LatLng(locations[0].latitude, locations[0].longitude);
+          mapController.move(_selectedLocation!, 15.0);
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration:
-              BoxDecoration(border: Border.all(color: Colors.teal, width: 2)),
-          width: double.infinity,
-          height: widget.size.height * 0.4,
-          child: FlutterMap(
-            mapController: _mapController,
+    print(origin);
+    print(destination);
+    return Scaffold(
+      appBar: AppBar(
+        title: SizedBox(
+          width: 300,
+          height: 40,
+          child: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              hintText: 'Search for a place',
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: _searchLocation,
+              ),
+            ),
+            onSubmitted: (_) => _searchLocation(),
+          ),
+        ),
+      ),
+      body: Stack(
+        children: [
+          FlutterMap(
+            mapController: mapController,
             options: MapOptions(
               onLongPress: (tapPosition, point) {
                 if (origin != null &&
-                    _isSameLocation(point, origin!, _mapController.zoom)) {
+                    _isSameLocation(point, origin!, mapController.zoom)) {
                   setState(() {
                     markers.removeAt(0);
                     origin = null;
                   });
                 } else if (destination != null &&
-                    _isSameLocation(point, destination!, _mapController.zoom)) {
+                    _isSameLocation(point, destination!, mapController.zoom)) {
                   setState(() {
                     markers.removeLast();
                     destination = null;
@@ -74,38 +98,44 @@ class _MapViewState extends State<MapView> {
                               Icons.arrow_circle_up_outlined,
                               color: Color.fromARGB(255, 206, 31, 5),
                             )));
+                    widget.onchange!(origin, destination);
                   });
                 }
-                widget.onchange!(origin, destination);
               },
-              center: const LatLng(35.6784, 10.0982),
-              zoom: 5,
+              center: _selectedLocation ??
+                  const LatLng(
+                      40.7128, -74.0060), // Default: New York City coordinates
+              zoom: 13.0,
             ),
             children: [
               TileLayer(
-                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.example.app',
+                urlTemplate:
+                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                subdomains: const ['a', 'b', 'c'],
               ),
-              MarkerLayer(markers: markers)
+              MarkerLayer(markers: markers
+
+                  // [
+                  //   (_selectedLocation != null)
+                  //       ? Marker(
+                  //           point: _selectedLocation!,
+                  //           builder: (ctx) => const Icon(
+                  //             Icons.location_pin,
+                  //             color: Colors.red,
+                  //             size: 40.0,
+                  //           ),
+                  //         )
+                  //       : Marker(
+                  //           point: const LatLng(0, 0),
+                  //           builder: (context) => const Icon(Icons.abc),
+                  //         )
+                  // ]
+
+                  )
             ],
           ),
-        ),
-        Positioned(
-            bottom: 10,
-            left: widget.size.width * 0.4,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.teal, borderRadius: BorderRadius.circular(10)),
-              padding: const EdgeInsets.all(8),
-              child: (origin != null && destination != null)
-                  ? Text(
-                      '${_calculateDistance(LatLng(origin!.latitude, origin!.longitude), LatLng(destination!.latitude, destination!.longitude)).toString().substring(0, 4)} km',
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    )
-                  : const Text('00.00'),
-            ))
-      ],
+        ],
+      ),
     );
   }
 

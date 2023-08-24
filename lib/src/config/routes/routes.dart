@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/helpers/searchMap.dart';
 import '../../data/models/load.dart';
 import '../../presentation/forgot_password/pages/forgot_password_screen.dart';
 import '../../presentation/login/pages/login_screen.dart';
@@ -24,6 +25,7 @@ class Routes {
   static const String postLoad = "/postLoad";
   static const String fillProfil = "/fillProfil";
   static const String profil = "/Profil";
+  static const String mapScreen = "/mapScreen";
 }
 
 class RouteGenerator {
@@ -78,24 +80,22 @@ class RouteGenerator {
       case Routes.loadDetails:
         return MaterialPageRoute(builder: (BuildContext ctx) {
           final Load arg = settings.arguments as Load;
-
           return LoadDetailsScreen(load: arg);
         });
 
       //************************** */
 
+      //************************** */
       case Routes.postLoad:
         postInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const MyLoadsScreen();
+          return MyLoadsScreen();
         });
-      //************************** */
-
       default:
         // naamlou page 404
         return MaterialPageRoute(builder: (ctx) {
           return const Placeholder(
-            child: Text('404'),
+            child: Text('404 Not Found'),
           );
         });
     }

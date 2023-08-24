@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:latlong2/latlong.dart';
 import '../../../../core/helpers/date_handler.dart';
 import '../../../../data/models/load.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,8 +31,8 @@ class Details extends StatelessWidget {
           children: [
             Expanded(
               child: PickAndDrop(
-                  origin: load.origin,
-                  destination: load.destination,
+                  // origin: load.origin,
+                  // destination: load.destination,
                   pickUpDate: load.pickUpDate,
                   dropDownDate: load.dropDownDate),
             ),
@@ -122,7 +122,7 @@ class Details extends StatelessWidget {
                   width: double.infinity,
                   child: FilledButton(
                       onPressed: () {
-                        callNumber('50508159');
+                        callNumber(load.brokerPhone);
                       },
                       child: const Text('Call Broker')))
             ],
@@ -130,6 +130,17 @@ class Details extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+void openGoogleMapsDirections(LatLng origin, LatLng destination) async {
+  final url =
+      'https://www.google.com/maps/dir/?api=1&origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&travelmode=driving';
+
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch Google Maps';
   }
 }
 
@@ -145,13 +156,13 @@ callNumber(String phoneNumber) async {
 class PickAndDrop extends StatelessWidget {
   const PickAndDrop(
       {super.key,
-      required this.origin,
-      required this.destination,
+      // required this.origin,
+      //required this.destination,
       required this.pickUpDate,
       required this.dropDownDate});
 
-  final String origin;
-  final String destination;
+  //final String origin;
+  // final String destination;
   final String pickUpDate;
   final String dropDownDate;
 
@@ -165,7 +176,7 @@ class PickAndDrop extends StatelessWidget {
           isFirst: true,
           endChild: ListTile(
             title: Text(
-              origin,
+              'Morzeg 1',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Text(DateHandler.formatDate(pickUpDate),
@@ -178,7 +189,7 @@ class PickAndDrop extends StatelessWidget {
           isLast: true,
           endChild: ListTile(
             title: Text(
-              destination,
+              'Morzeg 2',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Text(

@@ -54,7 +54,8 @@ class LoadItem extends StatelessWidget {
                   width: 15,
                 ),
                 Text(
-                  load.origin.toUpperCase(),
+                  //load.origin.toUpperCase(),
+                  'morzeg',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -73,7 +74,8 @@ class LoadItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 15),
                 Text(
-                  load.destination.toUpperCase(),
+                  // load.destination.toUpperCase(),
+                  'Morzeg',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),

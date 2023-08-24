@@ -73,7 +73,8 @@ class _LoadItemState extends State<LoadItem> {
                   width: 15,
                 ),
                 Text(
-                  widget.load.origin.toUpperCase(),
+                  //widget.load.origin.toUpperCase(),
+                  'morzeg1 ',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -92,7 +93,8 @@ class _LoadItemState extends State<LoadItem> {
                 ),
                 const SizedBox(width: 15),
                 Text(
-                  widget.load.destination.toUpperCase(),
+                  // widget.load.destination.toUpperCase(),
+                  'Morzeg',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),

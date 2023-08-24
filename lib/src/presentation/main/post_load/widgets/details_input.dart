@@ -6,15 +6,18 @@ import '../../../shared/choose_location_button.dart';
 import 'icon_text_field.dart';
 import 'pick_date_button.dart';
 import '../../../shared/select_truck_type.dart';
+import 'package:latlong2/latlong.dart';
 
 class LoadDetailsForm extends StatefulWidget {
-  const LoadDetailsForm({
+  LoadDetailsForm({
     super.key,
     required this.onFormSubmited,
+    required this.origin,
+    required this.destination,
   });
-
   final void Function(Load load) onFormSubmited;
-
+  final LatLng? origin;
+  final LatLng? destination;
   @override
   State<LoadDetailsForm> createState() => _LoadDetailsFormState();
 }
@@ -23,8 +26,6 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
   String _pickUpDate = 'YYYY-MM-DD';
   String _dropDownDate = 'YYYY-MM-DD';
   String _truckType = 'Any';
-  String _origin = 'origin';
-  String _destination = 'destination';
 
   // Textfiled controlers
 
@@ -42,18 +43,18 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
 
   bool _checkForm() {
     bool isValid = true;
-
-    if (_pickUpDate == 'YYYY-MM-DD' || _dropDownDate == 'YYYY-MM-DD') {
+    if (widget.origin == null || widget.destination == null) {
+      isValid = false;
+      showAlert(
+          title: 'Error',
+          context: context,
+          message: 'The origin and the destination are both required ');
+    } else if (_pickUpDate == 'YYYY-MM-DD' || _dropDownDate == 'YYYY-MM-DD') {
       isValid = false;
       showAlert(
           title: 'Error',
           context: context,
           message: 'Pick up date and Drop down date are both required');
-    } else if (_origin == 'origin' || _destination == 'destination') {
-      showAlert(
-          title: 'Error',
-          context: context,
-          message: 'origin and destination  are both required');
     } else if (_truckType == 'Any') {
       isValid = false;
       showAlert(
@@ -117,40 +118,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
           ],
         ),
         const Divider(height: 30),
-        // choose origin
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Origin',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(width: 20),
-            ChooseLocationButton(
-              onlocationschanged: (location) {
-                _origin = location;
-              },
-            ),
-          ],
-        ),
-        // choose destination
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Destination',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(width: 20),
-            ChooseLocationButton(
-              onlocationschanged: (location) {
-                _destination = location;
-              },
-            ),
-          ],
-        ),
-        const Divider(height: 30),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -165,8 +133,6 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
           ],
         ),
         const Divider(height: 30),
-
-        // truck Type and Weigth
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -268,8 +234,10 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                         loadRef: '',
                         brokerName: _nameController.text,
                         brokerPhone: _telController.text,
-                        origin: _origin.trim(),
-                        destination: _destination.trim(),
+                        originLat: widget.origin!.latitude,
+                        originLng: widget.origin!.longitude,
+                        destinationLat: widget.destination!.latitude,
+                        destinationLng: widget.destination!.latitude,
                         loadDate: DateTime.now().toString().substring(0, 10),
                         pickUpDate: _pickUpDate,
                         dropDownDate: _dropDownDate,
