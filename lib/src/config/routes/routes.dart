@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/helpers/searchMap.dart';
+import '../../presentation/main/post_load/pages/searchMap.dart';
 import '../../data/models/load.dart';
 import '../../presentation/forgot_password/pages/forgot_password_screen.dart';
 import '../../presentation/login/pages/login_screen.dart';

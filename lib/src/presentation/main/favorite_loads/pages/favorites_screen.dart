@@ -20,8 +20,9 @@ class FavoritesScreen extends StatelessWidget {
         height: 300,
         color: ColorManager.mouvemaTeal,
         backgroundColor: ColorManager.scaffoldBackgroundColor,
-        animSpeedFactor: 1,
+        animSpeedFactor: 3,
         onRefresh: () async {
+          print('*************');
           cubit.getMyFavoritesLoads(refresh: true);
         },
         child: Scaffold(

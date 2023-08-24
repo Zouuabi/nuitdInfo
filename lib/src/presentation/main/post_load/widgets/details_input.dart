@@ -134,11 +134,9 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
         ),
         const Divider(height: 30),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Spacer(),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: IconTextField(
                   inputController: _weigthController,
                   errorText: 'Weigth is required',
@@ -146,13 +144,16 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                   icon: const Icon(Icons.balance),
                   keyboard: TextInputType.number),
             ),
+            const Spacer(
+              flex: 1,
+            ),
           ],
         ),
 
         Row(
           children: [
             Expanded(
-              flex: 2,
+              flex: 3,
               child: IconTextField(
                   inputController: _nameController,
                   errorText: 'The name is required',
@@ -170,11 +171,8 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
         // name and tel
         Row(
           children: [
-            const Spacer(
-              flex: 1,
-            ),
             Expanded(
-                flex: 2,
+                flex: 3,
                 child: IconTextField(
                     inputController: _telController,
                     errorText: 'Phone number is required',
@@ -182,6 +180,9 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                     hint: 'Tel',
                     icon: const Icon(Icons.phone),
                     keyboard: TextInputType.number)),
+            const Spacer(
+              flex: 1,
+            ),
           ],
         ),
 
@@ -237,7 +238,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                         originLat: widget.origin!.latitude,
                         originLng: widget.origin!.longitude,
                         destinationLat: widget.destination!.latitude,
-                        destinationLng: widget.destination!.latitude,
+                        destinationLng: widget.destination!.longitude,
                         loadDate: DateTime.now().toString().substring(0, 10),
                         pickUpDate: _pickUpDate,
                         dropDownDate: _dropDownDate,

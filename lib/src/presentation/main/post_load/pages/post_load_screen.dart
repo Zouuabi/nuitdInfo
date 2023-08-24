@@ -1,5 +1,5 @@
 // ignore_for_file: deprecated_member_use
-import 'package:mouvema/src/core/helpers/searchMap.dart';
+import 'package:mouvema/src/presentation/main/post_load/pages/searchMap.dart';
 
 import '../../../../core/helpers/geocoding.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +22,6 @@ class MyLoadsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return BlocProvider<PostCubit>(
         create: (context) {
           return PostCubit(instance<RepositoryImpl>());
@@ -65,53 +63,28 @@ class MyLoadsScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(30),
-                        decoration:
-                            BoxDecoration(border: Border.all(width: 1.5)),
-                        height: 200,
-                        width: double.infinity,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => MapScreen(
-                                      onchange: (p0, p1) {
-                                        BlocProvider.of<PostCubit>(context)
-                                            .onPositionChanged(p0, p1);
-                                      },
-                                    )));
-                          },
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Image.asset(
-                                  'assets/images/map.png',
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              const Text(
-                                  'Pick the origin and the destination here ')
-                            ],
-                          ),
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(30),
+                          decoration:
+                              BoxDecoration(border: Border.all(width: 1)),
+                          height: 200,
+                          width: double.infinity,
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) => MapScreen(
+                                          onchange: (p0, p1) {
+                                            BlocProvider.of<PostCubit>(context)
+                                                .onPositionChanged(p0, p1);
+                                          },
+                                        )));
+                              },
+                              icon: Image.asset(
+                                'assets/images/map.png',
+                              ))),
                       const SizedBox(
                         height: 20,
                       ),
-                      // ** Guiding Text **
-                      const HintText(
-                          hint:
-                              ' Pick the origin and the destination of your load'),
                       const Divider(height: 30),
-                      ElevatedButton(
-                          onPressed: () async {
-                            print(state.status);
-                            // print(state.data![0]);
-                            // print(state.data![1]);
-                          },
-                          child: Text('click me')),
-
                       LoadDetailsForm(
                         origin: (state.status == Status.onPositionChanged)
                             ? state.data![0]

@@ -63,49 +63,10 @@ class MapScreenState extends State<MapScreen> {
             mapController: mapController,
             options: MapOptions(
               onLongPress: (tapPosition, point) {
-                if (origin != null &&
-                    _isSameLocation(point, origin!, mapController.zoom)) {
-                  setState(() {
-                    markers.removeAt(0);
-                    origin = null;
-                  });
-                } else if (destination != null &&
-                    _isSameLocation(point, destination!, mapController.zoom)) {
-                  setState(() {
-                    markers.removeLast();
-                    destination = null;
-                  });
-                } else if (origin == null) {
-                  setState(() {
-                    origin = point;
-                    markers.insert(
-                        0,
-                        marker(
-                            point,
-                            const Icon(
-                              Icons.arrow_circle_up_outlined,
-                              color: Color.fromARGB(255, 5, 206, 105),
-                            )));
-                  });
-                } else if (destination == null) {
-                  setState(() {
-                    destination = point;
-                    markers.insert(
-                        1,
-                        marker(
-                            point,
-                            const Icon(
-                              Icons.arrow_circle_up_outlined,
-                              color: Color.fromARGB(255, 206, 31, 5),
-                            )));
-                    widget.onchange!(origin, destination);
-                  });
-                }
+                onLongPress(tapPosition, point);
               },
-              center: _selectedLocation ??
-                  const LatLng(
-                      40.7128, -74.0060), // Default: New York City coordinates
-              zoom: 13.0,
+              center: _selectedLocation ?? const LatLng(34, 11),
+              zoom: 6,
             ),
             children: [
               TileLayer(
@@ -113,30 +74,52 @@ class MapScreenState extends State<MapScreen> {
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 subdomains: const ['a', 'b', 'c'],
               ),
-              MarkerLayer(markers: markers
-
-                  // [
-                  //   (_selectedLocation != null)
-                  //       ? Marker(
-                  //           point: _selectedLocation!,
-                  //           builder: (ctx) => const Icon(
-                  //             Icons.location_pin,
-                  //             color: Colors.red,
-                  //             size: 40.0,
-                  //           ),
-                  //         )
-                  //       : Marker(
-                  //           point: const LatLng(0, 0),
-                  //           builder: (context) => const Icon(Icons.abc),
-                  //         )
-                  // ]
-
-                  )
+              MarkerLayer(markers: markers)
             ],
           ),
         ],
       ),
     );
+  }
+
+  void onLongPress(tapPosition, point) {
+    if (origin != null && _isSameLocation(point, origin!, mapController.zoom)) {
+      setState(() {
+        markers.removeAt(0);
+        origin = null;
+      });
+    } else if (destination != null &&
+        _isSameLocation(point, destination!, mapController.zoom)) {
+      setState(() {
+        markers.removeLast();
+        destination = null;
+      });
+    } else if (origin == null) {
+      setState(() {
+        origin = point;
+        markers.insert(
+            0,
+            marker(
+                point,
+                const Icon(
+                  Icons.arrow_circle_up_outlined,
+                  color: Color.fromARGB(255, 5, 206, 105),
+                )));
+      });
+    } else if (destination == null) {
+      setState(() {
+        destination = point;
+        markers.insert(
+            1,
+            marker(
+                point,
+                const Icon(
+                  Icons.arrow_circle_up_outlined,
+                  color: Color.fromARGB(255, 206, 31, 5),
+                )));
+        widget.onchange!(origin, destination);
+      });
+    }
   }
 
   Marker marker(LatLng point, Icon markerIcon) {
