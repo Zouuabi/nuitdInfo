@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
+import 'package:mouvema/src/presentation/main/splash/pages/splash_screen.dart';
 import '../../config/routes/routes.dart';
 
 import '../../core/utils/color_manager.dart';
@@ -117,7 +118,7 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         child: BottomNavigationBar(
-          iconSize: 40,
+          iconSize: 30,
           currentIndex: index,
           onTap: (value) {
             setState(() {});

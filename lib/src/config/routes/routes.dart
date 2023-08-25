@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mouvema/src/presentation/main/splash/pages/splash_screen.dart';
 
 import '../../presentation/main/post_load/pages/searchMap.dart';
 import '../../data/models/load.dart';
