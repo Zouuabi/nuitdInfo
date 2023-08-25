@@ -20,7 +20,7 @@ class FavoritesScreen extends StatelessWidget {
         height: 300,
         color: ColorManager.mouvemaTeal,
         backgroundColor: ColorManager.scaffoldBackgroundColor,
-        animSpeedFactor: 1,
+        animSpeedFactor: 3,
         onRefresh: () async {
           cubit.getMyFavoritesLoads(refresh: true);
         },
@@ -56,8 +56,21 @@ class FavoritesScreen extends StatelessWidget {
                   child: Text('Nothing Yet'),
                 );
               } else if (state.status == States.error) {
-                return Center(
-                  child: Text(state.message!),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                        child: Image.asset(
+                      'assets/images/warning.png',
+                      width: 50,
+                    )),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: Text(state.message!),
+                    ),
+                  ],
                 );
               } else {
                 return Center(child: Text('${state.status}'));

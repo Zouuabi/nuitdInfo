@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:nominatim_geocoding/nominatim_geocoding.dart';
 
 import '../../core/helpers/date_handler.dart';
+import '../../core/helpers/geocoding.dart';
 import '../../data/models/load.dart';
 
 class LoadItem extends StatefulWidget {
@@ -15,6 +18,8 @@ class LoadItem extends StatefulWidget {
   final Load load;
   final VoidCallback detailsButton;
   void Function()? longPressed;
+  String? origin;
+  String? destination;
 
   @override
   State<LoadItem> createState() => _LoadItemState();
@@ -22,6 +27,7 @@ class LoadItem extends StatefulWidget {
 
 class _LoadItemState extends State<LoadItem> {
   bool ispressed = false;
+
   @override
   Widget build(BuildContext context) {
     Duration age = DateHandler.diffBetween2Dates(
@@ -73,7 +79,7 @@ class _LoadItemState extends State<LoadItem> {
                   width: 15,
                 ),
                 Text(
-                  widget.load.origin.toUpperCase(),
+                  'Static',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -92,7 +98,7 @@ class _LoadItemState extends State<LoadItem> {
                 ),
                 const SizedBox(width: 15),
                 Text(
-                  widget.load.destination.toUpperCase(),
+                  'Static',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),

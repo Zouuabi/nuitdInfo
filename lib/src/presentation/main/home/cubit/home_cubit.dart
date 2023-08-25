@@ -20,8 +20,8 @@ class HomeCubit extends Cubit<HomeState> {
   void _checkFirstTime() async {
     var result = await repos.isFirstTime();
     result.fold((l) {
-      emit(HomeState(
-          status: Status.fetchSuccess, errorMessage: l.errrorMessage));
+      emit(
+          HomeState(status: Status.fetchFailed, errorMessage: l.errrorMessage));
     }, (r) {
       isFirstTime = r;
     });
@@ -30,8 +30,8 @@ class HomeCubit extends Cubit<HomeState> {
   void filterLoads({String? origin, String? destination, String? type}) {
     emit(const HomeState(status: Status.loading));
     List<Load> filteredList = listLoads.where((load) {
-      return (origin == null || load.origin == origin) &&
-          (destination == null || load.destination == destination) &&
+      return /*(origin == null || load.origin == origin) &&
+          (destination == null || load.destination == destination) &&*/
           (type == null || load.truckType == type);
     }).toList();
     emit(HomeState(status: Status.fetchSuccess, data: filteredList));
