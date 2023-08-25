@@ -81,9 +81,23 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
                   child: Text('Nothing Yet'),
                 ));
           } else {
-            return const Center(
-              child: Text(
-                'Something Went Wrong',
+            return Scaffold(
+              appBar: AppBar(title: const Text('My Posts')),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                      child: Image.asset(
+                    'assets/images/warning.png',
+                    width: 50,
+                  )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Text(state.message!),
+                  ),
+                ],
               ),
             );
           }

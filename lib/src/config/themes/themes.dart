@@ -61,10 +61,10 @@ ThemeData buildTheme(BuildContext context) {
     /// App Text Theme
     textTheme: _buildShrineTextTheme(base.textTheme, context),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: Color.fromARGB(255, 234, 255, 253),
+      selectionColor: Color.fromARGB(255, 255, 255, 255),
     ),
     // Scaffold
-    scaffoldBackgroundColor: ColorManager.scaffoldBackgroundColor,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
     // each icon will have this default size
     iconTheme: IconThemeData(size: size.width * 0.07),
 
@@ -83,14 +83,14 @@ ThemeData buildTheme(BuildContext context) {
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color.fromARGB(255, 234, 255, 253),
+      fillColor: const Color.fromARGB(255, 254, 255, 255),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(30),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(
-          width: 1.0,
+          width: 0.5,
           color: Colors.teal,
         ),
       ),

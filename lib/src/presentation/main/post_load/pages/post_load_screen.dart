@@ -1,9 +1,9 @@
 // ignore_for_file: deprecated_member_use
 import 'package:mouvema/src/presentation/main/post_load/pages/searchMap.dart';
 
-import '../../../../core/helpers/geocoding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/presentation/main/post_load/widgets/hint_text.dart';
 import '../../../../config/routes/routes.dart';
 import '../../../../data/repository/repository_impl.dart';
 import '../../../../injector.dart';
@@ -12,7 +12,6 @@ import '../../../shared/show_alert.dart';
 import '../cubits/post_load_cubit.dart';
 import '../cubits/post_load_state.dart';
 import '../widgets/details_input.dart';
-import '../widgets/hint_text.dart';
 
 // ignore: must_be_immutable
 class MyLoadsScreen extends StatelessWidget {
@@ -35,7 +34,6 @@ class MyLoadsScreen extends StatelessWidget {
           body: BlocConsumer<PostCubit, PostState>(
             listener: ((context, state) {
               if (state.status == Status.success) {
-                // TODO : resolve unwanted behavior push replacemen
                 // / arrow back is appearing when popoing
                 showAlert(
                         title: 'Success',
@@ -82,8 +80,10 @@ class MyLoadsScreen extends StatelessWidget {
                                 'assets/images/map.png',
                               ))),
                       const SizedBox(
-                        height: 20,
+                        height: 5,
                       ),
+                      const HintText(
+                          hint: 'Pick the origin and the destination'),
                       const Divider(height: 30),
                       LoadDetailsForm(
                         origin: (state.status == Status.onPositionChanged)

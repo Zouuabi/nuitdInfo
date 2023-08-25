@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/core/internet_checker.dart';
 import 'package:mouvema/src/presentation/main/post_load/cubits/post_load_state.dart';
 import 'package:latlong2/latlong.dart';
 import '../../../../core/failure.dart';
@@ -14,6 +15,10 @@ class PostCubit extends Cubit<PostState> {
   String? truckType;
   LatLng? origin;
   LatLng? destination;
+
+  Future<bool> isConnected() async {
+    return await InternetCheckerImpl().isConnected();
+  }
 
   void onPositionChanged(LatLng? origin, LatLng? destination) async {
     print(state.status);

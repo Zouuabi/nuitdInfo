@@ -41,14 +41,35 @@ class ProfileScreen extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                return state.status == Status.loading
-                    ? const Center(child: CircularProgressIndicator())
-                    : _getProfile(
-                        user: state.data!,
-                        context: context,
-                        onLogoutPressed: () {
-                          BlocProvider.of<ProfileCubit>(context).logOut();
-                        });
+                if (state.status == Status.failed &&
+                    state.errorMessage == 'No internet connection') {
+                  return Scaffold(
+                      body: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: Image.asset(
+                        'assets/images/warning.png',
+                        width: 50,
+                      )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Text(state.errorMessage!),
+                      ),
+                    ],
+                  ));
+                } else {
+                  return state.status == Status.loading
+                      ? const Center(child: CircularProgressIndicator())
+                      : _getProfile(
+                          user: state.data!,
+                          context: context,
+                          onLogoutPressed: () {
+                            BlocProvider.of<ProfileCubit>(context).logOut();
+                          });
+                }
               },
             ),
           ),

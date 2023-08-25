@@ -20,8 +20,8 @@ class HomeCubit extends Cubit<HomeState> {
   void _checkFirstTime() async {
     var result = await repos.isFirstTime();
     result.fold((l) {
-      emit(HomeState(
-          status: Status.fetchSuccess, errorMessage: l.errrorMessage));
+      emit(
+          HomeState(status: Status.fetchFailed, errorMessage: l.errrorMessage));
     }, (r) {
       isFirstTime = r;
     });

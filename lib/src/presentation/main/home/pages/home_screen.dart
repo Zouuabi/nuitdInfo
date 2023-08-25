@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:mouvema/src/core/colors_manager.dart';
 import 'package:mouvema/src/core/utils/color_manager.dart';
 
 import '../../../../config/routes/routes.dart';
@@ -172,7 +171,25 @@ class HomeScreen extends StatelessWidget {
                     ],
                   );
                 } else {
-                  return const Text('Some thing went wrong');
+                  return Scaffold(
+                    appBar: AppBar(title: const Text('mouvema')),
+                    body: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                            child: Image.asset(
+                          'assets/images/warning.png',
+                          width: 50,
+                        )),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Center(
+                          child: Text(state.errorMessage!),
+                        ),
+                      ],
+                    ),
+                  );
                 }
               })),
     );
