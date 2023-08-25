@@ -11,6 +11,7 @@ import 'data/data_source/remote_data_source/cloud_firestore.dart';
 import 'data/data_source/remote_data_source/firebase_auth.dart';
 import 'data/data_source/remote_data_source/firebase_storage.dart';
 import 'data/repository/repository_impl.dart';
+import 'presentation/main/test_cubit.dart';
 
 GetIt instance = GetIt.instance;
 
@@ -65,5 +66,11 @@ void fillProfileInstances() {
   if (!GetIt.I.isRegistered<FillProfilCubit>()) {
     instance
         .registerFactory<FillProfilCubit>(() => FillProfilCubit(instance()));
+  }
+}
+
+void testInstance() {
+  if (!GetIt.I.isRegistered<TestCubit>()) {
+    instance.registerFactory<TestCubit>(() => TestCubit());
   }
 }

@@ -15,7 +15,7 @@ class MyLoadsScreen extends StatefulWidget {
 }
 
 class _MyLoadsScreenState extends State<MyLoadsScreen> {
-  List<String> LoadsToDelete = [];
+  List<String> loadsToDelete = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
           } else if (state.status == States.complete &&
               state.data!.isNotEmpty) {
             return Scaffold(
-                appBar: appBarPosts(context),
+                appBar: _appBar(context),
                 body: RefreshIndicator(
                   onRefresh: () async {
                     BlocProvider.of<MyLoadsCubit>(context)
@@ -51,12 +51,12 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
                         return LoadItem(
                           longPressed: () {
                             setState(() {
-                              if (LoadsToDelete.contains(
-                                  state.data![index].loadRef)) {
-                                LoadsToDelete.remove(
-                                    state.data![index].loadRef);
+                              if (loadsToDelete
+                                  .contains(state.data![index].loadRef)) {
+                                loadsToDelete
+                                    .remove(state.data![index].loadRef);
                               } else {
-                                LoadsToDelete.add(state.data![index].loadRef);
+                                loadsToDelete.add(state.data![index].loadRef);
                               }
                             });
                           },
@@ -92,7 +92,7 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
     );
   }
 
-  AppBar appBarPosts(BuildContext context) {
+  AppBar _appBar(BuildContext context) {
     return AppBar(
       elevation: 4,
       title: const Text(
@@ -102,7 +102,7 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
       actions: [
         IconButton(
             onPressed: () {
-              (LoadsToDelete.length != 0)
+              (loadsToDelete.isNotEmpty)
                   ? showDialog(
                       context: context,
                       builder: (ctx) {
@@ -114,7 +114,7 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
                                   onPressed: () {
                                     Navigator.of(ctx).pop();
                                     BlocProvider.of<MyLoadsCubit>(context)
-                                        .deleteLoads(LoadsToDelete);
+                                        .deleteLoads(loadsToDelete);
                                   },
                                   child: const Text('Delete')),
                             )

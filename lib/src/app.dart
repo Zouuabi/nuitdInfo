@@ -8,6 +8,8 @@ import 'config/themes/themes.dart';
 import 'injector.dart';
 import 'package:device_preview/device_preview.dart';
 
+import 'presentation/main/test.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -27,7 +29,8 @@ class MyApp extends StatelessWidget {
               // user is logged in => home Screen
               homeInstances();
               fillProfileInstances();
-              return const MainScreen();
+              testInstance();
+              return const MapWithSearchBar();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }
