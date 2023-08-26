@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Load extends Equatable {
-  Load({
+  const Load({
     required this.brokerUid,
     required this.loadRef,
     required this.brokerName,
@@ -13,6 +13,8 @@ class Load extends Equatable {
     required this.price,
     required this.weigth,
     required this.description,
+    required this.origin,
+    required this.desitnation,
     required this.originLat,
     required this.originLng,
     required this.destinationLat,
@@ -31,6 +33,8 @@ class Load extends Equatable {
   final int price;
   final int weigth;
   final String description;
+  final String origin;
+  final String desitnation;
   final double originLat;
   final double originLng;
   final double destinationLat;
@@ -40,6 +44,8 @@ class Load extends Equatable {
         'broker': brokerName,
         'loadRef': loadRef,
         'brokerPhone': brokerPhone,
+        'origin': origin,
+        'desitnation': desitnation,
         'originLat': originLat,
         'originLng': originLng,
         'destinationLat': destinationLat,
@@ -60,6 +66,8 @@ class Load extends Equatable {
       loadRef: map['loadRef'],
       brokerName: map['broker'],
       brokerPhone: map['brokerPhone'],
+      origin: map['origin'],
+      desitnation: map['desitnation'],
       originLat: map['originLat'],
       originLng: map['originLng'],
       destinationLat: map['destinationLat'],

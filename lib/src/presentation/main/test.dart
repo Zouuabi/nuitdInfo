@@ -155,7 +155,7 @@ class PlaceSearchDelegate extends SearchDelegate<Place> {
 
   @override
   Widget? buildLeading(BuildContext context) {
-    return Text('Lawej ');
+    return const Text('Lawej ');
   }
 }
 
@@ -171,7 +171,7 @@ class _MapWithSearchBarState extends State<MapWithSearchBar> {
   // A controller for the map
   final MapController mapController = MapController();
 
-  LatLng a = LatLng(34, 11);
+  LatLng a = const LatLng(34, 11);
   double zoom = 7;
 
   @override

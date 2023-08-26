@@ -49,6 +49,10 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
                       itemCount: state.data!.length,
                       itemBuilder: (context, index) {
                         return LoadItem(
+                          onPressed: () {
+                            Navigator.pushNamed(context, Routes.loadDetails,
+                                arguments: state.data![index]);
+                          },
                           longPressed: () {
                             setState(() {
                               if (loadsToDelete

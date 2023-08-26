@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/data/models/user.dart';
+import 'package:mouvema/src/data/repository/repository_impl.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_cubit.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_state.dart';
 import '../../../../config/routes/routes.dart';
@@ -8,11 +9,11 @@ import '../../../../injector.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
-  final cubit = instance<ProfileCubit>();
+  // final cubit = ProfileCubit(instance<RepositoryImpl>());
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProfileCubit>(
-      create: (context) => cubit,
+      create: (context) => ProfileCubit(instance<RepositoryImpl>()),
       child: Scaffold(
         body: SafeArea(
           child: Padding(

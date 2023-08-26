@@ -12,7 +12,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text('bech naamlou chwaya tsawer fi carousel_slider '),
+      body: const Text('bech naamlou chwaya tsawer fi carousel_slider '),
     );
   }
 }

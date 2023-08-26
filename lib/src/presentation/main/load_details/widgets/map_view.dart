@@ -146,17 +146,17 @@ class MapView extends StatelessWidget {
     return degrees * (pi / 180.0);
   }
 
-  bool _isSameLocation(LatLng location1, LatLng location2, double zoom) {
-    double markerTolerance;
-    if (zoom < 10) {
-      markerTolerance = 0.1;
-    } else {
-      markerTolerance = 0.01;
-    }
+  // bool _isSameLocation(LatLng location1, LatLng location2, double zoom) {
+  //   double markerTolerance;
+  //   if (zoom < 10) {
+  //     markerTolerance = 0.1;
+  //   } else {
+  //     markerTolerance = 0.01;
+  //   }
 
-    return (location1.latitude - location2.latitude).abs() < markerTolerance &&
-        (location1.longitude - location2.longitude).abs() < markerTolerance;
-  }
+  //   return (location1.latitude - location2.latitude).abs() < markerTolerance &&
+  //       (location1.longitude - location2.longitude).abs() < markerTolerance;
+  // }
 }
 
 void openGoogleMapsDirections(LatLng origin, LatLng destination) async {

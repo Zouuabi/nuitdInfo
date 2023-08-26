@@ -14,8 +14,8 @@ import '../cubits/post_load_state.dart';
 import '../widgets/details_input.dart';
 
 // ignore: must_be_immutable
-class MyLoadsScreen extends StatelessWidget {
-  MyLoadsScreen({super.key});
+class PostLoadScreen extends StatelessWidget {
+  PostLoadScreen({super.key});
   LatLng? origin;
   LatLng? destination;
 

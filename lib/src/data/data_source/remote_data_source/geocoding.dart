@@ -2,6 +2,26 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:latlong2/latlong.dart';
 
+Map a = {
+  'place_id': 152954880,
+  'osm_type': 'way',
+  'osm_id': 200236544,
+  'lat': 34.8856361,
+  'lon': 9.201943,
+  'class': 'highway',
+  'type': 'unclassified',
+  'place_rank': 26,
+  'importance': 0.10000009999999993,
+  'addresstype': 'road',
+  'display_name':
+      'سيدي علي بن عون, معتمدية سيدي علي بن عون, ولاية سيدي بوزيد, تونس',
+  'address': {
+    'county': 'سيدي علي بن عون',
+    'state_district': ' معتمدية سيدي علي بن عون',
+    'state': ' ولاية سيدي بوزيد'
+  }
+};
+
 class PositionGeocoding {
   static Future<String> reverseGeocode(LatLng point) async {
     final String osmUrl =
@@ -10,8 +30,12 @@ class PositionGeocoding {
       final response = await http.get(Uri.parse(osmUrl));
       if (response.statusCode == 200) {
         final decodedJson = json.decode(response.body);
-        String address = decodedJson['display_name'];
-        return address.substring(0, 4);
+        String state = decodedJson['address']['state'];
+        String city = decodedJson['address']['state_district'];
+
+        String address =
+            '${state.substring(5, state.length)} ,${city.substring(7, city.length)}';
+        return address;
       } else {
         return 'Error';
       }
@@ -26,7 +50,6 @@ class PositionGeocoding {
         'https://nominatim.openstreetmap.org/search?q=$encodedLocation&format=json-language=en-US';
     try {
       final response = await http.get(Uri.parse(osmUrl));
-      print(response.body);
 
       if (response.statusCode == 200) {
         final decodedJson = json.decode(response.body);

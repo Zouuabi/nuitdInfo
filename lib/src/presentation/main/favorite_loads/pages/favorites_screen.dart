@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/data/repository/repository_impl.dart';
 import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/color_manager.dart';
-import '../../../../data/repository/repository_impl.dart';
+
 import '../../../../injector.dart';
 import '../../../shared/load_item.dart';
 import '../cubit/favorites_state.dart';
@@ -10,19 +11,21 @@ import '../cubit/favorites_cubit.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class FavoritesScreen extends StatelessWidget {
-  FavoritesScreen({super.key});
-  final cubit = FavoritesCubit(repositoryImpl: instance<RepositoryImpl>());
+  const FavoritesScreen({super.key});
+  // final cubit = FavoritesCubit(repositoryImpl: instance<RepositoryImpl>());
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FavoritesCubit>(
-      create: (context) => cubit,
+      create: (context) =>
+          FavoritesCubit(repositoryImpl: instance<RepositoryImpl>()),
       child: LiquidPullToRefresh(
         height: 300,
         color: ColorManager.mouvemaTeal,
         backgroundColor: ColorManager.scaffoldBackgroundColor,
         animSpeedFactor: 3,
         onRefresh: () async {
-          cubit.getMyFavoritesLoads(refresh: true);
+          // FavoritesCubit(repositoryImpl: instance<RepositoryImpl>())
+          //     .getMyFavoritesLoads(refresh: true);
         },
         child: Scaffold(
           appBar: AppBar(
@@ -43,6 +46,11 @@ class FavoritesScreen extends StatelessWidget {
                     itemCount: state.data!.length,
                     itemBuilder: (context, index) {
                       return LoadItem(
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.loadDetails,
+                              arguments: state.data![index]);
+                        },
+                        longPressed: () {},
                         detailsButton: () {
                           Navigator.pushNamed(context, Routes.loadDetails,
                               arguments: state.data![index]);

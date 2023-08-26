@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../../../core/helpers/date_handler.dart';
-import '../../../../data/models/load.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
-class Details extends StatelessWidget {
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../core/helpers/date_handler.dart';
+import '../../../../data/data_source/remote_data_source/geocoding.dart';
+import '../../../../data/models/load.dart';
+
+class Details extends StatefulWidget {
   const Details({super.key, required this.load});
 
   final Load load;
+
+  @override
+  State<Details> createState() => _DetailsState();
+}
+
+class _DetailsState extends State<Details> {
+  toHumanReadbleAdress(LatLng location) async {
+    var a = await PositionGeocoding.reverseGeocode(location);
+    print(a);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    toHumanReadbleAdress(
+        LatLng(widget.load.destinationLat, widget.load.destinationLng));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +39,10 @@ class Details extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              DateHandler.formatDate(load.loadDate.toString()),
+              DateHandler.formatDate(widget.load.loadDate.toString()),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            Text('Ref#${load.loadRef.substring(0, 6)}',
+            Text('Ref#${widget.load.loadRef.substring(0, 6)}',
                 style: Theme.of(context).textTheme.bodyLarge),
           ],
         ),
@@ -30,7 +51,10 @@ class Details extends StatelessWidget {
           children: [
             Expanded(
               child: PickAndDrop(
-                  pickUpDate: load.pickUpDate, dropDownDate: load.dropDownDate),
+                  origin: widget.load.origin,
+                  destination: widget.load.desitnation,
+                  pickUpDate: widget.load.pickUpDate,
+                  dropDownDate: widget.load.dropDownDate),
             ),
             Expanded(
               child: ListTile(
@@ -43,7 +67,7 @@ class Details extends StatelessWidget {
                   'Broker',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                subtitle: Text('${load.brokerName} LLC'),
+                subtitle: Text('${widget.load.brokerName} LLC'),
               ),
             ),
           ],
@@ -61,7 +85,7 @@ class Details extends StatelessWidget {
                   Expanded(
                     child: ListTile(
                         title: const Text('Price  '),
-                        subtitle: Text('${load.price} TND'),
+                        subtitle: Text('${widget.load.price} TND'),
                         // trailing: Text('${load.weigth} KG '),
                         leading: const Icon(
                           Icons.attach_money,
@@ -71,7 +95,7 @@ class Details extends StatelessWidget {
                   Expanded(
                     child: ListTile(
                         title: const Text('Weight'),
-                        subtitle: Text('${load.weigth} Kg'),
+                        subtitle: Text('${widget.load.weigth} Kg'),
                         // trailing: Text('${load.weigth} KG '),
                         leading: const Icon(
                           Icons.balance_outlined,
@@ -85,10 +109,10 @@ class Details extends StatelessWidget {
                   Expanded(
                     child: ListTile(
                       title: const Text('Truck'),
-                      subtitle: Text(load.truckType),
+                      subtitle: Text(widget.load.truckType),
                       // trailing: Text('${load.weigth} KG '),
                       leading: SvgPicture.asset(
-                        'assets/images/${load.truckType}.svg',
+                        'assets/images/${widget.load.truckType}.svg',
                         width: 40,
                         height: 45,
                         // ignore: deprecated_member_use
@@ -111,14 +135,14 @@ class Details extends StatelessWidget {
               const Divider(),
               ListTile(
                 title: const Text('Description'),
-                subtitle: Text(load.description),
+                subtitle: Text(widget.load.description),
               ),
               SizedBox(
                   height: 70,
                   width: double.infinity,
                   child: FilledButton(
                       onPressed: () {
-                        callNumber(load.brokerPhone);
+                        callNumber(widget.load.brokerPhone);
                       },
                       child: const Text('Call Broker')))
             ],
@@ -140,10 +164,16 @@ callNumber(String phoneNumber) async {
 
 class PickAndDrop extends StatelessWidget {
   const PickAndDrop(
-      {super.key, required this.pickUpDate, required this.dropDownDate});
+      {super.key,
+      required this.pickUpDate,
+      required this.dropDownDate,
+      required this.origin,
+      required this.destination});
 
   final String pickUpDate;
   final String dropDownDate;
+  final String origin;
+  final String destination;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +185,7 @@ class PickAndDrop extends StatelessWidget {
           isFirst: true,
           endChild: ListTile(
             title: Text(
-              'Morzeg 1',
+              origin,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Text(DateHandler.formatDate(pickUpDate),
@@ -168,7 +198,7 @@ class PickAndDrop extends StatelessWidget {
           isLast: true,
           endChild: ListTile(
             title: Text(
-              'Morzeg 2',
+              destination,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Text(

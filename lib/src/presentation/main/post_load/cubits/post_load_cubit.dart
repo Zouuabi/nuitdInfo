@@ -21,7 +21,6 @@ class PostCubit extends Cubit<PostState> {
   }
 
   void onPositionChanged(LatLng? origin, LatLng? destination) async {
-    print(state.status);
     emit(PostState(
         status: Status.onPositionChanged, data: [origin, destination]));
   }

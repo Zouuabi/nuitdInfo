@@ -109,7 +109,7 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, List<Load>>> fetchLoads() async {
     if (await internetChecker.isConnected()) {
       try {
-        List<Map<String, dynamic>> list = await firestore.readLoads();
+        List<Map<String, dynamic>> list = await firestore.fetchLoads();
         var listz = _toLoad(list);
 
         return (right(listz));
@@ -189,7 +189,7 @@ class RepositoryImpl extends Repository {
         Map<String, dynamic> user = await firestore
             .getCurrentUserInformation(await auth.getCurrentUserId());
         List<Load> favoriteLoads =
-            await firestore.readFavoriteLoads(MyUser.fromfirestore(user));
+            await firestore.fetchFavoriteLoads(MyUser.fromfirestore(user));
         return right(favoriteLoads);
       } catch (e) {
         return left(Failure(errrorMessage: 'Something went wrong ,Try Later'));

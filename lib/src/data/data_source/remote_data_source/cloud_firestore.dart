@@ -43,7 +43,7 @@ class CloudFiresore {
     });
   }
 
-  Future<List<Load>> readFavoriteLoads(MyUser user) async {
+  Future<List<Load>> fetchFavoriteLoads(MyUser user) async {
     List<dynamic> favoriteLoadsRef = user.favoriteLoads;
     List<Load> favoriteLoads = [];
     for (String loadRef in favoriteLoadsRef) {
@@ -95,7 +95,7 @@ class CloudFiresore {
     await refdoc.set(load);
   }
 
-  Future<List<Map<String, dynamic>>> readLoads() async {
+  Future<List<Map<String, dynamic>>> fetchLoads() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
         .collection('loads')
         .orderBy(descending: true, 'loadDate')

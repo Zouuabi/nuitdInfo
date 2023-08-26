@@ -6,7 +6,7 @@ import 'src/injector.dart';
 
 void main() async {
   await globalInstances();
-  profilInstances();
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
