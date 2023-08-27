@@ -20,19 +20,19 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
 
-  bool _isvalid() {
-    bool valid = true;
-    if (_emailController.text.isEmpty) {
-      isEmailEmpty = true;
-      valid = false;
-    }
+  // bool _isvalid() {
+  //   bool valid = true;
+  //   if (_emailController.text.isEmpty) {
+  //     isEmailEmpty = true;
+  //     valid = false;
+  //   }
 
-    if (_passwordController.text.isEmpty) {
-      isPasswordEmpty = true;
-      valid = false;
-    }
-    return valid;
-  }
+  //   if (_passwordController.text.isEmpty) {
+  //     isPasswordEmpty = true;
+  //     valid = false;
+  //   }
+  //   return valid;
+  // }
 
   void logIn() async {
     emit(const LoginScreenState(status: Status.loading));

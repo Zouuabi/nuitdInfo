@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart' show ScrollController;
+// import 'package:flutter/material.dart' show ScrollController;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
@@ -13,7 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
     _checkFirstTime();
   }
   final RepositoryImpl repos;
-  final ScrollController _scrollController = ScrollController();
+  // final ScrollController _scrollController = ScrollController();
   List<Load> listLoads = [];
   bool isFirstTime = false;
 

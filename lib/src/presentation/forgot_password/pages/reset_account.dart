@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/config/routes/routes.dart';
-import 'package:mouvema/src/core/email_checker.dart';
 
+import '../../../core/helpers/email_checker.dart';
 import '../../../core/utils/image_manager.dart';
 import '../../../data/repository/repository_impl.dart';
 import '../../../injector.dart';

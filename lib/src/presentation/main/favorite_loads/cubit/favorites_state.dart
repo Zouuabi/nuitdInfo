@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../data/models/load.dart';
 
-enum States { intital, loading, compelted, error, refresh }
+enum Status { intital, loading, success, failed }
 
 class FavoritesState extends Equatable {
   const FavoritesState({required this.status, this.data, this.message});
-  final States status;
+  final Status status;
   final String? message;
   final List<Load>? data;
 

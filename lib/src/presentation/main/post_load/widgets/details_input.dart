@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/data_source/remote_data_source/geocoding.dart';
 import '../../../../data/models/load.dart';
 import '../../../shared/show_alert.dart';
-import '../../../shared/choose_location_button.dart';
+
 import 'icon_text_field.dart';
 import 'pick_date_button.dart';
 import '../../../shared/select_truck_type.dart';
 import 'package:latlong2/latlong.dart';
 
 class LoadDetailsForm extends StatefulWidget {
-  LoadDetailsForm({
+  const LoadDetailsForm({
     super.key,
     required this.onFormSubmited,
     required this.origin,
@@ -40,6 +41,9 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
   bool _nameError = false;
   bool _telError = false;
   bool _priceError = false;
+  Future<String> toHumanReadbleAdress(LatLng location) async {
+    return await PositionGeocoding.reverseGeocode(location);
+  }
 
   bool _checkForm() {
     bool isValid = true;
@@ -228,9 +232,15 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                 child: const Text('Cancel')),
             const SizedBox(width: 20),
             FilledButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_checkForm()) {
+                    String humanOrigin =
+                        await toHumanReadbleAdress(widget.origin!);
+                    String humanDestination =
+                        await toHumanReadbleAdress(widget.destination!);
                     widget.onFormSubmited(Load(
+                        origin: humanOrigin,
+                        desitnation: humanDestination,
                         brokerUid: '',
                         loadRef: '',
                         brokerName: _nameController.text,

@@ -7,22 +7,24 @@ class IconTextField extends StatelessWidget {
     required this.keyboard,
     required this.hint,
     required this.errorText,
-    this.isError = false, required this.inputController,
+    this.isError = false,
+    required this.inputController,
   });
-  final TextEditingController inputController ; 
+  final TextEditingController inputController;
   final Icon icon;
   final TextInputType keyboard;
   final String hint;
   final String errorText;
-  final bool isError ;
+  final bool isError;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: icon,
       title: TextField(
-        controller: inputController,
+          controller: inputController,
           decoration: InputDecoration(
+            filled: true,
             errorText: isError ? errorText : null,
             hintText: hint,
           ),

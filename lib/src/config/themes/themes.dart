@@ -3,38 +3,27 @@ import 'package:flutter/material.dart';
 import '../../core/utils/color_manager.dart';
 
 TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
-  final textScaleFactor = MediaQuery.of(context).textScaleFactor;
-  final size = MediaQuery.of(context).size;
+  // final textScaleFactor = MediaQuery.of(context).textScaleFactor;
+  // final size = MediaQuery.of(context).size;
   return base
       .copyWith(
         displayMedium: base.displayMedium!.copyWith(
           fontWeight: FontWeight.w500,
-          fontSize: size.width * 0.12,
         ),
-        headlineLarge: base.headlineLarge!
-            .copyWith(fontWeight: FontWeight.w500, fontSize: size.width * 0.1),
-        headlineMedium:
-            base.headlineMedium!.copyWith(fontWeight: FontWeight.w500),
-        headlineSmall: base.headlineSmall!
-            .copyWith(fontWeight: FontWeight.w300, fontSize: size.width * 0.04),
-        titleLarge: base.titleLarge!.copyWith(
-          fontSize: size.height * 0.02,
-        ),
-        titleMedium: base.titleMedium!.copyWith(
-          fontSize: size.width * 0.04,
-        ),
+        headlineLarge: base.headlineLarge!.copyWith(),
+        headlineMedium: base.headlineMedium!.copyWith(),
+        headlineSmall: base.headlineSmall!.copyWith(),
+        titleLarge: base.titleLarge!.copyWith(),
+        titleMedium: base.titleMedium!.copyWith(),
         bodyLarge: base.bodyLarge!.copyWith(
           fontWeight: FontWeight.w500,
-          fontSize: size.width * 0.04,
         ),
         bodySmall: base.bodySmall!.copyWith(
           fontWeight: FontWeight.w400,
-          fontSize: size.width * 0.03,
         ),
-        labelLarge: base.labelLarge!.copyWith(fontSize: size.width * 0.05),
-        labelMedium:
-            base.labelMedium!.copyWith(fontSize: 16.0 * textScaleFactor),
-        labelSmall: base.labelSmall!.copyWith(fontSize: 13.0 * textScaleFactor),
+        labelLarge: base.labelLarge!.copyWith(),
+        labelMedium: base.labelMedium!.copyWith(),
+        labelSmall: base.labelSmall!.copyWith(),
       )
       .apply(
         fontFamily: 'Rubik',
@@ -56,7 +45,7 @@ ThemeData buildTheme(BuildContext context) {
       surface: const Color.fromARGB(255, 234, 255, 253),
     ),
     // divider
-    dividerColor: ColorManager.mouvemaPink100,
+    dividerColor: Color.fromARGB(255, 69, 160, 151),
 
     /// App Text Theme
     textTheme: _buildShrineTextTheme(base.textTheme, context),
@@ -64,9 +53,9 @@ ThemeData buildTheme(BuildContext context) {
       selectionColor: Color.fromARGB(255, 255, 255, 255),
     ),
     // Scaffold
-    scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+    scaffoldBackgroundColor: Color.fromARGB(255, 189, 223, 219),
     // each icon will have this default size
-    iconTheme: IconThemeData(size: size.width * 0.07),
+    // iconTheme: IconThemeData(size: size.width * 0.07),
 
     appBarTheme: const AppBarTheme(
       titleSpacing: 2,
@@ -83,7 +72,7 @@ ThemeData buildTheme(BuildContext context) {
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color.fromARGB(255, 254, 255, 255),
+      fillColor: const Color.fromARGB(255, 211, 255, 255),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
       ),

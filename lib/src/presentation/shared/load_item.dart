@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:nominatim_geocoding/nominatim_geocoding.dart';
 
 import '../../core/helpers/date_handler.dart';
-import '../../core/helpers/geocoding.dart';
+
 import '../../data/models/load.dart';
 
 class LoadItem extends StatefulWidget {
-  LoadItem({
-    super.key,
-    required this.load,
-    required this.detailsButton,
-    this.longPressed,
-  });
+  const LoadItem(
+      {super.key,
+      required this.load,
+      required this.detailsButton,
+      required this.longPressed,
+      required this.onPressed});
   final Load load;
   final VoidCallback detailsButton;
-  void Function()? longPressed;
-  String? origin;
-  String? destination;
+  final VoidCallback longPressed;
+  final VoidCallback onPressed;
+  // String? origin;
+  // String? destination;
 
   @override
   State<LoadItem> createState() => _LoadItemState();
@@ -36,9 +35,10 @@ class _LoadItemState extends State<LoadItem> {
             date: DateTime.now().toString().substring(0, 10)));
 
     return GestureDetector(
+      onTap: widget.onPressed,
       onLongPress: () {
         ispressed = !ispressed;
-        widget.longPressed!();
+        widget.longPressed();
       },
       child: Card(
         child: Container(
@@ -79,7 +79,7 @@ class _LoadItemState extends State<LoadItem> {
                   width: 15,
                 ),
                 Text(
-                  'Static',
+                  widget.load.origin,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -98,7 +98,7 @@ class _LoadItemState extends State<LoadItem> {
                 ),
                 const SizedBox(width: 15),
                 Text(
-                  'Static',
+                  widget.load.desitnation,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -121,14 +121,10 @@ class _LoadItemState extends State<LoadItem> {
                   ],
                 ),
                 const Spacer(),
-                SizedBox(
-                  width: 100,
-                  height: 30,
-                  child: FilledButton(
-                    onPressed: widget.detailsButton,
-                    child: const Text(
-                      'View Details',
-                    ),
+                FilledButton(
+                  onPressed: widget.detailsButton,
+                  child: const Text(
+                    'View Details',
                   ),
                 ),
               ],

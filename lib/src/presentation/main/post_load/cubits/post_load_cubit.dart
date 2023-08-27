@@ -21,13 +21,12 @@ class PostCubit extends Cubit<PostState> {
   }
 
   void onPositionChanged(LatLng? origin, LatLng? destination) async {
-    print(state.status);
     emit(PostState(
         status: Status.onPositionChanged, data: [origin, destination]));
   }
 
   void postLoad(Load load) async {
-    emit(const PostState(status: Status.initial));
+    emit(const PostState(status: Status.loading));
 
     Either<Failure, void> result =
         await _repository.postLoad(load.toFirestore());

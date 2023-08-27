@@ -12,6 +12,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   final RepositoryImpl repositoryImpl;
+  bool darkTheme = false;
 
   void getProfile({bool isRefresh = false}) async {
     if (!isClosed) {

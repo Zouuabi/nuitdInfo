@@ -6,6 +6,7 @@ import '../../../config/routes/routes.dart';
 
 import '../../../core/utils/color_manager.dart';
 import '../../../core/utils/image_manager.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../injector.dart';
 import '../cubit/login_cubit.dart';
@@ -44,21 +45,19 @@ class LoginScreen extends StatelessWidget {
                 } else {
                   return Column(
                     children: [
+                      Spacer(),
                       Flexible(
-                          flex: 2,
-                          child:
-                              ClipOval(child: Image.asset(ImageManager.logo))),
+                          flex: 3,
+                          child: Image.asset(
+                            ImageManager.logo,
+                          )),
+                      Spacer(),
                       Flexible(
                         flex: 4,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text(
-                              'Ahla b Nahla',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.headlineLarge,
-                            ),
                             OutlinedButton.icon(
                                 icon: const Icon(
                                   Icons.facebook,
@@ -98,13 +97,13 @@ class LoginScreen extends StatelessWidget {
                                 Container(
                                   height: 1,
                                   width: 100,
-                                  color: ColorManager.mouvemaPink400,
+                                  color: ColorManager.mouvemaTeal,
                                 ),
                                 const Text('Or'),
                                 Container(
                                   height: 1,
                                   width: 100,
-                                  color: ColorManager.mouvemaPink400,
+                                  color: ColorManager.mouvemaTeal,
                                 ),
                               ],
                             ),

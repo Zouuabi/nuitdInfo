@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../core/failure.dart';
-import '../../core/internet_checker.dart';
+
 import '../../domain/repositories/repositories.dart';
 import '../data_source/local_data_source/local_storage.dart';
 import '../data_source/remote_data_source/cloud_firestore.dart';
@@ -13,6 +13,7 @@ import 'package:dartz/dartz.dart';
 import '../data_source/remote_data_source/firebase_storage.dart';
 import '../models/load.dart';
 import '../models/user.dart';
+import '../../core/internet_checker.dart';
 
 class RepositoryImpl extends Repository {
   RepositoryImpl({required this.internetChecker, required this.localStorage});
@@ -109,7 +110,7 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, List<Load>>> fetchLoads() async {
     if (await internetChecker.isConnected()) {
       try {
-        List<Map<String, dynamic>> list = await firestore.readLoads();
+        List<Map<String, dynamic>> list = await firestore.fetchLoads();
         var listz = _toLoad(list);
 
         return (right(listz));
@@ -189,7 +190,7 @@ class RepositoryImpl extends Repository {
         Map<String, dynamic> user = await firestore
             .getCurrentUserInformation(await auth.getCurrentUserId());
         List<Load> favoriteLoads =
-            await firestore.readFavoriteLoads(MyUser.fromfirestore(user));
+            await firestore.fetchFavoriteLoads(MyUser.fromfirestore(user));
         return right(favoriteLoads);
       } catch (e) {
         return left(Failure(errrorMessage: 'Something went wrong ,Try Later'));

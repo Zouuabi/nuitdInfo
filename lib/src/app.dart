@@ -21,27 +21,23 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            // anna donne jeya m stream
             if (snapshot.hasData) {
-              // user is logged in => home Screen
               homeInstances();
-              fillProfileInstances();
+
               return const MainScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }
-            // naamel vazet l'errror
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // nkharjou dora dour
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
             loginInstances();
-            homeInstances();
-            return const LoginScreen(); //LoginScreen()
+
+            return const LoginScreen();
           }
         },
       ),
