@@ -1,5 +1,5 @@
 class MyUser {
-  final String id;
+  final String uid;
   final String username;
   final String email;
   final String birdhdate;
@@ -8,7 +8,7 @@ class MyUser {
   final String image;
 
   const MyUser({
-    required this.id,
+    required this.uid,
     required this.username,
     required this.email,
     required this.birdhdate,
@@ -19,7 +19,7 @@ class MyUser {
 
   factory MyUser.fromfirestore(Map<String, dynamic> map) {
     return MyUser(
-      id: map['uid'] ?? 'null',
+      uid: map['uid'] ?? 'null',
       username: map['username'] ?? 'null',
       email: map['email'] ?? 'null',
       birdhdate: map['birthdate'] ?? 'null',
@@ -30,7 +30,7 @@ class MyUser {
   }
 
   Map<String, dynamic> toFirestore() => {
-        'uid': id,
+        'uid': uid,
         'username': username,
         'email': email,
         'birdhdate': birdhdate,

@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:mouvema/src/presentation/main/post_load/pages/searchMap.dart';
 
 import 'package:flutter/material.dart';
@@ -34,14 +35,15 @@ class PostLoadScreen extends StatelessWidget {
           body: BlocConsumer<PostCubit, PostState>(
             listener: ((context, state) {
               if (state.status == Status.success) {
-                // / arrow back is appearing when popoing
-                showAlert(
-                        title: 'Success',
-                        message: 'Load Posted',
-                        context: context)
-                    .then((value) {
-                  Navigator.pushReplacementNamed(context, Routes.main);
-                });
+                AwesomeDialog(
+                    btnOkColor: Colors.teal,
+                    context: context,
+                    dialogType: DialogType.success,
+                    animType: AnimType.topSlide,
+                    title: 'Load Posted',
+                    btnOkOnPress: () {
+                      Navigator.pushReplacementNamed(context, Routes.main);
+                    }).show();
               } else if (state.status == Status.success) {
                 showDialog(
                     context: context,

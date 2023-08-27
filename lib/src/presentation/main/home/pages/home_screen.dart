@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+
 import 'package:mouvema/src/core/utils/color_manager.dart';
 import 'package:mouvema/src/presentation/shared/show_alert.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../injector.dart';
-import '../../../shared/choose_location_button.dart';
 import '../../../shared/load_item.dart';
-import '../../../shared/select_truck_type.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../widgets/app_bar.dart';
@@ -61,7 +60,7 @@ class HomeScreen extends StatelessWidget {
         }, builder: (context, state) {
           if (state.status == Status.loading) {
             return const Center(child: CircularProgressIndicator());
-          } else {
+          } else if (state.status == Status.fetchSuccess) {
             return CustomScrollView(
               controller: ScrollController(),
               slivers: [
@@ -92,6 +91,10 @@ class HomeScreen extends StatelessWidget {
                       );
                     })
               ],
+            );
+          } else {
+            return Center(
+              child: Text(state.errorMessage ?? 'Something went Wrong'),
             );
           }
         }),

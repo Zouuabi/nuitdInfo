@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../data/models/load.dart';
 
-enum States { initial, loading, complete, error }
+enum Status { initial, loading, success, failed }
 
 class MyloadsState extends Equatable {
   const MyloadsState({required this.status, this.data, this.message});
-  final States status;
+  final Status status;
   final String? message;
   final List<Load>? data;
   @override

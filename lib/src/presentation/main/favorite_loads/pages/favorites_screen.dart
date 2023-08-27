@@ -37,9 +37,9 @@ class FavoritesScreen extends StatelessWidget {
           ),
           body: BlocBuilder<FavoritesCubit, FavoritesState>(
             builder: (context, state) {
-              if (state.status == States.loading) {
+              if (state.status == Status.loading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state.status == States.compelted &&
+              } else if (state.status == Status.success &&
                   state.data!.isNotEmpty) {
                 return ListView.builder(
                     padding: const EdgeInsets.all(20),
@@ -58,30 +58,14 @@ class FavoritesScreen extends StatelessWidget {
                         load: state.data![index],
                       );
                     });
-              } else if (state.status == States.compelted &&
+              } else if (state.status == Status.success &&
                   state.data!.isEmpty) {
                 return const Center(
-                  child: Text('Nothing Yet'),
-                );
-              } else if (state.status == States.error) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                        child: Image.asset(
-                      'assets/images/warning.png',
-                      width: 50,
-                    )),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Text(state.message!),
-                    ),
-                  ],
+                  child: Text('No loads added to favorites'),
                 );
               } else {
-                return Center(child: Text('${state.status}'));
+                return Center(
+                    child: Text(state.message ?? 'Something went wrong'));
               }
             },
           ),

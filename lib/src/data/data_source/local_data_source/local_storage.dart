@@ -8,4 +8,7 @@ class LocalStorage {
   //   await userBox.putAll(user);
   //   userBox.close();
   // }
+
+//   final userBox = await Hive.openBox<MyUser>('userBox');
+// final loadBox = await Hive.openBox<Load>('loadBox');
 }

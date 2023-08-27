@@ -44,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
                   if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
                     Navigator.pushNamed(context, Routes.fillProfil);
                   } else {
-                    Navigator.pushNamed(context, Routes.postLoad);
+                    Navigator.pushReplacementNamed(context, Routes.postLoad);
                   }
                 },
                 child: const Icon(Icons.add),

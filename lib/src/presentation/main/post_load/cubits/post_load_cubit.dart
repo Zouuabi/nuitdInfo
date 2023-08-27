@@ -26,7 +26,7 @@ class PostCubit extends Cubit<PostState> {
   }
 
   void postLoad(Load load) async {
-    emit(const PostState(status: Status.initial));
+    emit(const PostState(status: Status.loading));
 
     Either<Failure, void> result =
         await _repository.postLoad(load.toFirestore());

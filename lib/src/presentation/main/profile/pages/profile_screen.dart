@@ -8,7 +8,7 @@ import '../../../../config/routes/routes.dart';
 import '../../../../injector.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
+  const ProfileScreen({super.key});
   // final cubit = ProfileCubit(instance<RepositoryImpl>());
   @override
   Widget build(BuildContext context) {
@@ -42,34 +42,19 @@ class ProfileScreen extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                if (state.status == Status.failed &&
-                    state.errorMessage == 'No internet connection') {
-                  return Scaffold(
-                      body: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                          child: Image.asset(
-                        'assets/images/warning.png',
-                        width: 50,
-                      )),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: Text(state.errorMessage!),
-                      ),
-                    ],
-                  ));
+                if (state.status == Status.loading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state.status == Status.success) {
+                  return _getProfile(
+                      user: state.data!,
+                      context: context,
+                      onLogoutPressed: () {
+                        BlocProvider.of<ProfileCubit>(context).logOut();
+                      });
                 } else {
-                  return state.status == Status.loading
-                      ? const Center(child: CircularProgressIndicator())
-                      : _getProfile(
-                          user: state.data!,
-                          context: context,
-                          onLogoutPressed: () {
-                            BlocProvider.of<ProfileCubit>(context).logOut();
-                          });
+                  return Center(
+                      child:
+                          Text(state.errorMessage ?? 'Something went wrong'));
                 }
               },
             ),
@@ -133,13 +118,10 @@ Widget _getProfile(
                 size: 20,
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.light_mode),
-              title: Text('Theme'),
-              trailing: Icon(
-                Icons.arrow_forward_ios_outlined,
-                size: 20,
-              ),
+              title: Text('Dark Theme'),
+              // trailing:
             ),
 
             TextButton.icon(

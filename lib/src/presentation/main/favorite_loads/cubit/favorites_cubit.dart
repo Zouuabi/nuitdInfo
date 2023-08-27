@@ -5,14 +5,14 @@ import 'favorites_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
   FavoritesCubit({required this.repositoryImpl})
-      : super(const FavoritesState(status: States.intital)) {
+      : super(const FavoritesState(status: Status.intital)) {
     getMyFavoritesLoads();
   }
   final RepositoryImpl repositoryImpl;
 
   void getMyFavoritesLoads({bool refresh = false}) async {
     if (!refresh) {
-      emit(const FavoritesState(status: States.loading));
+      emit(const FavoritesState(status: Status.loading));
     }
 
     var readingLoadsResult = await repositoryImpl.readFavoriteLoads();
@@ -20,10 +20,10 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     if (!isClosed) {
       readingLoadsResult.fold(
         (l) {
-          emit(FavoritesState(status: States.error, message: l.errrorMessage));
+          emit(FavoritesState(status: Status.failed, message: l.errrorMessage));
         },
         (r) {
-          emit(FavoritesState(status: States.compelted, data: r));
+          emit(FavoritesState(status: Status.success, data: r));
         },
       );
     }

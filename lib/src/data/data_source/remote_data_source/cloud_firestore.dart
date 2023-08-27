@@ -52,7 +52,7 @@ class CloudFiresore {
       if (docSnapshot.exists) {
         favoriteLoads.add(Load.fromfirestore(docSnapshot.data()!));
       } else {
-        removeFromFavorites(loadRef: loadRef, uid: user.id);
+        removeFromFavorites(loadRef: loadRef, uid: user.uid);
         throw (Exception('load deleted'));
       }
     }

@@ -20,92 +20,48 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MyLoadsCubit>(
-      create: (context) =>
-          //repositoryImpl: instance<RepositoryImpl>()
-          MyLoadsCubit(instance<RepositoryImpl>()),
-      child: BlocBuilder<MyLoadsCubit, MyloadsState>(
-        builder: (context, state) {
-          if (state.status == States.loading) {
-            return Scaffold(
-                appBar: AppBar(
-                  elevation: 4,
-                  title: const Text(
-                    'My Laods',
-                  ),
-                  centerTitle: true,
-                ),
-                body: const Center(child: CircularProgressIndicator()));
-          } else if (state.status == States.complete &&
-              state.data!.isNotEmpty) {
-            return Scaffold(
-                appBar: _appBar(context),
-                body: RefreshIndicator(
-                  onRefresh: () async {
-                    BlocProvider.of<MyLoadsCubit>(context)
-                        .fetchMyLoads(refresh: true);
-                  },
-                  child: ListView.builder(
-                      padding: const EdgeInsets.all(20),
-                      itemCount: state.data!.length,
-                      itemBuilder: (context, index) {
-                        return LoadItem(
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.loadDetails,
-                                arguments: state.data![index]);
-                          },
-                          longPressed: () {
-                            setState(() {
-                              if (loadsToDelete
-                                  .contains(state.data![index].loadRef)) {
-                                loadsToDelete
-                                    .remove(state.data![index].loadRef);
-                              } else {
-                                loadsToDelete.add(state.data![index].loadRef);
-                              }
-                            });
-                          },
-                          detailsButton: () {
-                            Navigator.pushNamed(context, Routes.loadDetails,
-                                arguments: state.data![index]);
-                          },
-                          load: state.data![index],
-                        );
-                      }),
-                ));
-          } else if (state.status == States.complete && state.data!.isEmpty) {
-            return Scaffold(
-                appBar: AppBar(
-                  elevation: 4,
-                  title: const Text(
-                    'My Laods',
-                  ),
-                  centerTitle: true,
-                ),
-                body: const Center(
-                  child: Text('Nothing Yet'),
-                ));
-          } else {
-            return Scaffold(
-              appBar: AppBar(title: const Text('My Posts')),
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                      child: Image.asset(
-                    'assets/images/warning.png',
-                    width: 50,
-                  )),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Text(state.message!),
-                  ),
-                ],
-              ),
-            );
-          }
-        },
+      create: (context) => MyLoadsCubit(instance<RepositoryImpl>()),
+      child: Scaffold(
+        appBar: _appBar(context),
+        body: BlocBuilder<MyLoadsCubit, MyloadsState>(
+          builder: (context, state) {
+            if (state.status == Status.loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state.status == Status.success) {
+              return ListView.builder(
+                  padding: const EdgeInsets.all(20),
+                  itemCount: state.data!.length,
+                  itemBuilder: (context, index) {
+                    return LoadItem(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.loadDetails,
+                            arguments: state.data![index]);
+                      },
+                      longPressed: () {
+                        setState(() {
+                          if (loadsToDelete
+                              .contains(state.data![index].loadRef)) {
+                            loadsToDelete.remove(state.data![index].loadRef);
+                          } else {
+                            loadsToDelete.add(state.data![index].loadRef);
+                          }
+                        });
+                      },
+                      detailsButton: () {
+                        Navigator.pushNamed(context, Routes.loadDetails,
+                            arguments: state.data![index]);
+                      },
+                      load: state.data![index],
+                    );
+                  });
+            } else {
+              return Center(
+                  child: Text(state.message ?? 'Something went Wrong'));
+            }
+          },
+        ),
       ),
     );
   }

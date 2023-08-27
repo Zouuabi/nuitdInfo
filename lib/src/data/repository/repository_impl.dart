@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../core/failure.dart';
-import '../../core/internet_checker.dart';
+
 import '../../domain/repositories/repositories.dart';
 import '../data_source/local_data_source/local_storage.dart';
 import '../data_source/remote_data_source/cloud_firestore.dart';
@@ -13,6 +13,7 @@ import 'package:dartz/dartz.dart';
 import '../data_source/remote_data_source/firebase_storage.dart';
 import '../models/load.dart';
 import '../models/user.dart';
+import '../../core/internet_checker.dart';
 
 class RepositoryImpl extends Repository {
   RepositoryImpl({required this.internetChecker, required this.localStorage});

@@ -45,7 +45,7 @@ ThemeData buildTheme(BuildContext context) {
       surface: const Color.fromARGB(255, 234, 255, 253),
     ),
     // divider
-    dividerColor: ColorManager.mouvemaPink100,
+    dividerColor: Color.fromARGB(255, 69, 160, 151),
 
     /// App Text Theme
     textTheme: _buildShrineTextTheme(base.textTheme, context),
@@ -53,9 +53,9 @@ ThemeData buildTheme(BuildContext context) {
       selectionColor: Color.fromARGB(255, 255, 255, 255),
     ),
     // Scaffold
-    scaffoldBackgroundColor: ColorManager.scaffoldBackgroundColor,
+    scaffoldBackgroundColor: Color.fromARGB(255, 189, 223, 219),
     // each icon will have this default size
-    iconTheme: IconThemeData(size: size.width * 0.07),
+    // iconTheme: IconThemeData(size: size.width * 0.07),
 
     appBarTheme: const AppBarTheme(
       titleSpacing: 2,
@@ -72,7 +72,7 @@ ThemeData buildTheme(BuildContext context) {
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color.fromARGB(255, 254, 255, 255),
+      fillColor: const Color.fromARGB(255, 211, 255, 255),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
       ),
