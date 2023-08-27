@@ -133,4 +133,29 @@ class _MainScreenState extends State<MainScreen> {
           },
         ));
   }
+
+
+  Container _getBottomNavigationBar() {
+    return Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(blurRadius: 10),
+          ],
+        ),
+        child: BottomNavigationBar(
+          iconSize: 30,
+          currentIndex: index,
+          onTap: (value) {
+            setState(() {});
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.work_history), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.bookmark_outlined), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+          ],
+        ));
+  }
+
 }
