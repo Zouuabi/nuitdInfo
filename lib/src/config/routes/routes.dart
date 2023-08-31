@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mouvema/src/presentation/main/splash/pages/splash_screen.dart';
+import 'package:mouvema/src/presentation/main/on_boarding/pages/on_boarding.dart';
 
 import '../../data/models/load.dart';
 import '../../injector.dart';

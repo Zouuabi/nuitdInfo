@@ -7,7 +7,13 @@ TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
   // final size = MediaQuery.of(context).size;
   return base
       .copyWith(
+        displayLarge: base.displayLarge!.copyWith(
+          fontWeight: FontWeight.w500,
+        ),
         displayMedium: base.displayMedium!.copyWith(
+          fontWeight: FontWeight.w500,
+        ),
+        displaySmall: base.displaySmall!.copyWith(
           fontWeight: FontWeight.w500,
         ),
         headlineLarge: base.headlineLarge!.copyWith(),

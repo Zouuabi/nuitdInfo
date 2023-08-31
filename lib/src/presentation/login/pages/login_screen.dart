@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                       Spacer(),
                       Flexible(
                           flex: 3,
-                          child: Image.asset(
+                          child: SvgPicture.asset(
                             ImageManager.logo,
                           )),
                       Spacer(),

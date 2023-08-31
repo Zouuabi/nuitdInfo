@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
-import 'package:mouvema/src/presentation/main/splash/pages/splash_screen.dart';
+
 import '../../config/routes/routes.dart';
 
 import '../../core/utils/color_manager.dart';
@@ -25,9 +25,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int index = 0;
   final pagecontroller = PageController(initialPage: 0, keepPage: true);
-  final pages = [
-    const HomeScreen(),
-    const MyLoadsScreen(),
+  final pages = const [
+    HomeScreen(),
+    MyLoadsScreen(),
     FavoritesScreen(),
     ProfileScreen(),
   ];

@@ -12,5 +12,5 @@ class ColorManager {
   static const mouvemaErrorRed = Color(0xFFC5032B);
 
   static const mouvemaSurfaceWhite = Color(0xFFFFFBFA);
-  static const mouvemaBackgroundWhite = Color(0xffffffff);
+  static const mouvemaWhite = Color(0xffffffff);
 }
