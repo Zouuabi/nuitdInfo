@@ -14,27 +14,28 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  bool isEmailEmpty = false;
-  bool isPasswordEmpty = false;
-
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
 
-  // bool _isvalid() {
-  //   bool valid = true;
-  //   if (_emailController.text.isEmpty) {
-  //     isEmailEmpty = true;
-  //     valid = false;
-  //   }
+  bool _isvalid() {
+    bool valid = true;
+    if (_emailController.text.isEmpty) {
+      emit(const LoginScreenState(status: Status.emailEmpty));
 
-  //   if (_passwordController.text.isEmpty) {
-  //     isPasswordEmpty = true;
-  //     valid = false;
-  //   }
-  //   return valid;
-  // }
+      valid = false;
+    }
+
+    if (_passwordController.text.isEmpty) {
+      emit(const LoginScreenState(status: Status.emailEmpty));
+      valid = false;
+    }
+    return valid;
+  }
 
   void logIn() async {
+    if (!_isvalid()) {
+      return;
+    }
     emit(const LoginScreenState(status: Status.loading));
     Either<Failure, void> result = await repositoryImpl.signIn(
         _emailController.text, _passwordController.text);

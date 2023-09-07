@@ -50,74 +50,32 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Icon(Icons.add),
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              bottomNavigationBar: AnimatedBottomNavigationBar(
-                iconSize: 35,
-                backgroundColor: const Color.fromARGB(255, 216, 233, 231),
-
-                // borderColor: ColorManager.mouvemaBrown900,
-                // borderWidth: 3,
-                elevation: 2,
-                borderWidth: 5,
-                borderColor: Colors.teal,
-                height: 70,
-                activeColor: Colors.teal,
-                inactiveColor: ColorManager.mouvemaBrown900,
-
-                icons: const [
-                  Icons.home,
-                  Icons.work_history,
-                  Icons.bookmark_outlined,
-                  Icons.person
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: Colors.grey,
+                elevation: 4,
+                useLegacyColorScheme: true,
+                selectedItemColor: Colors.teal,
+                unselectedItemColor: ColorManager.mouvemaBrown900,
+                selectedLabelStyle: TextStyle(color: Colors.brown),
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: '',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.work_history),
+                    label: 'home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.bookmark_outlined),
+                    label: '',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: '',
+                  ),
                 ],
-                activeIndex: index,
-                gapLocation: GapLocation.center,
-                notchSmoothness: NotchSmoothness.verySmoothEdge,
-                leftCornerRadius: 32,
-                rightCornerRadius: 32,
-                onTap: (val) => setState(() {
-                  if (val == 3) {
-                    if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
-                      Navigator.pushNamed(context, Routes.fillProfil);
-                    } else {
-                      index = val;
-                      pagecontroller.jumpToPage(index);
-                    }
-                  } else {
-                    index = val;
-                    pagecontroller.jumpToPage(index);
-                  }
-                }),
-                //other params
               ),
-              // body: GestureDetector(
-              //   onHorizontalDragEnd: (details) {
-              //     double direction = details.velocity.pixelsPerSecond.dx;
-
-              //     if (direction > 0) {
-              //       setState(() {
-              //         index = (index - 1) % pages.length;
-              //       });
-              //     }
-
-              //     if (direction < 0) {
-              //       setState(() {
-              //         index = (index + 1) % pages.length;
-              //       });
-              //     }
-              //   },
-              // child: IndexedStack(
-              //   index: index,
-              //   children: pages.map((page) {
-              //     return AnimatedContainer(
-              //       duration: const Duration(milliseconds: 300),
-              //       curve: Curves.easeInOut,
-              //       child: page,
-              //     );
-              //   }).toList(),
-              // ),
-              // ),
               body: PageView.builder(
                   controller: pagecontroller,
                   itemCount: 4,
@@ -134,3 +92,40 @@ class _MainScreenState extends State<MainScreen> {
         ));
   }
 }
+// AnimatedBottomNavigationBar(
+//                 iconSize: 25,
+
+//                 // borderColor: ColorManager.mouvemaBrown900,
+//                 // borderWidth: 3,
+//                 elevation: 2,
+//                 splashColor: Colors.teal,
+
+//                 borderWidth: 2,
+//                 borderColor: Color.fromARGB(255, 105, 152, 148),
+//                 height: 60,
+//                 activeColor: ColorManager.mouvemaTeal,
+//                 inactiveColor: ColorManager.mouvemaBrown900,
+
+//                 icons: const [
+                
+//                 ],
+//                 activeIndex: index,
+//                 gapLocation: GapLocation.center,
+//                 notchSmoothness: NotchSmoothness.verySmoothEdge,
+//                 leftCornerRadius: 40,
+//                 rightCornerRadius: 40,
+//                 onTap: (val) => setState(() {
+//                   if (val == 3) {
+//                     if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
+//                       Navigator.pushNamed(context, Routes.fillProfil);
+//                     } else {
+//                       index = val;
+//                       pagecontroller.jumpToPage(index);
+//                     }
+//                   } else {
+//                     index = val;
+//                     pagecontroller.jumpToPage(index);
+//                   }
+//                 }),
+//                 //other params
+//               ),

@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/routes/routes.dart';
@@ -16,13 +17,16 @@ class MyLoadsScreen extends StatefulWidget {
 
 class _MyLoadsScreenState extends State<MyLoadsScreen> {
   List<String> loadsToDelete = [];
+  final MyLoadsCubit loadsCubit = MyLoadsCubit(instance<RepositoryImpl>());
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MyLoadsCubit>(
-      create: (context) => MyLoadsCubit(instance<RepositoryImpl>()),
+      create: (context) => loadsCubit,
       child: Scaffold(
-        appBar: _appBar(context),
+        appBar: _appBar(context, () {
+          loadsCubit.deleteLoads(loadsToDelete);
+        }),
         body: BlocBuilder<MyLoadsCubit, MyloadsState>(
           builder: (context, state) {
             if (state.status == Status.loading) {
@@ -31,7 +35,6 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
               );
             } else if (state.status == Status.success) {
               return ListView.builder(
-                  padding: const EdgeInsets.all(20),
                   itemCount: state.data!.length,
                   itemBuilder: (context, index) {
                     return LoadItem(
@@ -66,9 +69,8 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
     );
   }
 
-  AppBar _appBar(BuildContext context) {
+  AppBar _appBar(BuildContext context, VoidCallback onDelete) {
     return AppBar(
-      elevation: 4,
       title: const Text(
         'My Laods',
       ),
@@ -77,25 +79,15 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
         IconButton(
             onPressed: () {
               (loadsToDelete.isNotEmpty)
-                  ? showDialog(
+                  ? AwesomeDialog(
+                      btnOkColor: Colors.teal,
                       context: context,
-                      builder: (ctx) {
-                        return AlertDialog(
-                          title: const Text('Are you Sure ?'),
-                          actions: [
-                            Center(
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                    BlocProvider.of<MyLoadsCubit>(context)
-                                        .deleteLoads(loadsToDelete);
-                                  },
-                                  child: const Text('Delete')),
-                            )
-                          ],
-                        );
-                      },
-                    )
+                      dialogType: DialogType.warning,
+                      animType: AnimType.topSlide,
+                      title: 'Are you sure',
+                      btnOkOnPress: () {
+                        onDelete();
+                      }).show()
                   : showDialog(
                       context: context,
                       builder: (ctx) {

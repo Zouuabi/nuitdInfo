@@ -9,7 +9,7 @@ import '../../../../config/routes/routes.dart';
 import '../../../../data/repository/repository_impl.dart';
 import '../../../../injector.dart';
 import 'package:latlong2/latlong.dart';
-import '../../../shared/show_alert.dart';
+
 import '../cubits/post_load_cubit.dart';
 import '../cubits/post_load_state.dart';
 import '../widgets/details_input.dart';

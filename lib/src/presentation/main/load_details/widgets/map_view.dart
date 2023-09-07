@@ -32,6 +32,7 @@ class MapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(destination);
     return Stack(
       children: [
         Container(
@@ -163,9 +164,10 @@ void openGoogleMapsDirections(LatLng origin, LatLng destination) async {
   final url =
       'https://www.google.com/maps/dir/?api=1&origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&travelmode=driving';
 
-  if (await canLaunch(url)) {
+  try {
+    (await canLaunch(url));
     await launch(url);
-  } else {
-    throw 'Could not launch Google Maps';
+  } catch (e) {
+    print(e.toString());
   }
 }

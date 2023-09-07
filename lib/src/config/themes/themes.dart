@@ -50,6 +50,7 @@ ThemeData buildTheme(BuildContext context) {
       outline: const Color.fromARGB(255, 234, 255, 253),
       surface: const Color.fromARGB(255, 234, 255, 253),
     ),
+
     // divider
     dividerColor: Color.fromARGB(255, 69, 160, 151),
 
@@ -59,7 +60,7 @@ ThemeData buildTheme(BuildContext context) {
       selectionColor: Color.fromARGB(255, 255, 255, 255),
     ),
     // Scaffold
-    scaffoldBackgroundColor: Color.fromARGB(255, 189, 223, 219),
+    scaffoldBackgroundColor: Colors.white,
     // each icon will have this default size
     // iconTheme: IconThemeData(size: size.width * 0.07),
 
@@ -67,7 +68,7 @@ ThemeData buildTheme(BuildContext context) {
       titleSpacing: 2,
       centerTitle: true,
       foregroundColor: ColorManager.mouvemaBrown900,
-      backgroundColor: Color.fromARGB(255, 60, 182, 154),
+      backgroundColor: Colors.white,
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.teal,

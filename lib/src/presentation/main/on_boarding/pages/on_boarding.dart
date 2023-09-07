@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,9 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:mouvema/src/core/utils/color_manager.dart';
 
 ///Class to hold data for itembuilder in Withbuilder app.
+
+import 'package:mouvema/src/presentation/login/pages/login_screen.dart';
+
 class ItemData {
   final Color color;
   final String image;
@@ -21,10 +25,10 @@ class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
 
   @override
-  State<OnBoardingScreen> createState() => _WithBuilder();
+  State<OnBoardingScreen> createState() => OnBoardingScreenState();
 }
 
-class _WithBuilder extends State<OnBoardingScreen> {
+class OnBoardingScreenState extends State<OnBoardingScreen> {
   int page = 0;
   late LiquidController liquidController;
   late UpdateType updateType;
@@ -74,6 +78,18 @@ class _WithBuilder extends State<OnBoardingScreen> {
         ),
       ),
     );
+  }
+
+  void toLogin() async {
+    Timer(const Duration(seconds: 1), () {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -168,5 +184,8 @@ class _WithBuilder extends State<OnBoardingScreen> {
     setState(() {
       page = lpage;
     });
+    if (page == 2) {
+      toLogin();
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../injector.dart';
 import '../cubit/login_cubit.dart';
+import '../widgets/or.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -27,14 +29,14 @@ class LoginScreen extends StatelessWidget {
             child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
               listener: (ctx, state) {
                 if (state.status == Status.failed) {
-                  showDialog(
-                      context: ctx,
-                      builder: (ctx) {
-                        return AlertDialog(
-                          title: const Text('Error'),
-                          content: Text(state.errorMessage!),
-                        );
-                      });
+                  AwesomeDialog(
+                          btnOkColor: Colors.teal,
+                          context: context,
+                          dialogType: DialogType.error,
+                          animType: AnimType.topSlide,
+                          title: 'Error',
+                          desc: state.errorMessage)
+                      .show();
                 } else if (state.status == Status.success) {
                   Navigator.pushReplacementNamed(context, Routes.main);
                 }
@@ -45,13 +47,13 @@ class LoginScreen extends StatelessWidget {
                 } else {
                   return Column(
                     children: [
-                      Spacer(),
+                      const Spacer(),
                       Flexible(
                           flex: 3,
                           child: SvgPicture.asset(
                             ImageManager.logo,
                           )),
-                      Spacer(),
+                      const Spacer(),
                       Flexible(
                         flex: 4,
                         child: Column(
@@ -68,6 +70,9 @@ class LoginScreen extends StatelessWidget {
                                   'Continue With Facebook',
                                   style: Theme.of(context).textTheme.labelLarge,
                                 )),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             OutlinedButton.icon(
                                 icon: const Icon(
                                   Icons.g_mobiledata,
@@ -81,6 +86,9 @@ class LoginScreen extends StatelessWidget {
                                   'Continue With Google  ',
                                   style: Theme.of(context).textTheme.labelLarge,
                                 )),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             OutlinedButton.icon(
                                 icon: const Icon(
                                   Icons.apple,
@@ -91,24 +99,15 @@ class LoginScreen extends StatelessWidget {
                                   'Continue With Apple  ',
                                   style: Theme.of(context).textTheme.labelLarge,
                                 )),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 1,
-                                  width: 100,
-                                  color: ColorManager.mouvemaTeal,
-                                ),
-                                const Text('Or'),
-                                Container(
-                                  height: 1,
-                                  width: 100,
-                                  color: ColorManager.mouvemaTeal,
-                                ),
-                              ],
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            const Or(),
+                            const SizedBox(
+                              height: 30,
                             ),
                             SizedBox(
-                              height: 70,
+                              height: 50,
                               child: FilledButton(
                                   onPressed: () {
                                     Navigator.pushNamed(

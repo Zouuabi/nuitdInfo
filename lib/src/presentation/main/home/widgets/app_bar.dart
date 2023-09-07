@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mouvema/src/core/utils/color_manager.dart';
+import 'package:mouvema/src/core/utils/image_manager.dart';
 
 import '../../../../injector.dart';
 import '../../../shared/choose_location_button.dart';
@@ -12,9 +15,17 @@ class AppBarz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      centerTitle: true,
+      leading: null,
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          Image.asset(
+            'assets/images/splash.png',
+            height: 30,
+            width: 30,
+            color: ColorManager.mouvemaBrown900,
+          ),
           Text('Mouvema'),
           IconButton(
               onPressed: () {
