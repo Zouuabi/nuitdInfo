@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mouvema/src/core/utils/color_manager.dart';
 
 import '../../core/helpers/date_handler.dart';
 
@@ -43,8 +44,8 @@ class _LoadItemState extends State<LoadItem> {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [BoxShadow(blurRadius: 5, color: Colors.grey)],
+            color: ColorManager.mouvemaWhite,
+            boxShadow: const [BoxShadow(blurRadius: 5, color: Colors.grey)],
             border:
                 ispressed ? Border.all(color: Colors.teal, width: 2) : null),
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),

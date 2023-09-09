@@ -1,5 +1,3 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,12 +6,12 @@ import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
 
 import '../../config/routes/routes.dart';
 
-import '../../core/utils/color_manager.dart';
 import '../../injector.dart';
 import 'home/pages/home_screen.dart';
 import 'favorite_loads/pages/favorites_screen.dart';
 import 'my_loads/pages/my_loads_screen.dart';
 import 'profile/pages/profile_screen.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -50,31 +48,58 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Icon(Icons.add),
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                backgroundColor: Colors.grey,
-                elevation: 4,
-                useLegacyColorScheme: true,
-                selectedItemColor: Colors.teal,
-                unselectedItemColor: ColorManager.mouvemaBrown900,
-                selectedLabelStyle: TextStyle(color: Colors.brown),
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: '',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.work_history),
-                    label: 'home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.bookmark_outlined),
-                    label: '',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    label: '',
-                  ),
-                ],
+              bottomNavigationBar: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0, -1),
+                          blurRadius: 2)
+                    ]),
+                child: GNav(
+                    onTabChange: (val) {
+                      setState(() {
+                        if (val == 3) {
+                          if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
+                            Navigator.pushNamed(context, Routes.fillProfil);
+                          } else {
+                            index = val;
+                            pagecontroller.jumpToPage(index);
+                          }
+                        } else {
+                          index = val;
+                          pagecontroller.jumpToPage(index);
+                        }
+                      });
+                    },
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    curve: Curves.easeOutExpo,
+                    duration: const Duration(milliseconds: 300),
+                    gap: 8,
+                    color: Colors.grey[800],
+                    activeColor: Colors.teal,
+                    iconSize: 24,
+                    tabBackgroundColor: Colors.teal.withOpacity(0.1),
+                    tabs: const [
+                      GButton(
+                        icon: Icons.home,
+                        text: 'Home',
+                      ),
+                      GButton(
+                        icon: Icons.work_history_outlined,
+                        text: 'My loads',
+                      ),
+                      GButton(
+                        icon: Icons.bookmark_border,
+                        text: 'favorites',
+                      ),
+                      GButton(
+                        icon: Icons.person_4_outlined,
+                        text: 'Profile',
+                      )
+                    ]),
               ),
               body: PageView.builder(
                   controller: pagecontroller,
@@ -92,40 +117,3 @@ class _MainScreenState extends State<MainScreen> {
         ));
   }
 }
-// AnimatedBottomNavigationBar(
-//                 iconSize: 25,
-
-//                 // borderColor: ColorManager.mouvemaBrown900,
-//                 // borderWidth: 3,
-//                 elevation: 2,
-//                 splashColor: Colors.teal,
-
-//                 borderWidth: 2,
-//                 borderColor: Color.fromARGB(255, 105, 152, 148),
-//                 height: 60,
-//                 activeColor: ColorManager.mouvemaTeal,
-//                 inactiveColor: ColorManager.mouvemaBrown900,
-
-//                 icons: const [
-                
-//                 ],
-//                 activeIndex: index,
-//                 gapLocation: GapLocation.center,
-//                 notchSmoothness: NotchSmoothness.verySmoothEdge,
-//                 leftCornerRadius: 40,
-//                 rightCornerRadius: 40,
-//                 onTap: (val) => setState(() {
-//                   if (val == 3) {
-//                     if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
-//                       Navigator.pushNamed(context, Routes.fillProfil);
-//                     } else {
-//                       index = val;
-//                       pagecontroller.jumpToPage(index);
-//                     }
-//                   } else {
-//                     index = val;
-//                     pagecontroller.jumpToPage(index);
-//                   }
-//                 }),
-//                 //other params
-//               ),

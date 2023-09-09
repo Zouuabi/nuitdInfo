@@ -71,6 +71,7 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
 
   AppBar _appBar(BuildContext context, VoidCallback onDelete) {
     return AppBar(
+      leading: null,
       title: const Text(
         'My Laods',
       ),
@@ -106,7 +107,7 @@ class _MyLoadsScreenState extends State<MyLoadsScreen> {
                       },
                     );
             },
-            icon: const Icon(Icons.delete))
+            icon: const Icon(Icons.delete_outlined))
       ],
     );
   }

@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import 'src/app.dart';
-import 'src/data/data_source/local_data_source/models_adapters.dart';
+
 import 'src/data/data_source/remote_data_source/firebase_options.dart';
 import 'src/injector.dart';
 

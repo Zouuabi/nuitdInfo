@@ -25,7 +25,7 @@ Map a = {
 class PositionGeocoding {
   static Future<String> reverseGeocode(LatLng point) async {
     final String osmUrl =
-        'https://nominatim.openstreetmap.org/reverse?format=json&lat=${point.latitude}&lon=${point.longitude}';
+        'https://nominatim.openstreetmap.org/reverse?format=json&lat=${point.latitude}&lon=${point.longitude}&accept-language=fr';
     try {
       final response = await http.get(Uri.parse(osmUrl));
       if (response.statusCode == 200) {
@@ -34,7 +34,7 @@ class PositionGeocoding {
         String city = decodedJson['address']['state_district'];
 
         String address =
-            '${state.substring(5, state.length)} ,${city.substring(7, city.length)}';
+            '${state.substring(12, state.length)} ,${city.substring(10, city.length)}';
         return address;
       } else {
         return 'Error';

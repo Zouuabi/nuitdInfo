@@ -100,7 +100,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
           LiquidSwipe.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              return Container(
+              return SizedBox(
                 width: double.infinity,
                 child: Column(
                   mainAxisSize: MainAxisSize.max,

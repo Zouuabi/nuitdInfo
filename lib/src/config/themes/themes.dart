@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../core/utils/color_manager.dart';
 
-TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
+TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context,
+    {required bool light}) {
   // final textScaleFactor = MediaQuery.of(context).textScaleFactor;
   // final size = MediaQuery.of(context).size;
+
+  Color white = Colors.white;
+
   return base
       .copyWith(
         displayLarge: base.displayLarge!.copyWith(
@@ -33,31 +37,34 @@ TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context) {
       )
       .apply(
         fontFamily: 'Rubik',
-        displayColor: ColorManager.mouvemaBrown900,
-        bodyColor: ColorManager.mouvemaBrown900,
+        displayColor:
+            light ? ColorManager.mouvemaBrown : ColorManager.mouvemaWhite,
+        bodyColor:
+            light ? ColorManager.mouvemaBrown : ColorManager.mouvemaWhite,
       );
 }
 
-ThemeData buildTheme(BuildContext context) {
-  final ThemeData base = ThemeData.light(useMaterial3: true);
-  final size = MediaQuery.of(context).size;
-  return base.copyWith(
-    colorScheme: base.colorScheme.copyWith(
+ThemeData buildTheme({required BuildContext context, required bool light}) {
+  final ThemeData baseLight = ThemeData.light(useMaterial3: true);
+  final ThemeData baseDark = ThemeData.dark(useMaterial3: true);
+
+  ThemeData lightMode = baseLight.copyWith(
+    colorScheme: baseLight.colorScheme.copyWith(
       brightness: Brightness.light,
-      primary: Colors.teal,
-      onPrimary: Colors.white,
-      error: ColorManager.mouvemaErrorRed,
+      primary: ColorManager.mouvemaTeal,
+      onPrimary: ColorManager.mouvemaWhite,
+      error: ColorManager.mouvemaError,
       outline: const Color.fromARGB(255, 234, 255, 253),
       surface: const Color.fromARGB(255, 234, 255, 253),
     ),
 
     // divider
-    dividerColor: Color.fromARGB(255, 69, 160, 151),
+    dividerColor: ColorManager.mouvemaDivider,
 
     /// App Text Theme
-    textTheme: _buildShrineTextTheme(base.textTheme, context),
+    textTheme: _buildShrineTextTheme(baseLight.textTheme, context, light: true),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: Color.fromARGB(255, 255, 255, 255),
+      selectionColor: ColorManager.mouvemaWhite,
     ),
     // Scaffold
     scaffoldBackgroundColor: Colors.white,
@@ -67,12 +74,12 @@ ThemeData buildTheme(BuildContext context) {
     appBarTheme: const AppBarTheme(
       titleSpacing: 2,
       centerTitle: true,
-      foregroundColor: ColorManager.mouvemaBrown900,
-      backgroundColor: Colors.white,
+      foregroundColor: ColorManager.mouvemaBrown,
+      backgroundColor: ColorManager.mouvemaWhite,
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Colors.teal,
-        foregroundColor: Colors.white,
+        backgroundColor: ColorManager.mouvemaTeal,
+        foregroundColor: ColorManager.mouvemaWhite,
         iconSize: 40,
         shape: CircleBorder(),
         splashColor: Color.fromARGB(255, 120, 213, 191)),
@@ -87,14 +94,70 @@ ThemeData buildTheme(BuildContext context) {
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(
           width: 0.5,
-          color: Colors.teal,
+          color: ColorManager.mouvemaTeal,
         ),
       ),
       floatingLabelStyle: const TextStyle(
-        color: ColorManager.mouvemaBrown900,
+        color: ColorManager.mouvemaBrown,
       ),
     ),
   );
+  ThemeData darkMode = baseDark.copyWith(
+    colorScheme: baseLight.colorScheme.copyWith(
+      brightness: Brightness.dark,
+      primary: ColorManager.mouvemaTeal,
+      onPrimary: ColorManager.mouvemaWhite,
+      error: ColorManager.mouvemaError,
+      outline: const Color.fromARGB(255, 234, 255, 253),
+      surface: const Color.fromARGB(255, 234, 255, 253),
+    ),
+    scaffoldBackgroundColor: Color.fromARGB(255, 119, 203, 195),
+
+    // divider
+    dividerColor: ColorManager.mouvemaDivider,
+
+    /// App Text Theme
+    textTheme:
+        _buildShrineTextTheme(baseLight.textTheme, context, light: false),
+    textSelectionTheme: const TextSelectionThemeData(
+      selectionColor: ColorManager.mouvemaWhite,
+    ),
+    bottomNavigationBarTheme:
+        BottomNavigationBarThemeData(backgroundColor: Colors.red),
+
+    appBarTheme: const AppBarTheme(
+      titleSpacing: 2,
+      centerTitle: true,
+      foregroundColor: ColorManager.mouvemaWhite,
+      backgroundColor: Color.fromARGB(255, 80, 164, 155),
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: ColorManager.mouvemaTeal,
+        foregroundColor: ColorManager.mouvemaWhite,
+        iconSize: 40,
+        shape: CircleBorder(),
+        splashColor: Color.fromARGB(255, 120, 213, 191)),
+
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: const Color.fromARGB(255, 211, 255, 255),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: const BorderSide(
+          width: 0.5,
+          color: ColorManager.mouvemaTeal,
+        ),
+      ),
+      floatingLabelStyle: const TextStyle(
+        color: ColorManager.mouvemaBrown,
+      ),
+    ),
+  );
+
+  return light ? lightMode : darkMode;
 }
 
 // ThemeData oldThemeData() {

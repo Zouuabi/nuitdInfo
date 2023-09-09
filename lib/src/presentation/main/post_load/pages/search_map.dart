@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -169,32 +168,6 @@ class MapScreenState extends State<MapScreen> {
     );
   }
 
-  double _calculateDistance(LatLng latLng1, LatLng latLng2) {
-    const double earthRadius = 6371.0;
-
-    double lat1 = latLng1.latitude;
-    double lon1 = latLng1.longitude;
-    double lat2 = latLng2.latitude;
-    double lon2 = latLng2.longitude;
-
-    double dLat = _toRadians(lat2 - lat1);
-    double dLon = _toRadians(lon2 - lon1);
-
-    double a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(_toRadians(lat1)) *
-            cos(_toRadians(lat2)) *
-            sin(dLon / 2) *
-            sin(dLon / 2);
-    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-    double distance = earthRadius * c;
-    return distance;
-  }
-
-  double _toRadians(double degrees) {
-    return degrees * (pi / 180.0);
-  }
-
   bool _isSameLocation(LatLng location1, LatLng location2, double zoom) {
     double markerTolerance;
     if (zoom < 10) {
@@ -210,26 +183,26 @@ class MapScreenState extends State<MapScreen> {
   Future<void> _getCurrentLocation(MapController mapController) async {
     bool serviceEnabled;
     loc.PermissionStatus permissionGranted;
-    loc.Location _location = loc.Location();
+    loc.Location location = loc.Location();
 
     // Check if location services are enabled
-    serviceEnabled = await _location.serviceEnabled();
+    serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
-      serviceEnabled = await _location.requestService();
+      serviceEnabled = await location.requestService();
       if (!serviceEnabled) {
         return;
       }
     }
 
     // Check for location permissions
-    permissionGranted = await _location.hasPermission();
+    permissionGranted = await location.hasPermission();
     if (permissionGranted == loc.PermissionStatus.denied) {
-      permissionGranted = await _location.requestPermission();
+      permissionGranted = await location.requestPermission();
       if (permissionGranted != loc.PermissionStatus.granted) {
         return;
       }
     }
-    loc.LocationData locationData = await _location.getLocation();
+    loc.LocationData locationData = await location.getLocation();
     mapController.move(
         LatLng(locationData.latitude!, locationData.longitude!), 8);
 

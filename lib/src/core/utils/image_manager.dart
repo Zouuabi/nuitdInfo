@@ -1,5 +1,6 @@
 class ImageManager {
-  static const String logo = 'assets/images/logo2.svg';
+  static const String logo = 'assets/images/logoWithoutName.svg';
+  static const String logoWithName = 'assets/images/logoWithName.png';
   static const String welcome = 'assets/images/welcome.jpg';
   static const String profile = 'assets/images/profile-circle.svg';
   static const String forgortPassword = 'assets/images/forgot-password.png';

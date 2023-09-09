@@ -29,6 +29,7 @@ class FavoritesScreen extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
+            leading: null,
             elevation: 4,
             title: const Text(
               'My Favorite Posts',
