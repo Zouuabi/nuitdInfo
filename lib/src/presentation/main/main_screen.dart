@@ -1,19 +1,17 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
-import 'package:mouvema/src/presentation/main/splash/pages/splash_screen.dart';
+
 import '../../config/routes/routes.dart';
 
-import '../../core/utils/color_manager.dart';
 import '../../injector.dart';
 import 'home/pages/home_screen.dart';
 import 'favorite_loads/pages/favorites_screen.dart';
 import 'my_loads/pages/my_loads_screen.dart';
 import 'profile/pages/profile_screen.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -25,9 +23,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int index = 0;
   final pagecontroller = PageController(initialPage: 0, keepPage: true);
-  final pages = [
-    const HomeScreen(),
-    const MyLoadsScreen(),
+  final pages = const [
+    HomeScreen(),
+    MyLoadsScreen(),
     FavoritesScreen(),
     ProfileScreen(),
   ];
@@ -50,74 +48,59 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Icon(Icons.add),
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              bottomNavigationBar: AnimatedBottomNavigationBar(
-                iconSize: 35,
-                backgroundColor: const Color.fromARGB(255, 216, 233, 231),
-
-                // borderColor: ColorManager.mouvemaBrown900,
-                // borderWidth: 3,
-                elevation: 2,
-                borderWidth: 5,
-                borderColor: Colors.teal,
-                height: 70,
-                activeColor: Colors.teal,
-                inactiveColor: ColorManager.mouvemaBrown900,
-
-                icons: const [
-                  Icons.home,
-                  Icons.work_history,
-                  Icons.bookmark_outlined,
-                  Icons.person
-                ],
-                activeIndex: index,
-                gapLocation: GapLocation.center,
-                notchSmoothness: NotchSmoothness.verySmoothEdge,
-                leftCornerRadius: 32,
-                rightCornerRadius: 32,
-                onTap: (val) => setState(() {
-                  if (val == 3) {
-                    if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
-                      Navigator.pushNamed(context, Routes.fillProfil);
-                    } else {
-                      index = val;
-                      pagecontroller.jumpToPage(index);
-                    }
-                  } else {
-                    index = val;
-                    pagecontroller.jumpToPage(index);
-                  }
-                }),
-                //other params
+              bottomNavigationBar: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0, -1),
+                          blurRadius: 2)
+                    ]),
+                child: GNav(
+                    onTabChange: (val) {
+                      setState(() {
+                        if (val == 3) {
+                          if (BlocProvider.of<HomeCubit>(context).isFirstTime) {
+                            Navigator.pushNamed(context, Routes.fillProfil);
+                          } else {
+                            index = val;
+                            pagecontroller.jumpToPage(index);
+                          }
+                        } else {
+                          index = val;
+                          pagecontroller.jumpToPage(index);
+                        }
+                      });
+                    },
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    curve: Curves.easeOutExpo,
+                    duration: const Duration(milliseconds: 300),
+                    gap: 8,
+                    color: Colors.grey[800],
+                    activeColor: Colors.teal,
+                    iconSize: 24,
+                    tabBackgroundColor: Colors.teal.withOpacity(0.1),
+                    tabs: const [
+                      GButton(
+                        icon: Icons.home,
+                        text: 'Home',
+                      ),
+                      GButton(
+                        icon: Icons.work_history_outlined,
+                        text: 'My loads',
+                      ),
+                      GButton(
+                        icon: Icons.bookmark_border,
+                        text: 'favorites',
+                      ),
+                      GButton(
+                        icon: Icons.person_4_outlined,
+                        text: 'Profile',
+                      )
+                    ]),
               ),
-              // body: GestureDetector(
-              //   onHorizontalDragEnd: (details) {
-              //     double direction = details.velocity.pixelsPerSecond.dx;
-
-              //     if (direction > 0) {
-              //       setState(() {
-              //         index = (index - 1) % pages.length;
-              //       });
-              //     }
-
-              //     if (direction < 0) {
-              //       setState(() {
-              //         index = (index + 1) % pages.length;
-              //       });
-              //     }
-              //   },
-              // child: IndexedStack(
-              //   index: index,
-              //   children: pages.map((page) {
-              //     return AnimatedContainer(
-              //       duration: const Duration(milliseconds: 300),
-              //       curve: Curves.easeInOut,
-              //       child: page,
-              //     );
-              //   }).toList(),
-              // ),
-              // ),
               body: PageView.builder(
                   controller: pagecontroller,
                   itemCount: 4,

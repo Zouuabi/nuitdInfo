@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:latlong2/latlong.dart';
+
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/helpers/date_handler.dart';
-import '../../../../data/data_source/remote_data_source/geocoding.dart';
+
 import '../../../../data/models/load.dart';
 
 class Details extends StatefulWidget {
@@ -19,16 +19,9 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  toHumanReadbleAdress(LatLng location) async {
-    var a = await PositionGeocoding.reverseGeocode(location);
-    print(a);
-  }
-
   @override
   void initState() {
     super.initState();
-    toHumanReadbleAdress(
-        LatLng(widget.load.destinationLat, widget.load.destinationLng));
   }
 
   @override
@@ -61,13 +54,14 @@ class _DetailsState extends State<Details> {
                 leading: const Icon(
                   Icons.person,
                   color: Colors.teal,
-                  size: 50,
+                  size: 30,
                 ),
                 title: Text(
                   'Broker',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                subtitle: Text('${widget.load.brokerName} LLC'),
+                subtitle: Text('${widget.load.brokerName} ',
+                    style: Theme.of(context).textTheme.bodyMedium),
               ),
             ),
           ],
@@ -78,8 +72,7 @@ class _DetailsState extends State<Details> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Divider(),
-              Text('Details',
-                  style: Theme.of(context).textTheme.headlineMedium),
+              Text('Details', style: Theme.of(context).textTheme.headlineSmall),
               Row(
                 children: [
                   Expanded(
@@ -132,13 +125,12 @@ class _DetailsState extends State<Details> {
                   ),
                 ],
               ),
-              const Divider(),
               ListTile(
                 title: const Text('Description'),
                 subtitle: Text(widget.load.description),
               ),
               SizedBox(
-                  height: 70,
+                  height: 50,
                   width: double.infinity,
                   child: FilledButton(
                       onPressed: () {
@@ -186,10 +178,10 @@ class PickAndDrop extends StatelessWidget {
           endChild: ListTile(
             title: Text(
               origin,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             subtitle: Text(DateHandler.formatDate(pickUpDate),
-                style: Theme.of(context).textTheme.bodyLarge),
+                style: Theme.of(context).textTheme.bodyMedium),
           ),
         ),
         TimelineTile(
@@ -199,11 +191,11 @@ class PickAndDrop extends StatelessWidget {
           endChild: ListTile(
             title: Text(
               destination,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             subtitle: Text(
               DateHandler.formatDate(dropDownDate),
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),

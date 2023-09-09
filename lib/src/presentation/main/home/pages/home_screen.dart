@@ -77,18 +77,15 @@ class HomeScreen extends StatelessWidget {
                         }
                       }
 
-                      return Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: LoadItem(
-                            onPressed: () {
-                              checkAuthenticity();
-                            },
-                            longPressed: () {},
-                            load: state.data![index],
-                            detailsButton: () {
-                              checkAuthenticity();
-                            }),
-                      );
+                      return LoadItem(
+                          onPressed: () {
+                            checkAuthenticity();
+                          },
+                          longPressed: () {},
+                          load: state.data![index],
+                          detailsButton: () {
+                            checkAuthenticity();
+                          });
                     })
               ],
             );

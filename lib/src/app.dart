@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mouvema/src/presentation/login/pages/login_screen.dart';
+
 import 'package:mouvema/src/presentation/main/main_screen.dart';
+
+import 'package:mouvema/src/presentation/main/on_boarding/pages/welcome.dart';
+
 import 'config/routes/routes.dart';
 import 'config/themes/themes.dart';
 import 'injector.dart';
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: DevicePreview.appBuilder,
       locale: DevicePreview.locale(context),
-      theme: buildTheme(context),
+      theme: buildTheme(context: context, light: true),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               homeInstances();
 
-              return const MainScreen();
+              return MainScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
           } else {
             loginInstances();
 
-            return const LoginScreen();
+            return const WelcomePage();
           }
         },
       ),

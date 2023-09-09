@@ -118,7 +118,7 @@ Widget _getProfile(
                 size: 20,
               ),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.light_mode),
               title: Text('Dark Theme'),
               // trailing:

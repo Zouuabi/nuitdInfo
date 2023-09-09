@@ -1,6 +1,6 @@
 part of 'login_cubit.dart';
 
-enum Status { initial, loading, success, failed }
+enum Status { initial, loading, success, failed, emailEmpty, passwordEmpty }
 
 class LoginScreenState extends Equatable {
   const LoginScreenState({required this.status, this.errorMessage, this.data});

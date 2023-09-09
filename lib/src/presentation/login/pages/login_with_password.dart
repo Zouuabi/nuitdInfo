@@ -24,7 +24,7 @@ class LoginWithPassword extends StatelessWidget {
               builder: (context, state) {
             return state.status == Status.loading
                 ? const Center(child: CircularProgressIndicator())
-                : _screenContent(context);
+                : _screenContent(context, state);
           }, listener: (context, state) {
             if (state.status == Status.failed) {
               showDialog(
@@ -45,7 +45,7 @@ class LoginWithPassword extends StatelessWidget {
     );
   }
 
-  Column _screenContent(BuildContext context) {
+  Column _screenContent(BuildContext context, LoginScreenState state) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,8 +71,7 @@ class LoginWithPassword extends StatelessWidget {
                     controller: BlocProvider.of<LoginScreenCubit>(context)
                         .emailController,
                     hintText: 'user@example.com',
-                    isError: BlocProvider.of<LoginScreenCubit>(context)
-                        .isEmailEmpty),
+                    isError: state.status == Status.emailEmpty ? true : false),
                 const SizedBox(
                   height: 30,
                 ),
@@ -86,8 +85,8 @@ class LoginWithPassword extends StatelessWidget {
                     controller: BlocProvider.of<LoginScreenCubit>(context)
                         .passwordController,
                     hintText: 'Enter your password',
-                    isError: BlocProvider.of<LoginScreenCubit>(context)
-                        .isPasswordEmpty),
+                    isError:
+                        state.status == Status.passwordEmpty ? true : false),
                 const SizedBox(height: 30),
                 // remember me button
                 Row(

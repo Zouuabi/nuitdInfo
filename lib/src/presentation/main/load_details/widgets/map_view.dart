@@ -34,9 +34,7 @@ class MapView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          decoration:
-              BoxDecoration(border: Border.all(color: Colors.teal, width: 2)),
+        SizedBox(
           width: double.infinity,
           height: size.height * 0.4,
           child: FlutterMap(
@@ -90,15 +88,16 @@ class MapView extends StatelessWidget {
               )),
         ),
         Positioned(
-            bottom: 7,
-            right: 7,
+            bottom: 2,
+            right: 2,
             child: IconButton(
               onPressed: () {
                 openGoogleMapsDirections(origin, destination);
               },
-              icon: Image.asset(
-                'assets/images/right-arrow.png',
-                width: 40,
+              icon: const Icon(
+                Icons.directions,
+                color: Colors.teal,
+                size: 50,
               ),
             ))
       ],
@@ -163,9 +162,11 @@ void openGoogleMapsDirections(LatLng origin, LatLng destination) async {
   final url =
       'https://www.google.com/maps/dir/?api=1&origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&travelmode=driving';
 
-  if (await canLaunch(url)) {
+  try {
+    // ignore: deprecated_member_use
+    (await canLaunch(url));
+    // ignore: deprecated_member_use
     await launch(url);
-  } else {
-    throw 'Could not launch Google Maps';
-  }
+    // ignore: empty_catches
+  } catch (e) {}
 }

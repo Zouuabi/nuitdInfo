@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:mouvema/src/presentation/main/post_load/pages/searchMap.dart';
+import 'package:mouvema/src/presentation/main/post_load/pages/search_map.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +9,7 @@ import '../../../../config/routes/routes.dart';
 import '../../../../data/repository/repository_impl.dart';
 import '../../../../injector.dart';
 import 'package:latlong2/latlong.dart';
-import '../../../shared/show_alert.dart';
+
 import '../cubits/post_load_cubit.dart';
 import '../cubits/post_load_state.dart';
 import '../widgets/details_input.dart';
@@ -28,6 +28,11 @@ class PostLoadScreen extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, Routes.main);
+                },
+                icon: const Icon(Icons.arrow_back)),
             elevation: 4,
             title: const Text('Post Load'),
             centerTitle: true,
@@ -44,7 +49,7 @@ class PostLoadScreen extends StatelessWidget {
                     btnOkOnPress: () {
                       Navigator.pushReplacementNamed(context, Routes.main);
                     }).show();
-              } else if (state.status == Status.success) {
+              } else if (state.status == Status.loading) {
                 showDialog(
                     context: context,
                     builder: ((context) {

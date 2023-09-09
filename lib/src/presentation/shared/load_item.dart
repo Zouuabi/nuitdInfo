@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mouvema/src/core/utils/color_manager.dart';
 
 import '../../core/helpers/date_handler.dart';
 
@@ -40,97 +41,99 @@ class _LoadItemState extends State<LoadItem> {
         ispressed = !ispressed;
         widget.longPressed();
       },
-      child: Card(
-        child: Container(
-          decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 198, 234, 230),
-              borderRadius: BorderRadius.circular(13),
-              border:
-                  ispressed ? Border.all(color: Colors.teal, width: 2) : null),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(children: [
-            // ***** little banner ******
-            Row(
-              children: [
-                Text('age: ${DateHandler.handleAge(age)}'),
-                const Spacer(),
-                Text(
-                  DateHandler.formatDate(widget.load.loadDate.toString()),
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const Spacer(),
-                SvgPicture.asset(
-                  'assets/images/${widget.load.truckType}.svg',
-                  width: 50,
-                  height: 50,
-                  // ignore: deprecated_member_use
-                ),
-              ],
-            ),
-            const Divider(),
-            Row(
-              children: [
-                const Icon(
-                  Icons.arrow_circle_up,
-                  size: 25,
-                  color: Colors.green,
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  widget.load.origin,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const Spacer(),
-                Text(DateHandler.formatDate(widget.load.pickUpDate))
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.arrow_circle_down,
-                  size: 25,
-                  color: Colors.red,
-                ),
-                const SizedBox(width: 15),
-                Text(
-                  widget.load.desitnation,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const Spacer(),
-                Text(DateHandler.formatDate(widget.load.dropDownDate))
-              ],
-            ),
-            const Divider(),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      'Broker :',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    Text(
-                      widget.load.brokerName,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )
-                  ],
-                ),
-                const Spacer(),
-                FilledButton(
-                  onPressed: widget.detailsButton,
-                  child: const Text(
-                    'View Details',
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        decoration: BoxDecoration(
+            color: ColorManager.mouvemaWhite,
+            boxShadow: const [BoxShadow(blurRadius: 5, color: Colors.grey)],
+            border:
+                ispressed ? Border.all(color: Colors.teal, width: 2) : null),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        child: Column(children: [
+          // ***** little banner ******
+          Row(
+            children: [
+              Text(
+                'age: ${DateHandler.handleAge(age)}',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const Spacer(),
+              Text(
+                DateHandler.formatDate(widget.load.loadDate.toString()),
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const Spacer(),
+              SvgPicture.asset(
+                'assets/images/${widget.load.truckType}.svg',
+                width: 25,
+                height: 25,
+                // ignore: deprecated_member_use
+              ),
+            ],
+          ),
+          const Divider(),
+          Row(
+            children: [
+              const Icon(
+                Icons.arrow_circle_up,
+                size: 20,
+                color: Colors.green,
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Text(
+                widget.load.origin,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const Spacer(),
+              Text(DateHandler.formatDate(widget.load.pickUpDate))
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Row(
+            children: [
+              const Icon(
+                Icons.arrow_circle_down,
+                size: 20,
+                color: Colors.red,
+              ),
+              const SizedBox(width: 15),
+              Text(
+                widget.load.desitnation,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const Spacer(),
+              Text(DateHandler.formatDate(widget.load.dropDownDate))
+            ],
+          ),
+          const Divider(),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Text(
+                    'Broker :',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  Text(
+                    widget.load.brokerName,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  )
+                ],
+              ),
+              const Spacer(),
+              FilledButton(
+                onPressed: widget.detailsButton,
+                child: const Text(
+                  'View Details',
                 ),
-              ],
-            )
-          ]),
-        ),
+              ),
+            ],
+          )
+        ]),
       ),
     );
   }

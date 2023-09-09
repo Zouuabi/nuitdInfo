@@ -37,7 +37,7 @@ class _MyTextFieldState extends State<MyTextField> {
   );
   final Icon visibleIcon = const Icon(
     Icons.panorama_fish_eye,
-    color: ColorManager.mouvemaBrown900,
+    color: ColorManager.mouvemaBrown,
   );
 
   @override
