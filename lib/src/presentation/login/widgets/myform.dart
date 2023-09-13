@@ -25,7 +25,6 @@ class MyForm extends StatelessWidget {
     return Column(
       children: [
         MyTextField(
-            labelText: 'email',
             errorMessage: 'email required',
             keyboardType: TextInputType.emailAddress,
             icon: Icons.email_outlined,
@@ -35,7 +34,6 @@ class MyForm extends StatelessWidget {
         const SizedBox(height: 20),
         MyTextField(
             isPassword: true,
-            labelText: 'password',
             errorMessage: 'password is required',
             keyboardType: TextInputType.text,
             icon: Icons.key_sharp,

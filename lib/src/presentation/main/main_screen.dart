@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/core/utils/string_manager.dart';
 
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
@@ -58,6 +59,7 @@ class _MainScreenState extends State<MainScreen> {
                           blurRadius: 2)
                     ]),
                 child: GNav(
+                    selectedIndex: index,
                     onTabChange: (val) {
                       setState(() {
                         if (val == 3) {
@@ -82,22 +84,22 @@ class _MainScreenState extends State<MainScreen> {
                     activeColor: Colors.teal,
                     iconSize: 24,
                     tabBackgroundColor: Colors.teal.withOpacity(0.1),
-                    tabs: const [
+                    tabs: [
                       GButton(
                         icon: Icons.home,
-                        text: 'Home',
+                        text: StringManager.home,
                       ),
                       GButton(
                         icon: Icons.work_history_outlined,
-                        text: 'My loads',
+                        text: StringManager.myLoads,
                       ),
                       GButton(
                         icon: Icons.bookmark_border,
-                        text: 'favorites',
+                        text: StringManager.favorites,
                       ),
                       GButton(
                         icon: Icons.person_4_outlined,
-                        text: 'Profile',
+                        text: StringManager.profile,
                       )
                     ]),
               ),

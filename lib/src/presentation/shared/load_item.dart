@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mouvema/src/core/utils/color_manager.dart';
+import 'package:mouvema/src/core/utils/string_manager.dart';
 
 import '../../core/helpers/date_handler.dart';
 
@@ -54,7 +55,7 @@ class _LoadItemState extends State<LoadItem> {
           Row(
             children: [
               Text(
-                'age: ${DateHandler.handleAge(age)}',
+                '${StringManager.age}: ${DateHandler.handleAge(age)}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const Spacer(),
@@ -115,7 +116,7 @@ class _LoadItemState extends State<LoadItem> {
               Column(
                 children: [
                   Text(
-                    'Broker :',
+                    StringManager.broker,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
@@ -127,8 +128,8 @@ class _LoadItemState extends State<LoadItem> {
               const Spacer(),
               FilledButton(
                 onPressed: widget.detailsButton,
-                child: const Text(
-                  'View Details',
+                child: Text(
+                  StringManager.viewDetails,
                 ),
               ),
             ],

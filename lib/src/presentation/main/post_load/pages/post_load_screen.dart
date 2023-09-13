@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:mouvema/src/core/utils/string_manager.dart';
 import 'package:mouvema/src/presentation/main/post_load/pages/search_map.dart';
 
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class PostLoadScreen extends StatelessWidget {
                     context: context,
                     dialogType: DialogType.success,
                     animType: AnimType.topSlide,
-                    title: 'Load Posted',
+                    title: StringManager.postLoaded,
                     btnOkOnPress: () {
                       Navigator.pushReplacementNamed(context, Routes.main);
                     }).show();

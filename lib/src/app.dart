@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               homeInstances();
 
-              return MainScreen();
+              return const MainScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
             }

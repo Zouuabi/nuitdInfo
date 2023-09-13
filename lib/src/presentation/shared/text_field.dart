@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class MyTextField extends StatefulWidget {
   const MyTextField(
       {super.key,
-      required this.labelText,
       required this.errorMessage,
       required this.keyboardType,
       required this.icon,
@@ -17,7 +16,7 @@ class MyTextField extends StatefulWidget {
   final IconData? icon;
   final bool isError;
   final bool isPassword;
-  final String labelText;
+
   final String hintText;
   final TextEditingController? controller;
   final TextInputType keyboardType;
@@ -52,7 +51,6 @@ class _MyTextFieldState extends State<MyTextField> {
         prefixIcon: Icon(widget.icon),
         hintText: widget.hintText,
         errorText: widget.isError ? widget.errorMessage : null,
-        labelText: widget.labelText,
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {

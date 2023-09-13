@@ -1,5 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/core/utils/string_manager.dart';
 import 'package:mouvema/src/data/models/user.dart';
 import 'package:mouvema/src/data/repository/repository_impl.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_cubit.dart';
@@ -21,22 +23,13 @@ class ProfileScreen extends StatelessWidget {
             child: BlocConsumer<ProfileCubit, ProfileState>(
               listener: (context, state) {
                 if (state.status == Status.failed) {
-                  showDialog(
+                  AwesomeDialog(
+                    btnOkColor: Colors.teal,
                     context: context,
-                    builder: (ctx) {
-                      return AlertDialog(
-                          title: Text(state.errorMessage!),
-                          actions: [
-                            Center(
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                  },
-                                  child: const Text('OK')),
-                            )
-                          ]);
-                    },
-                  );
+                    dialogType: DialogType.success,
+                    animType: AnimType.topSlide,
+                    title: StringManager.error,
+                  ).show();
                 } else if (state.status == Status.logOut) {
                   Navigator.pushReplacementNamed(context, Routes.login);
                 }
@@ -96,38 +89,37 @@ Widget _getProfile(
                 Navigator.pushNamed(context, Routes.fillProfil);
               },
               leading: const Icon(Icons.person),
-              title: const Text('Edit Profile'),
+              title: Text(StringManager.editProfile),
               trailing: const Icon(
                 Icons.arrow_forward_ios_outlined,
                 size: 20,
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.car_repair),
-              title: Text('Edit Car Profile'),
-              trailing: Icon(
+            ListTile(
+              leading: const Icon(Icons.car_repair),
+              title: Text(StringManager.editCarProfile),
+              trailing: const Icon(
                 Icons.arrow_forward_ios_outlined,
                 size: 20,
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.language),
-              title: Text('Edit Language'),
-              trailing: Icon(
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: Text(StringManager.editLanguage),
+              trailing: const Icon(
                 Icons.arrow_forward_ios_outlined,
                 size: 20,
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.light_mode),
-              title: Text('Dark Theme'),
-              // trailing:
-            ),
+            ListTile(
+                leading: const Icon(Icons.light_mode),
+                title: Text(StringManager.darkTheme)),
+            // trailing:
 
             TextButton.icon(
                 onPressed: onLogoutPressed,
                 icon: const Icon(Icons.logout_outlined),
-                label: const Text('Logout'))
+                label: Text(StringManager.singOut))
           ],
         ),
       ),

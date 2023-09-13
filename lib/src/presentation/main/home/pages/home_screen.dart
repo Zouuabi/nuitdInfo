@@ -1,9 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import 'package:mouvema/src/core/utils/color_manager.dart';
+import 'package:mouvema/src/core/utils/string_manager.dart';
 import 'package:mouvema/src/presentation/shared/show_alert.dart';
 
 import '../../../../config/routes/routes.dart';
@@ -54,8 +56,13 @@ class HomeScreen extends StatelessWidget {
         },
         child: BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
           if (state.status == Status.fetchFailed) {
-            showAlert(
-                message: state.errorMessage!, context: context, title: 'Error');
+            AwesomeDialog(
+              btnOkColor: Colors.teal,
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.topSlide,
+              title: StringManager.error,
+            ).show();
           }
         }, builder: (context, state) {
           if (state.status == Status.loading) {

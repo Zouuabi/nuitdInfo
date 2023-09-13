@@ -84,7 +84,6 @@ class FillProfileScreen extends StatelessWidget {
                   mycubit.addPhoto();
                 }),
             MyTextField(
-              labelText: 'username',
               errorMessage: 'username is required',
               keyboardType: TextInputType.name,
               icon: Icons.person,
@@ -109,7 +108,6 @@ class FillProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             MyTextField(
-              labelText: 'Tel',
               errorMessage: 'Enter your Tel',
               keyboardType: TextInputType.phone,
               icon: Icons.phone,
