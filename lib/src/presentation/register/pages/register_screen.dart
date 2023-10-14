@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/config/routes/routes.dart';
+import 'package:mouvema/src/core/utils/string_manager.dart';
 
 import '../../../data/repository/repository_impl.dart';
 import '../../../injector.dart';
-
 import '../../shared/text_field.dart';
 import '../cubit/register_cubit.dart';
 
@@ -62,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
             builder: (context, state) {
               return state.status == Status.loading
                   ? const Center(child: CircularProgressIndicator())
-                  : regisetContent(context);
+                  : registerContent(context);
             },
           ),
         ),
@@ -70,7 +70,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Column regisetContent(BuildContext context) {
+  Column registerContent(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,8 +89,7 @@ class RegisterScreen extends StatelessWidget {
               children: [
                 // email field
                 MyTextField(
-                    labelText: 'Email',
-                    errorMessage: 'Email is required',
+                    errorMessage: StringManager.emailIsRequired,
                     keyboardType: TextInputType.emailAddress,
                     icon: Icons.email_outlined,
                     controller:
@@ -103,13 +102,12 @@ class RegisterScreen extends StatelessWidget {
                 // password field
                 MyTextField(
                     isPassword: true,
-                    labelText: 'Password',
-                    errorMessage: 'Password is required',
+                    errorMessage: StringManager.passwordIsRequired,
                     keyboardType: TextInputType.emailAddress,
                     icon: Icons.lock_open_sharp,
                     controller: BlocProvider.of<RegisterCubit>(context)
                         .passwordController,
-                    hintText: 'Enter your password',
+                    hintText: StringManager.enterYourPassword,
                     isError: false),
                 const SizedBox(height: 30),
                 // remember me button
@@ -127,7 +125,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'Remember me',
+                      StringManager.rememberMe,
                       style: Theme.of(context).textTheme.labelMedium,
                     )
                   ],
@@ -139,47 +137,35 @@ class RegisterScreen extends StatelessWidget {
                       onPressed: () {
                         BlocProvider.of<RegisterCubit>(context).register();
                       },
-                      child: const Text('Sign up')),
+                      child: Text(StringManager.signUp)),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
                 Center(
                     child: Text(
-                  'or continue with',
+                  StringManager.orContinueWith,
                   style: Theme.of(context).textTheme.bodyLarge,
                 )),
                 const SizedBox(height: 30),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.facebook,
-                      size: 60,
-                    ),
-                    Icon(
-                      Icons.g_mobiledata,
-                      size: 60,
-                    ),
-                    Icon(
-                      Icons.apple,
-                      size: 60,
-                    )
-                  ],
+               const  Icon(
+                  Icons.facebook,
+                  size: 60,
+                 color: Colors.teal,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already have an account ? ',
+                      StringManager.alreadyHaveAccount,
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Log in')),
+                        child: Text(StringManager.singIn)),
                   ],
                 )
               ],

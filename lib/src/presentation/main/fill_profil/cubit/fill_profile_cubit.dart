@@ -1,9 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart' show TextEditingController;
-
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart' show TextEditingController;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/failure.dart';

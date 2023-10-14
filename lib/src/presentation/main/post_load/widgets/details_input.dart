@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../../data/data_source/remote_data_source/geocoding.dart';
 import '../../../../data/models/load.dart';
+import '../../../shared/select_truck_type.dart';
 import '../../../shared/show_alert.dart';
-
 import 'icon_text_field.dart';
 import 'pick_date_button.dart';
-import '../../../shared/select_truck_type.dart';
-import 'package:latlong2/latlong.dart';
 
 class LoadDetailsForm extends StatefulWidget {
   const LoadDetailsForm({

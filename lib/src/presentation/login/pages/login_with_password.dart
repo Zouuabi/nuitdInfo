@@ -1,5 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/core/utils/string_manager.dart';
+import 'package:mouvema/src/data/repository/repository_impl.dart';
 
 import '../../../config/routes/routes.dart';
 import '../../../injector.dart';
@@ -15,9 +18,17 @@ class LoginWithPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => instance<LoginScreenCubit>(),
+      create: (context) => LoginScreenCubit(instance<RepositoryImpl>()),
       child: Scaffold(
-        appBar: AppBar(elevation: 4),
+        appBar: AppBar(
+          elevation: 4,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, Routes.login);
+            },
+            icon: const Icon(Icons.arrow_back_ios),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
@@ -27,15 +38,13 @@ class LoginWithPassword extends StatelessWidget {
                 : _screenContent(context, state);
           }, listener: (context, state) {
             if (state.status == Status.failed) {
-              showDialog(
+              AwesomeDialog(
+                btnOkColor: Colors.teal,
                 context: context,
-                builder: (ctx) {
-                  return AlertDialog(
-                    title: const Text('Error'),
-                    content: Text(state.errorMessage!),
-                  );
-                },
-              );
+                dialogType: DialogType.error,
+                animType: AnimType.topSlide,
+                title: state.errorMessage,
+              ).show();
             } else if (state.status == Status.success) {
               Navigator.pushReplacementNamed(context, Routes.main);
             }
@@ -52,7 +61,7 @@ class LoginWithPassword extends StatelessWidget {
       children: [
         Expanded(
             child: Text(
-          'Login to your Account',
+          StringManager.loginToYourAccount,
           textAlign: TextAlign.start,
           style: Theme.of(context).textTheme.displayMedium,
         )),
@@ -64,8 +73,7 @@ class LoginWithPassword extends StatelessWidget {
               children: [
                 // email field
                 MyTextField(
-                    labelText: 'Email',
-                    errorMessage: 'Email is required',
+                    errorMessage: StringManager.emailIsRequired,
                     keyboardType: TextInputType.emailAddress,
                     icon: Icons.email_outlined,
                     controller: BlocProvider.of<LoginScreenCubit>(context)
@@ -78,13 +86,12 @@ class LoginWithPassword extends StatelessWidget {
                 // password field
                 MyTextField(
                     isPassword: true,
-                    labelText: 'Password',
-                    errorMessage: 'Password is required',
+                    errorMessage: StringManager.passwordIsRequired,
                     keyboardType: TextInputType.emailAddress,
                     icon: Icons.lock_open_sharp,
                     controller: BlocProvider.of<LoginScreenCubit>(context)
                         .passwordController,
-                    hintText: 'Enter your password',
+                    hintText: StringManager.enterYourPassword,
                     isError:
                         state.status == Status.passwordEmpty ? true : false),
                 const SizedBox(height: 30),
@@ -115,18 +122,18 @@ class LoginWithPassword extends StatelessWidget {
                       onPressed: () {
                         BlocProvider.of<LoginScreenCubit>(context).logIn();
                       },
-                      child: const Text('Login')),
+                      child: Text(StringManager.singIn)),
                 ),
                 const SizedBox(height: 10),
                 TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, Routes.forgotPassword);
                     },
-                    child: const Text('Forgot password ?')),
+                    child: Text(StringManager.forgotPassword)),
                 const SizedBox(height: 30),
                 Center(
                     child: Text(
-                  'or continue with',
+                  StringManager.orContinueWith,
                   style: Theme.of(context).textTheme.bodyLarge,
                 )),
                 const SizedBox(height: 30),
@@ -152,14 +159,14 @@ class LoginWithPassword extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an accont ?",
+                      StringManager.dontHaveAccount,
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Sign up')),
+                        child: Text(StringManager.signUp)),
                   ],
                 )
               ],

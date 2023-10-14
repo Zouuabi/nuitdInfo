@@ -8,7 +8,7 @@ import '../../data/models/user.dart';
 
 abstract class Repository {
   Future<Either<Failure, void>> signIn(String email, String password);
-  Future<Either<Failure, void>> continueWithGoogle();
+  Future<Either<Failure, void>> continueWithFacebook();
   Future<Either<Failure, void>> register({
     required String email,
     required String password,

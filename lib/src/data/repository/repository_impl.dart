@@ -1,19 +1,18 @@
 import 'dart:async';
+
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../core/failure.dart';
-
+import '../../core/internet_checker.dart';
 import '../../domain/repositories/repositories.dart';
 import '../data_source/local_data_source/local_storage.dart';
 import '../data_source/remote_data_source/cloud_firestore.dart';
 import '../data_source/remote_data_source/firebase_auth.dart';
-import 'package:dartz/dartz.dart';
-
 import '../data_source/remote_data_source/firebase_storage.dart';
 import '../models/load.dart';
 import '../models/user.dart';
-import '../../core/internet_checker.dart';
 
 class RepositoryImpl extends Repository {
   RepositoryImpl({required this.internetChecker, required this.localStorage});
@@ -24,10 +23,44 @@ class RepositoryImpl extends Repository {
 
   final InternetCheckerImpl internetChecker;
   final LocalStorage localStorage;
+
   List<Load> _toLoad(List<Map<String, dynamic>> listmaps) {
     return listmaps.map((e) {
       return Load.fromfirestore(e);
     }).toList();
+  }
+
+  @override
+  Future<Either<Failure, void>> continueWithFacebook() async {
+    //{name: Oubeid Zouabi, email: contact@oubeid.com, picture: {data: {height: 199, is_silhouette: false,
+    //url: https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3594038130865635&width=200&ext=1697759880&hash=AeS3oc_QlT2U9bDA5F0, width: 200}}
+    // , id: 3594038130865635}
+    if (await internetChecker.isConnected()) {
+      try {
+        await auth.continueWithFacebook();
+        User? currentUser = FirebaseAuth.instance.currentUser;
+        MyUser user = MyUser(
+            uid: currentUser!.uid,
+            username: currentUser.displayName!,
+            email: currentUser.email!,
+            birthdate: '',
+            tel: '',
+            favoriteLoads: [],
+            image: currentUser.photoURL!);
+        print("************ NEW USER ***************");
+        print(user.username);
+
+        await localStorage.storeUser(user.toFirestore());
+        print("************ NEW USER IN HIVE ***************");
+        print(localStorage.getUserInformation());
+
+        return right(null);
+      } catch (e) {
+        return left(Failure(errrorMessage: e.toString()));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'there is no internet connection'));
+    }
   }
 
   @override
@@ -42,6 +75,22 @@ class RepositoryImpl extends Repository {
       }
     } else {
       return Left(Failure(errrorMessage: ' There is no internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MyUser>> getCurrentUserInformation() async {
+    if (await internetChecker.isConnected()) {
+      try {
+        var user = await firestore
+            .getCurrentUserInformation(await auth.getCurrentUserId());
+
+        return right(MyUser.fromFirestore(user));
+      } catch (e) {
+        return left(Failure(errrorMessage: e.toString()));
+      }
+    } else {
+      return left(Failure(errrorMessage: 'No internet connection'));
     }
   }
 
@@ -136,22 +185,6 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, MyUser>> getCurrentUserInformation() async {
-    if (await internetChecker.isConnected()) {
-      try {
-        var usr = await auth.getCurrentUserId();
-        Map<String, dynamic> a = await firestore.getCurrentUserInformation(usr);
-
-        return right(MyUser.fromfirestore(a));
-      } catch (e) {
-        return left(Failure(errrorMessage: e.toString()));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'No internet connection'));
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> addLoadToFavorites(String loadRef) async {
     if (await internetChecker.isConnected()) {
       try {
@@ -190,7 +223,7 @@ class RepositoryImpl extends Repository {
         Map<String, dynamic> user = await firestore
             .getCurrentUserInformation(await auth.getCurrentUserId());
         List<Load> favoriteLoads =
-            await firestore.fetchFavoriteLoads(MyUser.fromfirestore(user));
+            await firestore.fetchFavoriteLoads(MyUser.fromFirestore(user));
         return right(favoriteLoads);
       } catch (e) {
         return left(Failure(errrorMessage: 'Something went wrong ,Try Later'));
@@ -209,20 +242,6 @@ class RepositoryImpl extends Repository {
         return right(loads);
       } catch (e) {
         return left(Failure(errrorMessage: 'Some thing Went Wrong'));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'there is no internet connection'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> continueWithGoogle() async {
-    if (await internetChecker.isConnected()) {
-      try {
-        await auth.signInWithGoogle();
-        return right(null);
-      } catch (e) {
-        return left(Failure(errrorMessage: e.toString()));
       }
     } else {
       return left(Failure(errrorMessage: 'there is no internet connection'));

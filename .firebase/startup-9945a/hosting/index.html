@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
+<!DOCTYPE html><html><head>
   <base href="/">
   <meta charset="UTF-8">
   <title>Mouvema</title>
@@ -14,14 +11,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="gallery">
   <link rel="apple-touch-icon" href="favicon.png">
-  <link rel="icon" type="image/png" href="favicon.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet" media="all">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans:700" rel="stylesheet" media="all">
 
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HBB5H8CECM"></script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-HBB5H8CECM"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -38,13 +35,99 @@
       console.log(searchParams.get('renderer') + ' renderer requested in the URL');
     }
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "722765369";
+    const serviceWorkerVersion = "3100238086";
   </script>
 
-  <script src="flutter.js" defer></script>
+  <script src="flutter.js" defer=""></script>
+  
+  
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  
+  
+  
+  
+  
+  
+  
+  
+  <style id="splash-screen-style">
+    html {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      background-color: #FFFFFF;
+          background-size: 100% 100%;
+    }
+
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .contain {
+      display:block;
+      width:100%; height:100%;
+      object-fit: contain;
+    }
+
+    .stretch {
+      display:block;
+      width:100%; height:100%;
+    }
+
+    .cover {
+      display:block;
+      width:100%; height:100%;
+      object-fit: cover;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+
+    .bottomLeft {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .bottomRight {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  </style>
+  <script id="splash-screen-script">
+    function removeSplashFromWeb() {
+      document.getElementById("splash")?.remove();
+      document.getElementById("splash-branding")?.remove();
+      document.body.style.background = "transparent";
+    }
+  </script>
 </head>
 
 <body>
+  <!-- <picture id="splash">
+      <!-- <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
+      <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
+      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt=""> -->
+  </picture> -->
+  
+  
+  
+  
+  
   <div id="gradient-background"></div>
 
 
@@ -219,7 +302,7 @@
         }
       }
     </style>
-    <img src="assets/mouvemaLoading.gif" alt="Loading indicator..." />
+    <img src="assets/mouvemaLoading.gif" alt="Loading indicator...">
   </div>
   <script>
     window.addEventListener('load', function () {
@@ -245,6 +328,6 @@
   </script>
 
   <!-- App -->
-</body>
 
-</html>
+
+</body></html>

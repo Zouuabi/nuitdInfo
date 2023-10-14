@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart'
     show
@@ -11,7 +12,6 @@ import 'package:flutter_map/flutter_map.dart'
         Marker,
         MarkerLayer,
         TileLayer;
-
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -24,7 +24,6 @@ class DateWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MyTextField(
-                  labelText: label,
                   errorMessage: 'Pick a date',
                   keyboardType: TextInputType.text,
                   icon: null,

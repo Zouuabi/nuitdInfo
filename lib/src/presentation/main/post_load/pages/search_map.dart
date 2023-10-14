@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:location/location.dart' as loc;
 import 'package:mouvema/src/core/internet_checker.dart';
+import 'package:mouvema/src/data/data_source/remote_data_source/geocoding.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key, this.onchange});
@@ -96,6 +97,22 @@ class MapScreenState extends State<MapScreen> {
                     ),
                   ),
                 ),
+                // Positioned(
+                //   top: 600,
+                //   bottom: 300,
+                //   left: 60,
+                //   right: 60,
+                //   child: SizedBox(
+                //     height: 50,
+                //     width: 50,
+                //     child: ElevatedButton(
+                //         onPressed: () async {
+                //           print(
+                //               await PositionGeocoding.reverseGeocode(origin!));
+                //         },
+                //         child: Text('Test')),
+                //   ),
+                // )
               ],
             ))
         : Scaffold(

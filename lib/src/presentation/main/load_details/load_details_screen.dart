@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../../data/models/load.dart';
-import 'widgets/map_view.dart';
-import '../../shared/toggle_farvorite_button.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../../data/models/load.dart';
+import '../../shared/toggle_farvorite_button.dart';
 import 'widgets/details.dart';
+import 'widgets/map_view.dart';
 
 class LoadDetailsScreen extends StatelessWidget {
   const LoadDetailsScreen({

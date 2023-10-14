@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mouvema/src/core/utils/image_manager.dart';
 
-import '../../../shared/choose_location_button.dart';
-import '../../../shared/select_truck_type.dart';
 import '../../filter/filter_screen.dart';
 
 class AppBarz extends StatelessWidget {
@@ -21,8 +19,8 @@ class AppBarz extends StatelessWidget {
         children: [
           SvgPicture.asset(
             ImageManager.logo,
-            height: 40,
-            width: 40,
+            height: 50,
+            width: 50,
           ),
           const Text('Mouvema'),
           IconButton(

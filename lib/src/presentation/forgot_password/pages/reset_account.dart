@@ -62,7 +62,6 @@ class ResetAccountScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           MyTextField(
-                              labelText: 'Email',
                               errorMessage: 'You must enter your email ',
                               keyboardType: TextInputType.visiblePassword,
                               icon: Icons.email,

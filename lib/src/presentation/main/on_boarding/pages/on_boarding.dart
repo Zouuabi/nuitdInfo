@@ -7,7 +7,7 @@ import 'package:mouvema/src/core/utils/color_manager.dart';
 
 ///Class to hold data for itembuilder in Withbuilder app.
 
-import 'package:mouvema/src/presentation/login/pages/login_screen.dart';
+import '../../../../config/routes/routes.dart';
 
 class ItemData {
   final Color color;
@@ -82,8 +82,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
 
   void toLogin() async {
     Timer(const Duration(seconds: 1), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+      Navigator.pushReplacementNamed(context, Routes.login);
     });
   }
 
