@@ -6,11 +6,13 @@ import 'package:mouvema/src/data/models/user.dart';
 import 'package:mouvema/src/data/repository/repository_impl.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_cubit.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_state.dart';
+
 import '../../../../config/routes/routes.dart';
 import '../../../../injector.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
   // final cubit = ProfileCubit(instance<RepositoryImpl>());
   @override
   Widget build(BuildContext context) {
@@ -69,8 +71,7 @@ Widget _getProfile(
         child: Column(
           children: [
             CircleAvatar(
-              maxRadius: 100,
-              minRadius: 80,
+              radius: 90,
               backgroundImage: NetworkImage(user.image),
             ),
             Text(

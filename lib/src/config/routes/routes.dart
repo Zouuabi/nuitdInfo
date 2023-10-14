@@ -32,7 +32,6 @@ class RouteGenerator {
     switch (settings.name) {
       // login screen
       case Routes.login:
-        loginInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const LoginScreen();
         });
@@ -43,9 +42,8 @@ class RouteGenerator {
         });
       // main screen
       case Routes.main:
-        homeInstances();
-
         return MaterialPageRoute(builder: (BuildContext ctx) {
+            homeInstances();
           return const MainScreen();
         });
       // forgot password
@@ -56,7 +54,6 @@ class RouteGenerator {
 
       // **************************
       case Routes.fillProfil:
-        fillProfileInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const FillProfileScreen();
         });
@@ -68,7 +65,6 @@ class RouteGenerator {
       //************************* */
 
       case Routes.register:
-        registerInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const RegisterScreen();
         });
@@ -85,7 +81,6 @@ class RouteGenerator {
 
       //************************** */
       case Routes.postLoad:
-        postInstances();
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return PostLoadScreen();
         });

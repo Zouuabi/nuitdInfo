@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/core/utils/string_manager.dart';
+import 'package:mouvema/src/data/repository/repository_impl.dart';
 
 import '../../../config/routes/routes.dart';
 import '../../../injector.dart';
@@ -17,9 +18,17 @@ class LoginWithPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => instance<LoginScreenCubit>(),
+      create: (context) => LoginScreenCubit(instance<RepositoryImpl>()),
       child: Scaffold(
-        appBar: AppBar(elevation: 4),
+        appBar: AppBar(
+          elevation: 4,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, Routes.login);
+            },
+            icon: const Icon(Icons.arrow_back_ios),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: BlocConsumer<LoginScreenCubit, LoginScreenState>(

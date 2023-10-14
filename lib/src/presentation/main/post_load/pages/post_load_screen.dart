@@ -33,7 +33,7 @@ class PostLoadScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, Routes.main);
                 },
-                icon: const Icon(Icons.arrow_back)),
+                icon: const Icon(Icons.arrow_back_ios)),
             elevation: 4,
             title: const Text('Post Load'),
             centerTitle: true,
@@ -48,7 +48,7 @@ class PostLoadScreen extends StatelessWidget {
                     animType: AnimType.topSlide,
                     title: StringManager.postLoaded,
                     btnOkOnPress: () {
-                      Navigator.pushReplacementNamed(context, Routes.main);
+                        Navigator.pushNamedAndRemoveUntil(context, Routes.main, (route) => route.isFirst);
                     }).show();
               } else if (state.status == Status.loading) {
                 showDialog(

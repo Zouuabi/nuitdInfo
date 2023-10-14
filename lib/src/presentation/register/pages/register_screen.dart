@@ -5,7 +5,6 @@ import 'package:mouvema/src/core/utils/string_manager.dart';
 
 import '../../../data/repository/repository_impl.dart';
 import '../../../injector.dart';
-
 import '../../shared/text_field.dart';
 import '../cubit/register_cubit.dart';
 
@@ -63,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
             builder: (context, state) {
               return state.status == Status.loading
                   ? const Center(child: CircularProgressIndicator())
-                  : regisetContent(context);
+                  : registerContent(context);
             },
           ),
         ),
@@ -71,7 +70,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Column regisetContent(BuildContext context) {
+  Column registerContent(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,24 +148,12 @@ class RegisterScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge,
                 )),
                 const SizedBox(height: 30),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.facebook,
-                      size: 60,
-                    ),
-                    Icon(
-                      Icons.g_mobiledata,
-                      size: 60,
-                    ),
-                    Icon(
-                      Icons.apple,
-                      size: 60,
-                    )
-                  ],
+               const  Icon(
+                  Icons.facebook,
+                  size: 60,
+                 color: Colors.teal,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

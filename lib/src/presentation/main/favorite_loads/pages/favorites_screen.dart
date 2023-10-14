@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:mouvema/src/data/repository/repository_impl.dart';
+
 import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/color_manager.dart';
-
 import '../../../../injector.dart';
 import '../../../shared/load_item.dart';
-import '../cubit/favorites_state.dart';
 import '../cubit/favorites_cubit.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import '../cubit/favorites_state.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});

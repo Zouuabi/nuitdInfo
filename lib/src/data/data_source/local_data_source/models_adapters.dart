@@ -12,7 +12,7 @@ class UserAdapter extends TypeAdapter<MyUser> {
     final String uid = reader.read();
     final String username = reader.read();
     final String email = reader.read();
-    final String birdhdate = reader.read();
+    final String birthdate = reader.read();
     final String tel = reader.read();
     final String image = reader.read();
     final List<dynamic> favoriteLoads = reader.read();
@@ -21,7 +21,7 @@ class UserAdapter extends TypeAdapter<MyUser> {
         uid: uid,
         username: username,
         email: email,
-        birdhdate: birdhdate,
+        birthdate: birthdate,
         tel: tel,
         favoriteLoads: favoriteLoads,
         image: image);
@@ -31,7 +31,7 @@ class UserAdapter extends TypeAdapter<MyUser> {
   void write(BinaryWriter writer, MyUser obj) {
     writer.write(obj.uid);
     writer.write(obj.username);
-    writer.write(obj.birdhdate);
+    writer.write(obj.birthdate);
     writer.write(obj.email);
     writer.write(obj.tel);
     writer.write(obj.image);
@@ -41,7 +41,7 @@ class UserAdapter extends TypeAdapter<MyUser> {
 
 class LoadAdapter extends TypeAdapter<Load> {
   @override
-  int get typeId => 0;
+  int get typeId => 1;
 
   @override
   Load read(BinaryReader reader) {
@@ -55,7 +55,7 @@ class LoadAdapter extends TypeAdapter<Load> {
     final String truckType = reader.read();
     final String description = reader.read();
     final String origin = reader.read();
-    final String desitnation = reader.read();
+    final String destination = reader.read();
     final double originLat = reader.read();
     final double originLng = reader.read();
     final double destinationLat = reader.read();
@@ -76,7 +76,7 @@ class LoadAdapter extends TypeAdapter<Load> {
         weigth: weigth,
         description: description,
         origin: origin,
-        desitnation: desitnation,
+        desitnation: destination,
         originLat: originLat,
         originLng: originLng,
         destinationLat: destinationLat,

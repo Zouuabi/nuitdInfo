@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:mouvema/src/core/utils/string_manager.dart';
 
 import '../../../config/routes/routes.dart';
 import '../../../core/utils/image_manager.dart';
+import '../../../data/repository/repository_impl.dart';
 import '../../../injector.dart';
 import '../cubit/login_cubit.dart';
-import '../widgets/or.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -17,14 +15,12 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) {
-        return instance<LoginScreenCubit>();
-      },
+      create: (context) => LoginScreenCubit(instance<RepositoryImpl>()),
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
           child: BlocConsumer<LoginScreenCubit, LoginScreenState>(
-            listener: (ctx, state) {
+            listener: (context, state) {
               if (state.status == Status.failed) {
                 AwesomeDialog(
                         btnOkColor: Colors.teal,
@@ -38,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, Routes.main);
               }
             },
-            builder: (ctx, state) {
+            builder: (context, state) {
               if (state.status == Status.loading) {
                 return const Center(child: CircularProgressIndicator());
               } else {
@@ -55,50 +51,43 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              OutlinedButton.icon(
-                                  icon: const Icon(Icons.facebook, size: 50),
-                                  onPressed: () {},
-                                  label: Text(
-                                    StringManager.continueWithFacebook,
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
-                                  )),
-                              const SizedBox(height: 10),
-                              OutlinedButton.icon(
-                                  icon:
-                                      const Icon(Icons.g_mobiledata, size: 50),
-                                  onPressed: () {
-                                    instance<LoginScreenCubit>()
-                                        .continueWithGoogle();
-                                  },
-                                  label: Text(
-                                    StringManager.continueWithGoogle,
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
-                                  )),
-                              const SizedBox(height: 10),
-                              OutlinedButton.icon(
-                                  icon: const Icon(Icons.apple, size: 50),
-                                  onPressed: () {},
-                                  label: Text(
-                                    StringManager.continueWithFacebook,
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
-                                  )),
-                              const SizedBox(height: 30),
-                              const Or(),
-                              const SizedBox(height: 30),
                               SizedBox(
-                                height: 50,
-                                child: FilledButton(
+                                height: 60,
+                                child: OutlinedButton.icon(
+                                    icon: const Icon(Icons.facebook, size: 40),
                                     onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, Routes.loginWithPassword);
+                                      BlocProvider.of<LoginScreenCubit>(context)
+                                          .continueWithFacebook();
                                     },
-                                    child: Text(
-                                      StringManager.signInWithPaswword,
+                                    label: Text(
+                                      StringManager.continueWithFacebook,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
                                     )),
                               ),
+                              const SizedBox(height: 25),
+                              SizedBox(
+                                height: 60,
+                                child: OutlinedButton.icon(
+                                    icon: const Icon(Icons.key, size: 40),
+                                    onPressed: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, Routes.loginWithPassword);
+                                    },
+                                    label: Text(
+                                      StringManager.signInWithPaswword,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
+                                    )),
+                              ),
+
+                              //const SizedBox(height: 30),
+                              // const Or(),
+
+                              const SizedBox(height: 100),
+
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

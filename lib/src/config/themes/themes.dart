@@ -7,8 +7,6 @@ TextTheme _buildShrineTextTheme(TextTheme base, BuildContext context,
   // final textScaleFactor = MediaQuery.of(context).textScaleFactor;
   // final size = MediaQuery.of(context).size;
 
-  Color white = Colors.white;
-
   return base
       .copyWith(
         displayLarge: base.displayLarge!.copyWith(
@@ -54,7 +52,7 @@ ThemeData buildTheme({required BuildContext context, required bool light}) {
       primary: ColorManager.mouvemaTeal,
       onPrimary: ColorManager.mouvemaWhite,
       error: ColorManager.mouvemaError,
-      outline: const Color.fromARGB(255, 234, 255, 253),
+      outline: Colors.teal,
       surface: const Color.fromARGB(255, 234, 255, 253),
     ),
 

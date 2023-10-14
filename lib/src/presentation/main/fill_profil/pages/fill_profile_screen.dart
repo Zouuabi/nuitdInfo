@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/injector.dart';
 import 'package:mouvema/src/presentation/main/fill_profil/cubit/fill_profile_cubit.dart';
+
 import '../../../../config/routes/routes.dart';
 import '../../../register/widgets/profile_photo.dart';
 import '../../../shared/date.dart';
 import '../../../shared/show_date_picker.dart';
 import '../../../shared/text_field.dart';
+import 'package:mouvema/src/data/repository/repository_impl.dart';
 
 class FillProfileScreen extends StatelessWidget {
   const FillProfileScreen({super.key});
@@ -19,7 +21,7 @@ class FillProfileScreen extends StatelessWidget {
           elevation: 4,
         ),
         body: BlocProvider(
-            create: (context) => instance<FillProfilCubit>(),
+            create: (context) => FillProfilCubit(instance<RepositoryImpl>()),
             child: BlocConsumer<FillProfilCubit, FillProfilState>(
                 listener: (context, state) {
               if (state.status == Status.failed) {

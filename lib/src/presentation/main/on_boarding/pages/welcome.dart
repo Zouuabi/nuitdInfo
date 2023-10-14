@@ -12,13 +12,19 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  late Timer timer ;
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    timer = Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const OnBoardingScreen()));
     });
+  }
+  @override
+  void dispose() {
+
+    super.dispose();
   }
 
   @override

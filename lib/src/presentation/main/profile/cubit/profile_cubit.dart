@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mouvema/src/data/models/user.dart';
 import 'package:mouvema/src/data/repository/repository_impl.dart';
 import 'package:mouvema/src/presentation/main/profile/cubit/profile_state.dart';
+
 import '../../../../core/failure.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
@@ -31,6 +32,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void logOut() async {
+    const ProfileState(status: Status.loading);
+    emit(const ProfileState(status: Status.loading));
     if (!isClosed) {
       emit(const ProfileState(status: Status.loading));
       Either<Failure, void> result = await repositoryImpl.logOut();

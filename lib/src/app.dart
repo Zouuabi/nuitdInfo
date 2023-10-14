@@ -1,14 +1,13 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:mouvema/src/presentation/main/main_screen.dart';
-
-import 'package:mouvema/src/presentation/main/on_boarding/pages/welcome.dart';
+import 'package:mouvema/src/presentation/main/profile/pages/profile_screen.dart';
 
 import 'config/routes/routes.dart';
 import 'config/themes/themes.dart';
 import 'injector.dart';
-import 'package:device_preview/device_preview.dart';
+import 'presentation/main/on_boarding/pages/on_boarding.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,7 +25,6 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData) {
               homeInstances();
-
               return const MainScreen();
             } else if (snapshot.hasError) {
               return const Text('famma error');
@@ -38,9 +36,7 @@ class MyApp extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            loginInstances();
-
-            return const WelcomePage();
+            return const OnBoardingScreen();
           }
         },
       ),

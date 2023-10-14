@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/helpers/date_handler.dart';
-
 import '../../../../data/models/load.dart';
 
 class Details extends StatefulWidget {
