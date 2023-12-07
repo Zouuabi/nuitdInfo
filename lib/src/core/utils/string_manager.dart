@@ -21,10 +21,10 @@ class StringManager {
   static String postLoaded = 'Load Posted';
 
 // bottom navigation bar
-  static String home = 'home';
-  static String myLoads = 'My loads';
+  static String blog = 'Blog';
+  static String transportaion = 'Transportation';
   static String favorites = 'favorites';
-  static String profile = 'Profile';
+  static String kanawita = 'Kanwita';
 
   // screens
   static String postLoad = 'Post Load';

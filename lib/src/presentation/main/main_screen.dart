@@ -80,20 +80,16 @@ class _MainScreenState extends State<MainScreen> {
                       tabBackgroundColor: Colors.teal.withOpacity(0.1),
                       tabs: [
                         GButton(
-                          icon: Icons.home_outlined,
-                          text: StringManager.home,
+                          icon: Icons.language,
+                          text: StringManager.blog,
                         ),
                         GButton(
-                          icon: Icons.work_history_outlined,
-                          text: StringManager.myLoads,
+                          icon: Icons.emoji_transportation_rounded,
+                          text: StringManager.transportaion,
                         ),
                         GButton(
-                          icon: Icons.bookmark_border,
-                          text: StringManager.favorites,
-                        ),
-                        GButton(
-                          icon: Icons.person_4_outlined,
-                          text: StringManager.profile,
+                          icon: Icons.local_shipping_outlined,
+                          text: StringManager.kanawita,
                         )
                       ]),
                 ),
@@ -104,38 +100,21 @@ class _MainScreenState extends State<MainScreen> {
                         index = value;
                       });
                     },
-                    children: const [
+                    children: [
+                      // MyLoadsScreen(),
+                      Container(
+                        color: Colors.green,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                      Container(
+                        color: Colors.red,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
                       HomeScreen(),
-                      MyLoadsScreen(),
-                      FavoritesScreen(),
-                      ProfileScreen()
                     ]));
           },
         ));
   }
-
-
-  Container _getBottomNavigationBar() {
-    return Container(
-        decoration: const BoxDecoration(
-          boxShadow: [
-            BoxShadow(blurRadius: 10),
-          ],
-        ),
-        child: BottomNavigationBar(
-          iconSize: 30,
-          currentIndex: index,
-          onTap: (value) {
-            setState(() {});
-          },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.work_history), label: ''),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.bookmark_outlined), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-          ],
-        ));
-  }
-
 }
