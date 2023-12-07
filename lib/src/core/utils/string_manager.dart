@@ -6,7 +6,7 @@ class StringManager {
   static String signInWithPaswword = 'Sign in with password';
   static String dontHaveAccount = 'Don\'t have an account ? ';
   static String alreadyHaveAccount = 'Already have an account ? ';
-  static String signUp = 'sign up';
+  static String signUp = 'Sign Up';
   static String singIn = 'Sign in';
   static String singOut = 'Sign out';
   static String forgotPassword = 'Fortgot Password ?';
@@ -16,6 +16,7 @@ class StringManager {
   static String emailIsRequired = 'Email is required';
   static String passwordIsRequired = 'Password is required';
   static String enterYourPassword = 'Enter your password';
+
 // dialogs
   static String error = 'Error';
   static String postLoaded = 'Load Posted';

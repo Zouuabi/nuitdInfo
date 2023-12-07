@@ -54,13 +54,13 @@ class LoginScreen extends StatelessWidget {
                               SizedBox(
                                 height: 60,
                                 child: OutlinedButton.icon(
-                                    icon: const Icon(Icons.facebook, size: 40),
+                                    icon: const Icon(Icons.key, size: 40),
                                     onPressed: () {
-                                      BlocProvider.of<LoginScreenCubit>(context)
-                                          .continueWithFacebook();
+                                      Navigator.pushReplacementNamed(
+                                          context, Routes.loginWithPassword);
                                     },
                                     label: Text(
-                                      StringManager.continueWithFacebook,
+                                      StringManager.loginToYourAccount,
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge,
@@ -70,40 +70,19 @@ class LoginScreen extends StatelessWidget {
                               SizedBox(
                                 height: 60,
                                 child: OutlinedButton.icon(
-                                    icon: const Icon(Icons.key, size: 40),
+                                    icon: const Icon(Icons.person, size: 40),
                                     onPressed: () {
-                                      Navigator.pushReplacementNamed(
-                                          context, Routes.loginWithPassword);
+                                      Navigator.pushNamed(
+                                          context, Routes.register);
                                     },
                                     label: Text(
-                                      StringManager.signInWithPaswword,
+                                      StringManager.signUp,
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge,
                                     )),
                               ),
-
-                              //const SizedBox(height: 30),
-                              // const Or(),
-
                               const SizedBox(height: 100),
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    StringManager.dontHaveAccount,
-                                    style:
-                                        Theme.of(context).textTheme.labelMedium,
-                                  ),
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, Routes.register);
-                                      },
-                                      child: Text(StringManager.signUp)),
-                                ],
-                              ),
                             ],
                           ),
                         ))

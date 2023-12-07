@@ -130,30 +130,7 @@ class LoginWithPassword extends StatelessWidget {
                       Navigator.pushNamed(context, Routes.forgotPassword);
                     },
                     child: Text(StringManager.forgotPassword)),
-                const SizedBox(height: 30),
-                Center(
-                    child: Text(
-                  StringManager.orContinueWith,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )),
-                const SizedBox(height: 30),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.facebook,
-                      size: 60,
-                    ),
-                    Icon(
-                      Icons.g_mobiledata,
-                      size: 60,
-                    ),
-                    Icon(
-                      Icons.apple,
-                      size: 60,
-                    )
-                  ],
-                ),
+
                 const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

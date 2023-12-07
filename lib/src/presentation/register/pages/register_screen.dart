@@ -139,21 +139,8 @@ class RegisterScreen extends StatelessWidget {
                       },
                       child: Text(StringManager.signUp)),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Center(
-                    child: Text(
-                  StringManager.orContinueWith,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )),
+
                 const SizedBox(height: 30),
-               const  Icon(
-                  Icons.facebook,
-                  size: 60,
-                 color: Colors.teal,
-                ),
-                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
