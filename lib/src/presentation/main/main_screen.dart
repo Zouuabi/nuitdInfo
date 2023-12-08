@@ -31,6 +31,29 @@ class _MainScreenState extends State<MainScreen> {
         child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             return Scaffold(
+                appBar: AppBar(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Text('Articles'),
+                      const Spacer(),
+                      Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.teal,
+                        ),
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/Profil');
+                            },
+                            icon: const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            )),
+                      )
+                    ],
+                  ),
+                ),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
                     if (BlocProvider.of<HomeCubit>(context).isFirstTime) {

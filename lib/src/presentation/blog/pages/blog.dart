@@ -31,9 +31,6 @@ class Feed extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state.status == Status.fetchSuccess) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Articles'),
-            ),
             body: SingleChildScrollView(
               child: Column(
                 children: [

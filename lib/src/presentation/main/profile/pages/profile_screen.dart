@@ -19,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider<ProfileCubit>(
       create: (context) => ProfileCubit(instance<RepositoryImpl>()),
       child: Scaffold(
+        appBar: AppBar(),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20),
