@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Details extends StatelessWidget {
-  const Details({super.key});
+import '../../../data/models/article.dart';
 
-  // final ArticleItem article;
+class Details extends StatelessWidget {
+  const Details({super.key, required this.articleItem});
+
+  final Article articleItem;
 
   @override
   Widget build(BuildContext context) {
@@ -13,21 +15,24 @@ class Details extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Expanded(flex: 2, child: Image.network(articleItem.imageUrl)),
+          const SizedBox(height: 20),
+          Text(
+            articleItem.title,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(height: 20),
           Expanded(
               flex: 2,
-              child: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/2/2a/Keyboard-anykey.jpg')),
-          Expanded(
-              flex: 2,
-              child: Text(
-                '''
-          Here goes the text of your article. 
-          You can provide a detailed description of the content here.
-          Feel free to format it as needed.
-        ''',
-                textAlign: TextAlign.left,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  articleItem.content,
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               )),
-          Expanded(child: Container())
         ],
       ),
     );

@@ -1,36 +1,64 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mouvema/src/data/repository/repository_impl.dart';
+import 'package:mouvema/src/injector.dart';
+import 'package:mouvema/src/presentation/blog/cubit/blog_cubit.dart';
+import 'package:mouvema/src/presentation/blog/cubit/blog_state.dart';
 import 'package:mouvema/src/presentation/blog/widgets/article.dart';
+
+import '../../../core/utils/string_manager.dart';
 
 class Feed extends StatelessWidget {
   const Feed({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: ScrollController(),
-      slivers: [
-        SliverAppBar(
-          title: Text('title'),
-          centerTitle: true,
-          backgroundColor: Colors.teal,
-        ),
-        SliverList.builder(
-            itemCount: 30,
-            itemBuilder: (context, index) {
-              return ArticleItem(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    '/articleDetails',
-                  );
-                },
-                imageUrl:
-                    'https://upload.wikimedia.org/wikipedia/commons/2/2a/Keyboard-anykey.jpg',
-                likesNum: 20,
-                lovesNum: 50,
-                title: 'this is the title of the article',
-              );
-            })
-      ],
+    return BlocProvider(
+      create: (context) => FeedCubit(instance<RepositoryImpl>()),
+      child: BlocConsumer<FeedCubit, FeedState>(listener: (context, state) {
+        if (state.status == Status.fetchFailed) {
+          AwesomeDialog(
+            btnOkColor: Colors.teal,
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.topSlide,
+            title: StringManager.error,
+          ).show();
+        }
+      }, builder: (context, state) {
+        if (state.status == Status.loading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state.status == Status.fetchSuccess) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Articles'),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...state.data!
+                      .map((e) => ArticleItem(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed('/articleDetails', arguments: e);
+                            },
+                            imageUrl: e.imageUrl,
+                            likesNum: e.likesNum,
+                            lovesNum: e.lovesNum,
+                            title: e.title,
+                          ))
+                      .toList()
+                ],
+              ),
+            ),
+          );
+        } else {
+          return Center(
+            child: Text(state.errorMessage ?? 'Something went Wrong'),
+          );
+        }
+      }),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mouvema/src/presentation/blog/widgets/article.dart';
+import '../../data/models/article.dart';
 import '../../presentation/blog/pages/detais.dart';
 
 import '../../data/models/load.dart';
@@ -57,8 +58,8 @@ class RouteGenerator {
       // **************************
       case Routes.articleDetails:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          // final ArticleItem arg = settings.arguments as ArticleItem;
-          return const Details();
+          final Article arg = settings.arguments as Article;
+          return Details(articleItem: arg);
         });
 
       case Routes.profil:

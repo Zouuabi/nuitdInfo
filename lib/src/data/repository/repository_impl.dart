@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:mouvema/src/data/models/article.dart';
 
 import '../../core/failure.dart';
 import '../../core/internet_checker.dart';
@@ -76,39 +76,6 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, void>> fillProfil(
-      {required String username,
-      required String birthdate,
-      required String tel,
-      required Uint8List? image}) async {
-    String urlimage = '';
-    if (await internetChecker.isConnected()) {
-      try {
-        User? usr = FirebaseAuth.instance.currentUser;
-
-        if (image != null) {
-          urlimage = await storage.storeImage(
-              child: 'usersProfileImages', uid: usr!.uid, image: image);
-        }
-        await firestore.addNewUserInformations(
-            tel: tel,
-            uid: usr!.uid,
-            email: usr.email!,
-            username: username,
-            favoriteLoads: [],
-            birdhdate: birthdate,
-            imageLink: urlimage);
-
-        return const Right(null);
-      } on FirebaseAuthException catch (error) {
-        return Left(Failure(errrorMessage: error.code));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'there is no internet connection'));
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> register({
     required String email,
     required String password,
@@ -152,70 +119,6 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, void>> addLoadToFavorites(String loadRef) async {
-    if (await internetChecker.isConnected()) {
-      try {
-        await firestore.addToFavorites(
-            loadRef: loadRef, uid: await auth.getCurrentUserId());
-
-        return right(null);
-      } catch (e) {
-        return left(Failure(errrorMessage: e.toString()));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'No internet connection'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> removeLoadFromFavorites(String loadRef) async {
-    if (await internetChecker.isConnected()) {
-      try {
-        await firestore.removeFromFavorites(
-            loadRef: loadRef, uid: await auth.getCurrentUserId());
-
-        return right(null);
-      } catch (e) {
-        return left(Failure(errrorMessage: 'remove load from favorite error'));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'remove load from favorite error'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Load>>> readFavoriteLoads() async {
-    if (await internetChecker.isConnected()) {
-      try {
-        Map<String, dynamic> user = await firestore
-            .getCurrentUserInformation(await auth.getCurrentUserId());
-        List<Load> favoriteLoads =
-            await firestore.fetchFavoriteLoads(MyUser.fromFirestore(user));
-        return right(favoriteLoads);
-      } catch (e) {
-        return left(Failure(errrorMessage: 'Something went wrong ,Try Later'));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'there is no internet connection'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Load>>> readMyLoads() async {
-    if (await internetChecker.isConnected()) {
-      try {
-        List<Load> loads = await firestore.fetchMyPosts(
-            brokerUid: await auth.getCurrentUserId());
-        return right(loads);
-      } catch (e) {
-        return left(Failure(errrorMessage: 'Some thing Went Wrong'));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'there is no internet connection'));
-    }
-  }
-
-  @override
   Future<Either<Failure, bool>> isFirstTime() async {
     if (await internetChecker.isConnected()) {
       bool f = await firestore.isFirstTime(await auth.getCurrentUserId());
@@ -253,5 +156,26 @@ class RepositoryImpl extends Repository {
     } else {
       return left(Failure(errrorMessage: 'there is no internet connection'));
     }
+  }
+
+  @override
+  Future<Either<Failure, List<Article>>> fetchArticles() async {
+    if (await internetChecker.isConnected()) {
+      try {
+        List<Map<String, dynamic>> list = await firestore.fetchArticles();
+        List<Article> listz = _toArticle(list);
+
+        return (right(listz));
+      } catch (e) {
+        return left(Failure(errrorMessage: e.toString()));
+      }
+    }
+    return left(Failure(errrorMessage: 'There is no internet connection'));
+  }
+
+  List<Article> _toArticle(List<Map<String, dynamic>> listmaps) {
+    return listmaps.map((e) {
+      return Article.fromFirestore(e);
+    }).toList();
   }
 }

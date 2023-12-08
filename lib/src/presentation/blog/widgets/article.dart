@@ -33,11 +33,12 @@ class ArticleItem extends StatelessWidget {
                   imageUrl,
                   fit: BoxFit.cover,
                 )),
+                const SizedBox(width: 10),
                 Expanded(
                     child: Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ))
               ]),
               const SizedBox(height: 20),

@@ -30,34 +30,18 @@ class CloudFiresore {
     }).toList();
   }
 
-  Future<void> addToFavorites(
-      {required String loadRef, required String uid}) async {
-    await _firestore.collection('users').doc(uid).update({
-      'favoriteLoads': FieldValue.arrayUnion([loadRef]),
-    });
-  }
+  Future<List<Map<String, dynamic>>> fetchArticles() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+        .collection('loads')
+        .orderBy(descending: true, 'loadDate')
+        .get();
 
-  Future<void> removeFromFavorites(
-      {required String loadRef, required String uid}) async {
-    await _firestore.collection('users').doc(uid).update({
-      'favoriteLoads': FieldValue.arrayRemove([loadRef]),
-    });
-  }
+    List<Map<String, dynamic>> loadsList =
+        querySnapshot.docs.map((documentSnapshot) {
+      return documentSnapshot.data();
+    }).toList();
 
-  Future<List<Load>> fetchFavoriteLoads(MyUser user) async {
-    List<dynamic> favoriteLoadsRef = user.favoriteLoads;
-    List<Load> favoriteLoads = [];
-    for (String loadRef in favoriteLoadsRef) {
-      DocumentSnapshot<Map<String, dynamic>> docSnapshot =
-          await _firestore.collection('loads').doc(loadRef).get();
-      if (docSnapshot.exists) {
-        favoriteLoads.add(Load.fromfirestore(docSnapshot.data()!));
-      } else {
-        removeFromFavorites(loadRef: loadRef, uid: user.uid);
-        throw (Exception('load deleted'));
-      }
-    }
-    return favoriteLoads;
+    return loadsList;
   }
 
   Future<Map<String, dynamic>> getCurrentUserInformation(String uid) async {
@@ -97,10 +81,8 @@ class CloudFiresore {
   }
 
   Future<List<Map<String, dynamic>>> fetchLoads() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
-        .collection('loads')
-        .orderBy(descending: true, 'loadDate')
-        .get();
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _firestore.collection('articles').get();
 
     List<Map<String, dynamic>> loadsList =
         querySnapshot.docs.map((documentSnapshot) {
