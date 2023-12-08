@@ -30,7 +30,7 @@ class CloudFiresore {
     }).toList();
   }
 
-  Future<List<Map<String, dynamic>>> fetchArticles() async {
+  Future<List<Map<String, dynamic>>> fetchLoads() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
         .collection('loads')
         .orderBy(descending: true, 'loadDate')
@@ -78,18 +78,6 @@ class CloudFiresore {
     load['loadRef'] = refdoc.id;
     load['brokerUid'] = brokerUid;
     await refdoc.set(load);
-  }
-
-  Future<List<Map<String, dynamic>>> fetchLoads() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await _firestore.collection('articles').get();
-
-    List<Map<String, dynamic>> loadsList =
-        querySnapshot.docs.map((documentSnapshot) {
-      return documentSnapshot.data();
-    }).toList();
-
-    return loadsList;
   }
 
   Future<void> deleteLoad(List<String> loads) async {

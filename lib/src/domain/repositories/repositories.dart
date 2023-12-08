@@ -16,7 +16,7 @@ abstract class Repository {
   Future<Either<Failure, void>> logOut();
   Future<Either<Failure, bool>> isFirstTime();
   Future<Either<Failure, List<Load?>>> fetchLoads();
-  Future<Either<Failure, List<Article?>>> fetchArticles();
+
   Future<Either<Failure, void>> postLoad(Map<String, dynamic> load);
   Future<Either<Failure, MyUser>> getCurrentUserInformation();
 

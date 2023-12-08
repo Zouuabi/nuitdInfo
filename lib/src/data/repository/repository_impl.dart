@@ -157,25 +157,4 @@ class RepositoryImpl extends Repository {
       return left(Failure(errrorMessage: 'there is no internet connection'));
     }
   }
-
-  @override
-  Future<Either<Failure, List<Article>>> fetchArticles() async {
-    if (await internetChecker.isConnected()) {
-      try {
-        List<Map<String, dynamic>> list = await firestore.fetchArticles();
-        List<Article> listz = _toArticle(list);
-
-        return (right(listz));
-      } catch (e) {
-        return left(Failure(errrorMessage: e.toString()));
-      }
-    }
-    return left(Failure(errrorMessage: 'There is no internet connection'));
-  }
-
-  List<Article> _toArticle(List<Map<String, dynamic>> listmaps) {
-    return listmaps.map((e) {
-      return Article.fromFirestore(e);
-    }).toList();
-  }
 }
