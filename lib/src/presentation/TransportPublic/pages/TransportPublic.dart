@@ -45,67 +45,63 @@ class _TransportPageState extends State<TransportPublic> {
       appBar: AppBar(
         title: const Text('Transport publique est la solution'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            LocationButton(
-              hint: 'Votre Ville',
-              onLocationSelected: (val) {
-                selectedCity = val;
-              },
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  selectedTransport = 'Bus';
-                });
-              },
-              child: Text('Bus'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  selectedTransport = 'Metro';
-                });
-              },
-              child: Text('Métro'),
-            ),
-            SizedBox(height: 20),
-            if (selectedTransport == "Bus")
-              BusScheduleScreen(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          LocationButton(
+            hint: 'Votre Ville',
+            onLocationSelected: (val) {
+              selectedCity = val;
+            },
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                selectedTransport = 'Bus';
+              });
+            },
+            child: Text('Bus'),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                selectedTransport = 'Metro';
+              });
+            },
+            child: Text('Métro'),
+          ),
+          SizedBox(height: 20),
+          if (selectedTransport == "Bus")
+            BusScheduleScreen(
+              selectedTransport: selectedTransport,
+              TransportSchedules: busSchedules,
+              selectedCity: selectedCity,
+            )
+          else if (selectedTransport == "Metro")
+            Expanded(
+              child: BusScheduleScreen(
                 selectedTransport: selectedTransport,
                 TransportSchedules: busSchedules,
                 selectedCity: selectedCity,
-              )
-            else if (selectedTransport == "Metro")
-              Expanded(
-                child: BusScheduleScreen(
-                  selectedTransport: selectedTransport,
-                  TransportSchedules: busSchedules,
-                  selectedCity: selectedCity,
-                ),
-              )
-            else
-              Container(
-                padding: EdgeInsets.all(40),
-                width: double.infinity - 20,
-                height: 400,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: const Color.fromARGB(255, 182, 230, 225)),
-                child: const Center(
-                    child: Text(
-                  "Choisir la ville et la moyen de Transport publique et voir les horaires",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
-                )),
-              )
-          ],
-        ),
+              ),
+            )
+          else
+            Container(
+              width: double.infinity - 20,
+              height: 350,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: const Color.fromARGB(255, 182, 230, 225)),
+              child: const Center(
+                  child: Text(
+                "Choisir la ville et la moyen de Transport publique et voir les horaires",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15),
+              )),
+            )
+        ],
       ),
     );
   }

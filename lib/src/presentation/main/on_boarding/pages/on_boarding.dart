@@ -37,17 +37,17 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
     ItemData(
       Colors.teal,
       "assets/images/carousel1.jpg",
-      "The best app for shipping & delivery in this century",
+      "Savoir comment Etre éco-responsables pour préserver notre planète",
     ),
     ItemData(
       Colors.teal,
       "assets/images/carousel2.jpg",
-      "Wassa3 Wassa3 mouvema jet",
+      "Optez pour les transports publics",
     ),
     ItemData(
       Colors.teal,
-      "assets/images/carousel3.jpg",
-      "ahla b nahla odkhel ay ",
+      "assets/images/carousel3.png",
+      "Livrer tout en une seule livraison , diminuer les gazes",
     ),
   ];
 
@@ -104,9 +104,13 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    Image.asset(
-                      data[index].image,
-                      fit: BoxFit.fill,
+                    SizedBox(
+                      height: 500,
+                      width: double.infinity,
+                      child: Image.asset(
+                        data[index].image,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ],
                 ),
