@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -13,7 +11,6 @@ import 'package:flutter_map/flutter_map.dart'
         MarkerLayer,
         TileLayer;
 import 'package:latlong2/latlong.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class MapView extends StatelessWidget {
@@ -87,19 +84,6 @@ class MapView extends StatelessWidget {
                     const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               )),
         ),
-        Positioned(
-            bottom: 2,
-            right: 2,
-            child: IconButton(
-              onPressed: () {
-                openGoogleMapsDirections(origin, destination);
-              },
-              icon: const Icon(
-                Icons.directions,
-                color: Colors.teal,
-                size: 50,
-              ),
-            ))
       ],
     );
   }
@@ -144,29 +128,4 @@ class MapView extends StatelessWidget {
   double _toRadians(double degrees) {
     return degrees * (pi / 180.0);
   }
-
-  // bool _isSameLocation(LatLng location1, LatLng location2, double zoom) {
-  //   double markerTolerance;
-  //   if (zoom < 10) {
-  //     markerTolerance = 0.1;
-  //   } else {
-  //     markerTolerance = 0.01;
-  //   }
-
-  //   return (location1.latitude - location2.latitude).abs() < markerTolerance &&
-  //       (location1.longitude - location2.longitude).abs() < markerTolerance;
-  // }
-}
-
-void openGoogleMapsDirections(LatLng origin, LatLng destination) async {
-  final url =
-      'https://www.google.com/maps/dir/?api=1&origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&travelmode=driving';
-
-  try {
-    // ignore: deprecated_member_use
-    (await canLaunch(url));
-    // ignore: deprecated_member_use
-    await launch(url);
-    // ignore: empty_catches
-  } catch (e) {}
 }

@@ -7,7 +7,6 @@ import '../../injector.dart';
 import '../../presentation/forgot_password/pages/forgot_password_screen.dart';
 import '../../presentation/login/pages/login_screen.dart';
 import '../../presentation/login/pages/login_with_password.dart';
-import '../../presentation/main/fill_profil/pages/fill_profile_screen.dart';
 import '../../presentation/main/load_details/load_details_screen.dart';
 import '../../presentation/main/main_screen.dart';
 import '../../presentation/main/post_load/pages/post_load_screen.dart';
@@ -61,10 +60,7 @@ class RouteGenerator {
           // final ArticleItem arg = settings.arguments as ArticleItem;
           return const Details();
         });
-      case Routes.fillProfil:
-        return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const FillProfileScreen();
-        });
+
       case Routes.profil:
         return MaterialPageRoute(builder: (BuildContext ctx) {
           return const ProfileScreen();

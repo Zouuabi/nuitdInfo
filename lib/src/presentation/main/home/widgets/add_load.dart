@@ -19,7 +19,7 @@ class AddLoad extends StatelessWidget {
             size: 50,
           ),
           label: Text(
-            'Add a Load',
+            'Annoncer votre voyage',
             style: Theme.of(context).textTheme.headlineLarge,
           )),
     );

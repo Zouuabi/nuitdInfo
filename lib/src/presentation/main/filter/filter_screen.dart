@@ -18,7 +18,7 @@ class FilterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screen = MediaQuery.sizeOf(context);
     return AlertDialog(
-        title: const Text('Filter'),
+        title: const Text('Filtrer'),
         content: SizedBox(
           height: screen.height * 0.4,
           width: screen.width * 0.7,
@@ -29,7 +29,7 @@ class FilterScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text('Origin'),
+                  const Text('Origine'),
                   ChooseLocationButton(onlocationschanged: onOriginSelected),
                 ],
               ),
@@ -44,7 +44,7 @@ class FilterScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text('Truck Type'),
+                  const Text('Type de camion'),
                   SelectTruckType(
                     onTypeChanged: onTruckSelected,
                   ),
@@ -67,7 +67,7 @@ class FilterScreen extends StatelessWidget {
                 //     type: type);
                 Navigator.pop(context);
               },
-              child: const Text('Search'))
+              child: const Text('Rechercher'))
         ]);
   }
 }

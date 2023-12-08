@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mouvema/src/core/utils/string_manager.dart';
-import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
-import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
+import 'package:mouvema/src/presentation/TransportPublic/pages/TransportPublic.dart';
+import 'package:mouvema/src/presentation/main/kanawita/cubit/home_cubit.dart';
+import 'package:mouvema/src/presentation/main/kanawita/cubit/home_state.dart';
 
 import '../../config/routes/routes.dart';
 import '../../injector.dart';
 
 import '../blog/pages/blog.dart';
-import 'home/pages/home_screen.dart';
+import 'kanawita/pages/kanawita.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -102,12 +103,8 @@ class _MainScreenState extends State<MainScreen> {
                     children: [
                       // MyLoadsScreen(),
                       Feed(),
-                      Container(
-                        color: Colors.red,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                      HomeScreen(),
+                      TransportPublic(),
+                      Kanawita(),
                     ]));
           },
         ));

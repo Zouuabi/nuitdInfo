@@ -8,9 +8,9 @@ class Load extends Equatable {
     required this.brokerPhone,
     required this.loadDate,
     required this.pickUpDate,
-    required this.dropDownDate,
+    //required this.dropDownDate,
     required this.truckType,
-    required this.price,
+    //required this.price,
     required this.weigth,
     required this.description,
     required this.origin,
@@ -28,9 +28,9 @@ class Load extends Equatable {
   final String brokerPhone;
   final String loadDate;
   final String pickUpDate;
-  final String dropDownDate;
+  //final String dropDownDate;
   final String truckType;
-  final int price;
+  // final int price;
   final int weigth;
   final String description;
   final String origin;
@@ -52,10 +52,10 @@ class Load extends Equatable {
         'destinationLng': destinationLng,
         'loadDate': loadDate,
         'pickUpDate': pickUpDate,
-        'dropDownDate': dropDownDate,
+        // 'dropDownDate': dropDownDate,
         'truckType': truckType,
         'weigth': weigth,
-        'price': price,
+        //  'price': price,
         'description': description,
         'brokerUid': brokerUid,
       };
@@ -74,10 +74,10 @@ class Load extends Equatable {
       destinationLng: map['destinationLng'],
       loadDate: map['loadDate'],
       pickUpDate: map['pickUpDate'],
-      dropDownDate: map['dropDownDate'],
+      //  dropDownDate: map['dropDownDate'],
       truckType: map['truckType'],
       weigth: map['weigth'],
-      price: map['price'],
+      //  price: map['price'],
       description: map['description'],
     );
   }
@@ -94,9 +94,9 @@ class Load extends Equatable {
         destinationLng,
         loadDate,
         pickUpDate,
-        dropDownDate,
+        //    dropDownDate,
         truckType,
-        price,
+        //   price,
         weigth,
         description,
       ];
