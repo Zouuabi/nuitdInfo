@@ -7,10 +7,9 @@ import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
 
 import '../../config/routes/routes.dart';
 import '../../injector.dart';
-import 'favorite_loads/pages/favorites_screen.dart';
+
+import '../blog/pages/blog.dart';
 import 'home/pages/home_screen.dart';
-import 'my_loads/pages/my_loads_screen.dart';
-import 'profile/pages/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -102,11 +101,7 @@ class _MainScreenState extends State<MainScreen> {
                     },
                     children: [
                       // MyLoadsScreen(),
-                      Container(
-                        color: Colors.green,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
+                      Feed(),
                       Container(
                         color: Colors.red,
                         width: double.infinity,
