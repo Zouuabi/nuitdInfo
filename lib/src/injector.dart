@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:mouvema/src/presentation/login/cubit/login_cubit.dart';
-import 'package:mouvema/src/presentation/main/fill_profil/cubit/fill_profile_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/post_load/cubits/post_load_cubit.dart';
 import 'package:mouvema/src/presentation/register/cubit/register_cubit.dart';
@@ -52,12 +51,5 @@ void homeInstances() {
 void postInstances() {
   if (!GetIt.I.isRegistered<PostCubit>()) {
     instance.registerFactory<PostCubit>(() => PostCubit(instance()));
-  }
-}
-
-void fillProfileInstances() {
-  if (!GetIt.I.isRegistered<FillProfilCubit>()) {
-    instance
-        .registerFactory<FillProfilCubit>(() => FillProfilCubit(instance()));
   }
 }

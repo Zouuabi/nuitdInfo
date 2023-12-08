@@ -22,7 +22,7 @@ class AppBarz extends StatelessWidget {
             height: 50,
             width: 50,
           ),
-          const Text('Mouvema'),
+          const Text('Les voyages'),
           IconButton(
               onPressed: () {
                 showDialog(

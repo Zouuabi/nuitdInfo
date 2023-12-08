@@ -24,22 +24,20 @@ class LoadDetailsForm extends StatefulWidget {
 
 class _LoadDetailsFormState extends State<LoadDetailsForm> {
   String _pickUpDate = 'YYYY-MM-DD';
-  String _dropDownDate = 'YYYY-MM-DD';
-  String _truckType = 'Any';
+  //String _dropDownDate = 'YYYY-MM-DD';
+  String _truckType = 'tout';
 
   // Textfiled controlers
 
   final TextEditingController _weigthController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _telController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
   // variables used to control input state
 
   bool _nameError = false;
   bool _telError = false;
-  bool _priceError = false;
   Future<String> toHumanReadbleAdress(LatLng location) async {
     return await PositionGeocoding.reverseGeocode(location);
   }
@@ -49,30 +47,30 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
     if (widget.origin == null || widget.destination == null) {
       isValid = false;
       showAlert(
-          title: 'Error',
+          title: 'Ereeur',
           context: context,
-          message: 'The origin and the destination are both required ');
-    } else if (_pickUpDate == 'YYYY-MM-DD' || _dropDownDate == 'YYYY-MM-DD') {
+          message: 'le depart et la destination sont necessaires');
+    } else if (_pickUpDate == 'YYYY-MM-DD') {
       isValid = false;
       showAlert(
-          title: 'Error',
+          title: 'Erreur',
           context: context,
-          message: 'Pick up date and Drop down date are both required');
-    } else if (_truckType == 'Any') {
+          message: 'date de depart est necessaire');
+    } else if (_truckType == 'tout') {
       isValid = false;
       showAlert(
-          title: 'Error',
+          title: 'Erreur ',
           context: context,
-          message: 'You have to specify your Truck Type');
+          message: 'Veulliez choisir la type de votre camion');
     } else if (_telController.text.length < 8) {
       isValid = false;
       setState(() {
         _telError = true;
       });
       showAlert(
-          title: 'Error',
+          title: 'Erreur',
           context: context,
-          message: 'Phone number must be valid exp 11 111 111');
+          message: 'le numero de telephone doit etre valide');
     }
 
     if (_nameController.text.isEmpty) {
@@ -82,12 +80,6 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
       });
     }
 
-    if (_priceController.text.isEmpty) {
-      isValid = false;
-      setState(() {
-        _priceError = true;
-      });
-    }
     return isValid;
   }
 
@@ -100,7 +92,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
             Expanded(
               flex: 2,
               child: PickDateButton(
-                  title: 'Pick Up',
+                  title: 'Date de depart',
                   onDateChanged: (date) {
                     _pickUpDate = date;
                   }),
@@ -108,25 +100,13 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
           ],
         ),
 
-        Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: PickDateButton(
-                  title: 'Drop down',
-                  onDateChanged: (date) {
-                    _dropDownDate = date;
-                  }),
-            ),
-          ],
-        ),
         const Divider(height: 30),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Truck',
+              'Camion',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(width: 20),
@@ -142,8 +122,8 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
               flex: 3,
               child: IconTextField(
                   inputController: _weigthController,
-                  errorText: 'Weigth is required',
-                  hint: 'Weight',
+                  errorText: 'Le poids disponible et necessaire',
+                  hint: 'Poids disponible',
                   icon: const Icon(Icons.balance),
                   keyboard: TextInputType.number),
             ),
@@ -159,9 +139,9 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
               flex: 3,
               child: IconTextField(
                   inputController: _nameController,
-                  errorText: 'The name is required',
+                  errorText: 'Veulliez Saisir le nom',
                   isError: _nameError,
-                  hint: 'Your name',
+                  hint: 'Votre nom',
                   icon: const Icon(Icons.person),
                   keyboard: TextInputType.name),
             ),
@@ -178,7 +158,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                 flex: 3,
                 child: IconTextField(
                     inputController: _telController,
-                    errorText: 'Phone number is required',
+                    errorText: 'Veulliez saisir votre numero Telephone',
                     isError: _telError,
                     hint: 'Tel',
                     icon: const Icon(Icons.phone),
@@ -190,24 +170,6 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
         ),
 
         const Divider(height: 30),
-        Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: IconTextField(
-                inputController: _priceController,
-                errorText: 'Price is required',
-                isError: _priceError,
-                hint: 'price',
-                icon: const Icon(Icons.attach_money),
-                keyboard: TextInputType.number,
-              ),
-            ),
-            const Spacer(
-              flex: 1,
-            ),
-          ],
-        ),
 
         const Divider(height: 30),
         // Description
@@ -215,7 +177,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
           controller: _descriptionController,
           maxLines: 4, // Allow multiple lines
           decoration: InputDecoration(
-            hintText: 'Enter your load description ...',
+            hintText: 'Vous pouvez ajouter une description ',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
           ),
         ),
@@ -228,7 +190,7 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('Cancel')),
+                child: const Text('Annuler')),
             const SizedBox(width: 20),
             FilledButton(
                 onPressed: () async {
@@ -250,14 +212,12 @@ class _LoadDetailsFormState extends State<LoadDetailsForm> {
                         destinationLng: widget.destination!.longitude,
                         loadDate: DateTime.now().toString().substring(0, 10),
                         pickUpDate: _pickUpDate,
-                        dropDownDate: _dropDownDate,
                         truckType: _truckType,
-                        price: int.parse(_priceController.text),
                         weigth: int.parse(_weigthController.text),
                         description: _descriptionController.text));
                   }
                 },
-                child: const Text('Post Load')),
+                child: const Text('Annonce The Trip')),
           ],
         )
       ],

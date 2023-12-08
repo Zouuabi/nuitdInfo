@@ -70,9 +70,9 @@ class LoadAdapter extends TypeAdapter<Load> {
         brokerPhone: brokerPhone,
         loadDate: loadDate,
         pickUpDate: pickUpDate,
-        dropDownDate: dropDownDate,
+        //   dropDownDate: dropDownDate,
         truckType: truckType,
-        price: price,
+        //  price: price,
         weigth: weigth,
         description: description,
         origin: origin,
@@ -91,9 +91,9 @@ class LoadAdapter extends TypeAdapter<Load> {
     writer.write(obj.brokerPhone);
     writer.write(obj.loadDate);
     writer.write(obj.pickUpDate);
-    writer.write(obj.dropDownDate);
+    // writer.write(obj.dropDownDate);
     writer.write(obj.truckType);
-    writer.write(obj.price);
+    // writer.write(obj.price);
     writer.write(obj.weigth);
     writer.write(obj.description);
     writer.write(obj.origin);

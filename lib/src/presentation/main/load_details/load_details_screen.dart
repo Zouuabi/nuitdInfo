@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-
 import '../../../data/models/load.dart';
-import '../../shared/toggle_farvorite_button.dart';
 import 'widgets/details.dart';
 import 'widgets/map_view.dart';
 
@@ -21,8 +19,7 @@ class LoadDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 4,
-        title: const Text('Details'),
-        actions: [ToggleFavorites(loadRef: load.loadRef)],
+        title: const Text('détails du voyage'),
         centerTitle: true,
       ),
 

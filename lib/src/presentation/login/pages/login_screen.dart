@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                         context: context,
                         dialogType: DialogType.error,
                         animType: AnimType.topSlide,
-                        title: 'Error',
+                        title: 'Erreur',
                         desc: state.errorMessage)
                     .show();
               } else if (state.status == Status.success) {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:geocoding/geocoding.dart' as geo;
 import 'package:location/location.dart' as loc;
 import 'package:mouvema/src/core/internet_checker.dart';
-import 'package:mouvema/src/data/data_source/remote_data_source/geocoding.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+import 'package:geocoding/geocoding.dart' as geo;
+import '../widgets/searchBarMap.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key, this.onchange});
@@ -16,34 +17,13 @@ class MapScreen extends StatefulWidget {
 
 class MapScreenState extends State<MapScreen> {
   MapController mapController = MapController();
-  final TextEditingController _searchController = TextEditingController();
   LatLng? _selectedLocation;
   LatLng? origin;
   LatLng? destination;
   List<Marker> markers = [];
+  Map<String, Marker?> mark = {'origine': null, 'destination': null};
   bool isConnected = true;
-
-  void _searchLocation() async {
-    String query = _searchController.text;
-    if (query.isNotEmpty) {
-      List<geo.Location> locations = await geo.locationFromAddress(query);
-      if (locations.isNotEmpty) {
-        setState(() {
-          _selectedLocation =
-              LatLng(locations[0].latitude, locations[0].longitude);
-          mapController.move(_selectedLocation!, 15.0);
-        });
-      }
-    }
-  }
-
-  void verifyConnection() async {
-    bool a = await InternetCheckerImpl().isConnected();
-
-    setState(() {
-      isConnected = a;
-    });
-  }
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -79,40 +59,74 @@ class MapScreenState extends State<MapScreen> {
                   ],
                 ),
                 Positioned(
-                  top: 50,
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 50,
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: 'Search for a place',
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: _searchLocation,
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 0),
+                                blurRadius: 8,
+                                spreadRadius: 2)
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(16),
+                              bottomRight: Radius.circular(16))),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 35),
+                      // color: Colors.white,
+                      child: Column(children: [
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                icon: const Icon(Icons.arrow_back))
+                          ],
                         ),
-                      ),
-                      onSubmitted: (_) => _searchLocation(),
-                    ),
-                  ),
-                ),
-                // Positioned(
-                //   top: 600,
-                //   bottom: 300,
-                //   left: 60,
-                //   right: 60,
-                //   child: SizedBox(
-                //     height: 50,
-                //     width: 50,
-                //     child: ElevatedButton(
-                //         onPressed: () async {
-                //           print(
-                //               await PositionGeocoding.reverseGeocode(origin!));
-                //         },
-                //         child: Text('Test')),
-                //   ),
-                // )
+                        TimelineTile(
+                          indicatorStyle:
+                              const IndicatorStyle(color: Colors.teal),
+                          afterLineStyle: const LineStyle(color: Colors.teal),
+                          isFirst: true,
+                          endChild: ListTile(
+                            title: SizedBox(
+                              height: 50,
+                              child: SearchBarMap(
+                                location: 'origin',
+                                onSearch: (value) {
+                                  _searchLocation(value, 'origin', pickUpIcon);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        TimelineTile(
+                          indicatorStyle:
+                              const IndicatorStyle(color: Colors.teal),
+                          beforeLineStyle: const LineStyle(color: Colors.teal),
+                          isLast: true,
+                          endChild: ListTile(
+                            title: SizedBox(
+                              height: 50,
+                              child: SearchBarMap(
+                                  location: 'destination',
+                                  onSearch: (value) {
+                                    _searchLocation(
+                                        value, 'destination', dropDownIcon);
+                                  }),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text("ou appuiez long sur la carte"),
+                      ]),
+                    ))
               ],
             ))
         : Scaffold(
@@ -136,6 +150,41 @@ class MapScreenState extends State<MapScreen> {
           );
   }
 
+  void _searchLocation(String query, String place, Icon icon) async {
+    // String query = _searchController.text;
+    if (query.isNotEmpty) {
+      List<geo.Location> locations = await geo.locationFromAddress(query);
+      if (locations.isNotEmpty) {
+        setState(() {
+          _selectedLocation =
+              LatLng(locations[0].latitude, locations[0].longitude);
+          mapController.move(_selectedLocation!, 10);
+          if (place == 'origin') {
+            if (origin != null) {
+              markers.removeAt(0);
+            }
+            origin = _selectedLocation;
+            markers.insert(0, marker(origin!, pickUpIcon));
+          } else {
+            if (destination != null) {
+              markers.removeLast();
+            }
+            destination = _selectedLocation;
+            markers.add(marker(destination!, dropDownIcon));
+          }
+        });
+      }
+    }
+  }
+
+  void verifyConnection() async {
+    bool a = await InternetCheckerImpl().isConnected();
+
+    setState(() {
+      isConnected = a;
+    });
+  }
+
   void onLongPress(tapPosition, point) {
     if (origin != null && _isSameLocation(point, origin!, mapController.zoom)) {
       setState(() {
@@ -151,26 +200,12 @@ class MapScreenState extends State<MapScreen> {
     } else if (origin == null) {
       setState(() {
         origin = point;
-        markers.insert(
-            0,
-            marker(
-                point,
-                const Icon(
-                  Icons.arrow_circle_up_outlined,
-                  color: Color.fromARGB(255, 5, 206, 105),
-                )));
+        markers.insert(0, marker(point, pickUpIcon));
       });
     } else if (destination == null) {
       setState(() {
         destination = point;
-        markers.insert(
-            1,
-            marker(
-                point,
-                const Icon(
-                  Icons.arrow_circle_up_outlined,
-                  color: Color.fromARGB(255, 206, 31, 5),
-                )));
+        markers.insert(1, marker(point, dropDownIcon));
         widget.onchange!(origin, destination);
       });
     }
@@ -225,4 +260,13 @@ class MapScreenState extends State<MapScreen> {
 
     onLongPress(null, LatLng(locationData.latitude!, locationData.longitude!));
   }
+
+  Icon pickUpIcon = const Icon(
+    Icons.location_pin,
+    color: Color.fromARGB(255, 5, 206, 105),
+  );
+  Icon dropDownIcon = const Icon(
+    Icons.location_pin,
+    color: Color.fromARGB(255, 247, 23, 7),
+  );
 }

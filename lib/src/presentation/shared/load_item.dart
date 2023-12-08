@@ -68,7 +68,6 @@ class _LoadItemState extends State<LoadItem> {
                 'assets/images/${widget.load.truckType}.svg',
                 width: 25,
                 height: 25,
-                // ignore: deprecated_member_use
               ),
             ],
           ),
@@ -106,8 +105,6 @@ class _LoadItemState extends State<LoadItem> {
                 widget.load.desitnation,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              const Spacer(),
-              Text(DateHandler.formatDate(widget.load.dropDownDate))
             ],
           ),
           const Divider(),
@@ -116,7 +113,7 @@ class _LoadItemState extends State<LoadItem> {
               Column(
                 children: [
                   Text(
-                    StringManager.broker,
+                    StringManager.driver,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(

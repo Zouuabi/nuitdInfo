@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mouvema/src/core/utils/string_manager.dart';
+import 'package:mouvema/src/presentation/TransportPublic/pages/TransportPublic.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/home/cubit/home_state.dart';
 
@@ -107,12 +108,8 @@ class _MainScreenState extends State<MainScreen> {
                         width: double.infinity,
                         height: double.infinity,
                       ),
-                      Container(
-                        color: Colors.red,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                      HomeScreen(),
+                      TransportPublic(),
+                      Kanawita(),
                     ]));
           },
         ));

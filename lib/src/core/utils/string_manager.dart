@@ -32,7 +32,7 @@ class StringManager {
 
 // load item
   static String age = 'age';
-  static String broker = 'broker';
+  static String driver = 'Driver';
   static String viewDetails = 'Details';
 
 // profile Screen

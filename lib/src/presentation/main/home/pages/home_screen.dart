@@ -12,31 +12,8 @@ import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../widgets/app_bar.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _scrollController.addListener(_scrollListner);
-  //   // fetch firest 10 loads
-  // }
-
-  // @override
-  // void dispose() {
-  //   _scrollController.dispose();
-  //   super.dispose();
-  // }
-
-  // void _scrollListner() {
-  //   if (_scrollController.position.pixels ==
-  //       _scrollController.position.maxScrollExtent) {
-  //     // fetch the next 10 loads
-  //     setState(() {
-  //       // the new 10 load to the old list
-  //     });
-  //   }
-  // }
+class Kanawita extends StatelessWidget {
+  const Kanawita({super.key});
 
   @override
   Widget build(BuildContext context) {

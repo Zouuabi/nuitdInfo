@@ -35,7 +35,8 @@ class PostLoadScreen extends StatelessWidget {
                 },
                 icon: const Icon(Icons.arrow_back_ios)),
             elevation: 4,
-            title: const Text('Post Load'),
+            title: Text('Annoncer les autres de votre voyage',
+                style: Theme.of(context).textTheme.bodyLarge),
             centerTitle: true,
           ),
           body: BlocConsumer<PostCubit, PostState>(
@@ -48,7 +49,8 @@ class PostLoadScreen extends StatelessWidget {
                     animType: AnimType.topSlide,
                     title: StringManager.postLoaded,
                     btnOkOnPress: () {
-                        Navigator.pushNamedAndRemoveUntil(context, Routes.main, (route) => route.isFirst);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Routes.main, (route) => route.isFirst);
                     }).show();
               } else if (state.status == Status.loading) {
                 showDialog(
@@ -91,7 +93,7 @@ class PostLoadScreen extends StatelessWidget {
                         height: 5,
                       ),
                       const HintText(
-                          hint: 'Pick the origin and the destination'),
+                          hint: 'Choisir votre depart et votre destination'),
                       const Divider(height: 30),
                       LoadDetailsForm(
                         origin: (state.status == Status.onPositionChanged)
