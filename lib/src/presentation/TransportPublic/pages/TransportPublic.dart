@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mouvema/src/presentation/TransportPublic/widgets/ShedulesData.dart';
 import 'package:mouvema/src/presentation/TransportPublic/widgets/cities.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class TransportPublic extends StatefulWidget {
   @override
@@ -41,27 +43,13 @@ class _TransportPageState extends State<TransportPublic> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transport public est la solution'),
+        title: const Text('Transport publique est la solution'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // DropdownButton<String>(
-            //   value: selectedCity,
-            //   items: cities.map((String city) {
-            //     return DropdownMenuItem<String>(
-            //       value: city,
-            //       child: Text(city),
-            //     );
-            //   }).toList(),
-            //   onChanged: (value) {
-            //     setState(() {
-            //       selectedCity = value!;
-            //     });
-            //   },
-            // ),
             LocationButton(
               hint: 'Votre Ville',
               onLocationSelected: (val) {
@@ -87,20 +75,120 @@ class _TransportPageState extends State<TransportPublic> {
               child: Text('Métro'),
             ),
             SizedBox(height: 20),
-            if (selectedTransport.isNotEmpty)
+            if (selectedTransport == "Bus")
+              BusScheduleScreen(
+                selectedTransport: selectedTransport,
+                TransportSchedules: busSchedules,
+                selectedCity: selectedCity,
+              )
+            else if (selectedTransport == "Metro")
               Expanded(
-                child: Card(
-                  child: Center(
-                    child: Text(
-                      'Tableau des horaires de $selectedTransport à $selectedCity',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                  ),
+                child: BusScheduleScreen(
+                  selectedTransport: selectedTransport,
+                  TransportSchedules: busSchedules,
+                  selectedCity: selectedCity,
                 ),
-              ),
+              )
+            else
+              Container(
+                padding: EdgeInsets.all(40),
+                width: double.infinity - 20,
+                height: 400,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: const Color.fromARGB(255, 182, 230, 225)),
+                child: const Center(
+                    child: Text(
+                  "Choisir la ville et la moyen de Transport publique et voir les horaires",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15),
+                )),
+              )
           ],
         ),
       ),
+    );
+  }
+}
+
+class BusSchedule {
+  final DateTime date;
+  final List<BusDetails> busDetails;
+
+  BusSchedule({
+    required this.date,
+    required this.busDetails,
+  });
+}
+
+class BusDetails {
+  final String busNumber;
+  final String departure;
+  final String arrival;
+  final TimeOfDay time;
+
+  BusDetails({
+    required this.busNumber,
+    required this.departure,
+    required this.arrival,
+    required this.time,
+  });
+}
+
+class BusScheduleScreen extends StatelessWidget {
+  BusScheduleScreen({
+    super.key,
+    required this.selectedTransport,
+    required this.TransportSchedules,
+    required this.selectedCity,
+  });
+  final String selectedTransport;
+  final List<BusSchedule> TransportSchedules;
+  final String selectedCity;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "Les Horaires de $selectedTransport en $selectedCity ",
+          style: TextStyle(fontSize: 19),
+        ),
+        Container(
+          height: 430,
+          child: ListView.builder(
+            itemCount: busSchedules.length,
+            itemBuilder: (context, index) {
+              final busSchedule = busSchedules[index];
+              return Card(
+                child: ListTile(
+                  title: Text(
+                      'Calendrier de  ${busSchedule.date.day}/${busSchedule.date.month}/${busSchedule.date.year}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: busSchedule.busDetails.map((busDetails) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                '${selectedTransport}: ${busDetails.busNumber}'),
+                            Text('Départ: ${busDetails.departure}'),
+                            Text('Arrivée: ${busDetails.arrival}'),
+                            Text(
+                                'Heure: ${busDetails.time.hour}:${busDetails.time.minute}'),
+                            Divider(),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

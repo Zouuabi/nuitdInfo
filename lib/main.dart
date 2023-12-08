@@ -21,7 +21,4 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(DevicePreview(
       isToolbarVisible: false, builder: (context) => const MyApp()));
-  // runApp(const MyApp());
 }
-
-// zzhfiaizfh ehzoifhazefhio 

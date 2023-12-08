@@ -23,9 +23,9 @@ class StringManager {
 
 // bottom navigation bar
   static String blog = 'Blog';
-  static String transportaion = 'Transportation';
+  static String transportaion = 'Transport Public';
   static String favorites = 'favorites';
-  static String kanawita = 'Kanwita';
+  static String kanawita = 'Livraison';
 
   // screens
   static String postLoad = 'Post Load';
