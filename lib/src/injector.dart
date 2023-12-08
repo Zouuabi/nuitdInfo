@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:mouvema/src/presentation/login/cubit/login_cubit.dart';
-import 'package:mouvema/src/presentation/main/home/cubit/home_cubit.dart';
+import 'package:mouvema/src/presentation/main/kanawita/cubit/home_cubit.dart';
 import 'package:mouvema/src/presentation/main/post_load/cubits/post_load_cubit.dart';
 import 'package:mouvema/src/presentation/register/cubit/register_cubit.dart';
 
