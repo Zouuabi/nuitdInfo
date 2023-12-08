@@ -49,16 +49,4 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
       emit(const LoginScreenState(status: Status.success));
     });
   }
-
-  void continueWithFacebook() async {
-    emit(const LoginScreenState(status: Status.loading));
-
-    Either<Failure, void> result = await repositoryImpl.continueWithFacebook();
-    result.fold((failure) {
-      emit(LoginScreenState(
-          status: Status.failed, errorMessage: failure.errrorMessage));
-    }, (success) {
-      emit(const LoginScreenState(status: Status.success));
-    });
-  }
 }

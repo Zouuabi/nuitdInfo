@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mouvema/src/presentation/blog/widgets/article.dart';
+import '../../presentation/blog/pages/detais.dart';
 
 import '../../data/models/load.dart';
 import '../../injector.dart';
@@ -24,6 +26,7 @@ class Routes {
   static const String fillProfil = "/fillProfil";
   static const String profil = "/Profil";
   static const String mapScreen = "/mapScreen";
+  static const String articleDetails = "/articleDetails";
 }
 
 class RouteGenerator {
@@ -52,6 +55,11 @@ class RouteGenerator {
         });
 
       // **************************
+      case Routes.articleDetails:
+        return MaterialPageRoute(builder: (BuildContext ctx) {
+          // final ArticleItem arg = settings.arguments as ArticleItem;
+          return const Details();
+        });
 
       case Routes.profil:
         return MaterialPageRoute(builder: (BuildContext ctx) {

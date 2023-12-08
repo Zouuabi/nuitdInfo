@@ -31,39 +31,6 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, void>> continueWithFacebook() async {
-    //{name: Oubeid Zouabi, email: contact@oubeid.com, picture: {data: {height: 199, is_silhouette: false,
-    //url: https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3594038130865635&width=200&ext=1697759880&hash=AeS3oc_QlT2U9bDA5F0, width: 200}}
-    // , id: 3594038130865635}
-    if (await internetChecker.isConnected()) {
-      try {
-        await auth.continueWithFacebook();
-        User? currentUser = FirebaseAuth.instance.currentUser;
-        MyUser user = MyUser(
-            uid: currentUser!.uid,
-            username: currentUser.displayName!,
-            email: currentUser.email!,
-            birthdate: '',
-            tel: '',
-            favoriteLoads: [],
-            image: currentUser.photoURL!);
-        print("************ NEW USER ***************");
-        print(user.username);
-
-        await localStorage.storeUser(user.toFirestore());
-        print("************ NEW USER IN HIVE ***************");
-        print(localStorage.getUserInformation());
-
-        return right(null);
-      } catch (e) {
-        return left(Failure(errrorMessage: e.toString()));
-      }
-    } else {
-      return left(Failure(errrorMessage: 'there is no internet connection'));
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> signIn(String email, String password) async {
     if (await internetChecker.isConnected()) {
       try {
